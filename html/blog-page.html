@@ -17,9 +17,10 @@
 <script src="./js/html5shiv.js"></script>
 <script src="./js/respond.min.js"></script> <![endif]-->
   <style type="text/css">
-  .fancybox-margin {
-    margin-right: 17px;
-  }
+    .fancybox-margin {
+      margin-right: 17px;
+    }
+
   </style>
 </head>
 
@@ -1018,191 +1019,161 @@
   </div>
   <div id="back-top" style="display: none;"><a href="" class="mypresta_scrollup hidden-phone"><i class="icon-chevron-up"></i></a></div>
   <script type="text/javascript">
-  /* <![CDATA[ */ ;
-  var CUSTOMIZE_TEXTFIELD = 1;
-  var FIELD_enableCountdownTimer = true;
-  var FIELD_mainLayout = 'fullwidth';
-  var FIELD_stickyCart = true;
-  var FIELD_stickyMenu = true;
-  var FIELD_stickySearch = true;
-  var FancyboxI18nClose = 'Close';
-  var FancyboxI18nNext = 'Next';
-  var FancyboxI18nPrev = 'Previous';
-  var LANG_RTL = '0';
-  var added_to_wishlist = 'The product was successfully added to your wishlist.';
-  var ajax_allowed = true;
-  var ajaxsearch = true;
-  var baseDir = 'http://demo.fieldthemes.com/petshop/home1/';
-  var baseUri = 'http://demo.fieldthemes.com/petshop/home1/';
-  var comparator_max_item = 3;
-  var comparedProductsIds = [];
-  var contentOnly = false;
-  var countdownDay = 'Day';
-  var countdownDays = 'Days';
-  var countdownHour = 'Hour';
-  var countdownHours = 'Hours';
-  var countdownMinute = 'Min';
-  var countdownMinutes = 'Mins';
-  var countdownSecond = 'Sec';
-  var countdownSeconds = 'Secs';
-  var currency = {
-    "id": 1,
-    "name": "Dollar",
-    "iso_code": "USD",
-    "iso_code_num": "840",
-    "sign": "$",
-    "blank": "0",
-    "conversion_rate": "1.000000",
-    "deleted": "0",
-    "format": "1",
-    "decimals": "1",
-    "active": "1",
-    "prefix": "$ ",
-    "suffix": "",
-    "id_shop_list": null,
-    "force_id": false
-  };
-  var currencyBlank = 0;
-  var currencyFormat = 1;
-  var currencyRate = 1;
-  var currencySign = '$';
-  var customizationIdMessage = 'Customization #';
-  var delete_txt = 'Delete';
-  var displayList = false;
-  var fieldbestsellers_autoscroll = false;
-  var fieldbestsellers_navigation = false;
-  var fieldbestsellers_pagination = false;
-  var fieldbestsellers_pauseonhover = false;
-  var fieldblocksearch_type = 'top';
-  var fieldbs_autoscroll = false;
-  var fieldbs_maxitem = '5';
-  var fieldbs_minitem = '2';
-  var fieldbs_navigation = true;
-  var fieldbs_pagination = false;
-  var fieldbs_pauseonhover = false;
-  var freeProductTranslation = 'Free!';
-  var freeShippingTranslation = 'Free shipping!';
-  var generated_date = 1469547279;
-  var hasDeliveryAddress = false;
-  var highDPI = false;
-  var id_lang = 1;
-  var img_dir = 'http://demo.fieldthemes.com/petshop/home1/themes/petshop/img/';
-  var instantsearch = false;
-  var isGuest = 0;
-  var isLogged = 0;
-  var isMobile = false;
-  var langIso = 'en-us';
-  var loggin_required = 'You must be logged in to manage your wishlist.';
-  var max_item = 'You cannot add more than 3 product(s) to the product comparison';
-  var min_item = 'Please select at least one product';
-  var mywishlist_url = 'http://demo.fieldthemes.com/petshop/home1/en/module/blockwishlist/mywishlist';
-  var page_name = 'module-smartblog-details';
-  var placeholder_blocknewsletter = 'Your e-mail';
-  var priceDisplayMethod = 1;
-  var priceDisplayPrecision = 2;
-  var quickView = true;
-  var removingLinkText = 'remove this product from my cart';
-  var roundMode = 2;
-  var search_url = 'http://demo.fieldthemes.com/petshop/home1/en/search';
-  var static_token = '86de8cec65ff0019f7b7f41977d25940';
-  var toBeDetermined = 'To be determined';
-  var token = 'bb78bb574b4df0040ff320b9a9475335';
-  var usingSecureMode = false;
-  var wishlistProductsIds = false; /* ]]> */
+    /* <![CDATA[ */ ;
+    var CUSTOMIZE_TEXTFIELD = 1;
+    var FIELD_enableCountdownTimer = true;
+    var FIELD_mainLayout = 'fullwidth';
+    var FIELD_stickyCart = true;
+    var FIELD_stickyMenu = true;
+    var FIELD_stickySearch = true;
+    var FancyboxI18nClose = 'Close';
+    var FancyboxI18nNext = 'Next';
+    var FancyboxI18nPrev = 'Previous';
+    var LANG_RTL = '0';
+    var added_to_wishlist = 'The product was successfully added to your wishlist.';
+    var ajax_allowed = true;
+    var ajaxsearch = true;
+    var baseDir = 'http://demo.fieldthemes.com/petshop/home1/';
+    var baseUri = 'http://demo.fieldthemes.com/petshop/home1/';
+    var comparator_max_item = 3;
+    var comparedProductsIds = [];
+    var contentOnly = false;
+    var countdownDay = 'Day';
+    var countdownDays = 'Days';
+    var countdownHour = 'Hour';
+    var countdownHours = 'Hours';
+    var countdownMinute = 'Min';
+    var countdownMinutes = 'Mins';
+    var countdownSecond = 'Sec';
+    var countdownSeconds = 'Secs';
+    var currency = {
+      "id": 1,
+      "name": "Dollar",
+      "iso_code": "USD",
+      "iso_code_num": "840",
+      "sign": "$",
+      "blank": "0",
+      "conversion_rate": "1.000000",
+      "deleted": "0",
+      "format": "1",
+      "decimals": "1",
+      "active": "1",
+      "prefix": "$ ",
+      "suffix": "",
+      "id_shop_list": null,
+      "force_id": false
+    };
+    var currencyBlank = 0;
+    var currencyFormat = 1;
+    var currencyRate = 1;
+    var currencySign = '$';
+    var customizationIdMessage = 'Customization #';
+    var delete_txt = 'Delete';
+    var displayList = false;
+    var fieldbestsellers_autoscroll = false;
+    var fieldbestsellers_navigation = false;
+    var fieldbestsellers_pagination = false;
+    var fieldbestsellers_pauseonhover = false;
+    var fieldblocksearch_type = 'top';
+    var fieldbs_autoscroll = false;
+    var fieldbs_maxitem = '5';
+    var fieldbs_minitem = '2';
+    var fieldbs_navigation = true;
+    var fieldbs_pagination = false;
+    var fieldbs_pauseonhover = false;
+    var freeProductTranslation = 'Free!';
+    var freeShippingTranslation = 'Free shipping!';
+    var generated_date = 1469547279;
+    var hasDeliveryAddress = false;
+    var highDPI = false;
+    var id_lang = 1;
+    var img_dir = 'http://demo.fieldthemes.com/petshop/home1/themes/petshop/img/';
+    var instantsearch = false;
+    var isGuest = 0;
+    var isLogged = 0;
+    var isMobile = false;
+    var langIso = 'en-us';
+    var loggin_required = 'You must be logged in to manage your wishlist.';
+    var max_item = 'You cannot add more than 3 product(s) to the product comparison';
+    var min_item = 'Please select at least one product';
+    var mywishlist_url = 'http://demo.fieldthemes.com/petshop/home1/en/module/blockwishlist/mywishlist';
+    var page_name = 'module-smartblog-details';
+    var placeholder_blocknewsletter = 'Your e-mail';
+    var priceDisplayMethod = 1;
+    var priceDisplayPrecision = 2;
+    var quickView = true;
+    var removingLinkText = 'remove this product from my cart';
+    var roundMode = 2;
+    var search_url = 'http://demo.fieldthemes.com/petshop/home1/en/search';
+    var static_token = '86de8cec65ff0019f7b7f41977d25940';
+    var toBeDetermined = 'To be determined';
+    var token = 'bb78bb574b4df0040ff320b9a9475335';
+    var usingSecureMode = false;
+    var wishlistProductsIds = false; /* ]]> */
+
   </script>
   <script type="text/javascript" src="./js/v_12_ad2bbfb75c7b1df3f8f60a9ca2182fed.js"></script>
   <script type="text/javascript" src="./js/jquery.elevatezoom.min.js"></script>
   <script type="text/javascript">
-  /* <![CDATA[ */ ;
-  var zoom_type = 'window';
-  var zoom_fade_in = 400;
-  var zoom_fade_out = 550;
-  var zoom_cursor_type = 'default';
-  var zoom_window_pos = 1;
-  var zoom_scroll = true;
-  var zoom_easing = true;
-  var zoom_tint = true;
-  var zoom_tint_color = '#333';
-  var zoom_tint_opacity = 0.4;
-  var zoom_lens_shape = 'round';
-  var zoom_lens_size = 345;;
+    /* <![CDATA[ */ ;
+    var zoom_type = 'window';
+    var zoom_fade_in = 400;
+    var zoom_fade_out = 550;
+    var zoom_cursor_type = 'default';
+    var zoom_window_pos = 1;
+    var zoom_scroll = true;
+    var zoom_easing = true;
+    var zoom_tint = true;
+    var zoom_tint_color = '#333';
+    var zoom_tint_opacity = 0.4;
+    var zoom_lens_shape = 'round';
+    var zoom_lens_size = 345;;
 
-  function applyElevateZoom() {
-    var src = $('.thickbox.shown').attr('href');
-    var bigimage = $('.fancybox.shown').attr('href');
-    $('#bigpic').elevateZoom({
-      zoomType: zoom_type,
-      cursor: zoom_cursor_type,
-      zoomWindowFadeIn: zoom_fade_in,
-      zoomWindowFadeOut: zoom_fade_out,
-      zoomWindowPosition: zoom_window_pos,
-      scrollZoom: zoom_scroll,
-      easing: zoom_easing,
-      tint: zoom_tint,
-      tintColour: zoom_tint_color,
-      tintOpacity: zoom_tint_opacity,
-      lensShape: zoom_lens_shape,
-      lensSize: zoom_lens_size,
-      zoomImage: bigimage,
-      borderSize: 1,
-      borderColour: '#e2dfdf',
-      zoomWindowWidth: 450,
-      zoomWindowHeight: 450,
-      zoomLevel: 0.7,
-      lensBorderSize: 0
+    function applyElevateZoom() {
+      var src = $('.thickbox.shown').attr('href');
+      var bigimage = $('.fancybox.shown').attr('href');
+      $('#bigpic').elevateZoom({
+        zoomType: zoom_type,
+        cursor: zoom_cursor_type,
+        zoomWindowFadeIn: zoom_fade_in,
+        zoomWindowFadeOut: zoom_fade_out,
+        zoomWindowPosition: zoom_window_pos,
+        scrollZoom: zoom_scroll,
+        easing: zoom_easing,
+        tint: zoom_tint,
+        tintColour: zoom_tint_color,
+        tintOpacity: zoom_tint_opacity,
+        lensShape: zoom_lens_shape,
+        lensSize: zoom_lens_size,
+        zoomImage: bigimage,
+        borderSize: 1,
+        borderColour: '#e2dfdf',
+        zoomWindowWidth: 450,
+        zoomWindowHeight: 450,
+        zoomLevel: 0.7,
+        lensBorderSize: 0
+      });
+    }
+    $(document).ready(function() {
+      applyElevateZoom();
+      $('#color_to_pick_list').click(function() {
+        restartElevateZoom();
+      });
+      $('#color_to_pick_list').hover(function() {
+        restartElevateZoom();
+      });
+      $('#views_block li a').hover(function() {
+        restartElevateZoom();
+      });
     });
-  }
-  $(document).ready(function() {
-    applyElevateZoom();
-    $('#color_to_pick_list').click(function() {
-      restartElevateZoom();
-    });
-    $('#color_to_pick_list').hover(function() {
-      restartElevateZoom();
-    });
-    $('#views_block li a').hover(function() {
-      restartElevateZoom();
-    });
-  });
 
-  function restartElevateZoom() {
-    $(".zoomContainer").remove();
-    applyElevateZoom();
-  };;
-  var $input = $("#search_query_top");
-  var width_ac_results = $input.parent('form').width();
-  $('document').ready(function() {
-    $("#search_query_top").autocomplete('http://demo.fieldthemes.com/petshop/home1/en/search', {
-      minChars: 3,
-      max: 10,
-      width: (width_ac_results > 0 ? width_ac_results : 500),
-      selectFirst: false,
-      scroll: true,
-      dataType: "json",
-      formatItem: function(data, i, max, value, term) {
-        return value;
-      },
-      parse: function(data) {
-        var mytab = new Array();
-        for (var i = 0; i < data.length; i++)
-          mytab[mytab.length] = {
-            data: data[i],
-            value: '<img alt="' + data[i].pname + '" src="' + data[i].image + '"><div class="right-search"><h5>' + data[i].pname + '</h5><span class="price">' + data[i].dprice + '</span></div> '
-          };
-        return mytab;
-      },
-      extraParams: {
-        ajaxSearch: 1,
-        id_lang: 1,
-        category_filter: $("#category_filter").val()
-      }
-    }).result(function(event, data, formatted) {
-      $('#search_query_top').val(data.pname);
-      document.location.href = data.product_link;
-    });
-    $("#category_filter").change(function() {
-      $(".ac_results").remove();
-      $("#search_query_top").trigger('unautocomplete');
+    function restartElevateZoom() {
+      $(".zoomContainer").remove();
+      applyElevateZoom();
+    };;
+    var $input = $("#search_query_top");
+    var width_ac_results = $input.parent('form').width();
+    $('document').ready(function() {
       $("#search_query_top").autocomplete('http://demo.fieldthemes.com/petshop/home1/en/search', {
         minChars: 3,
         max: 10,
@@ -1231,135 +1202,167 @@
         $('#search_query_top').val(data.pname);
         document.location.href = data.product_link;
       });
-    });
-  });;
-  $('#search_query_top').on('focus', function() {
-    var $this = $(this);
-    if ($this.val() == 'Search...') {
-      $this.val('');
-      $('.btn.button-search').addClass('active');
-    }
-  }).on('blur', function() {
-    var $this = $(this);
-    if ($this.val() == '') {
-      $this.val('Search...');
-      $('.btn.button-search').removeClass('active');
-    }
-  });
-  $("#click_show_searchbox").click(function(e) {
-    $("#searchbox").toggle();
-    if ($("#searchbox").is(":visible")) {
-      $("#click_show_searchbox").addClass("click_hide");
-    } else {
-      $("#click_show_searchbox").removeClass("click_hide");
-    }
-  });
-  $(document).click(function(event) {
-    if (!$(event.target).closest("#searchbox,#click_show_searchbox,.ac_results").length) {
-      $("#searchbox").hide();
-      $("#click_show_searchbox").removeClass("click_hide");
-    }
-  });;
-  $('#submitComment').bind('click', function(event) {
-    event.preventDefault();
-    var data = {
-      'action': 'postcomment',
-      'id_post': $('input[name=\'id_post\']').val(),
-      'comment_parent': $('input[name=\'comment_parent\']').val(),
-      'name': $('input[name=\'name\']').val(),
-      'website': $('input[name=\'website\']').val(),
-      'smartblogcaptcha': $('input[name=\'smartblogcaptcha\']').val(),
-      'comment': $('textarea[name=\'comment\']').val(),
-      'mail': $('input[name=\'mail\']').val()
-    };
-    $.ajax({
-      url: baseDir + 'modules/smartblog/ajax.php',
-      data: data,
-      dataType: 'json',
-      beforeSend: function() {
-        $('.success, .warning, .error').remove();
-        $('#submitComment').attr('disabled', true);
-        $('#commentInput').before('<div class="attention"><img src=".img/loading.gif" alt="" />Please wait!</div>');
-      },
-      complete: function() {
-        $('#submitComment').attr('disabled', false);
-        $('.attention').remove();
-      },
-      success: function(json) {
-        if (json['error']) {
-          $('#commentInput').before('<div class="warning">' + '<i class="icon-warning-sign icon-lg"></i>' + json['error']['common'] + '</div>');
-          if (json['error']['name']) {
-            $('.inputName').after('<span class="error">' + json['error']['name'] + '</span>');
+      $("#category_filter").change(function() {
+        $(".ac_results").remove();
+        $("#search_query_top").trigger('unautocomplete');
+        $("#search_query_top").autocomplete('http://demo.fieldthemes.com/petshop/home1/en/search', {
+          minChars: 3,
+          max: 10,
+          width: (width_ac_results > 0 ? width_ac_results : 500),
+          selectFirst: false,
+          scroll: true,
+          dataType: "json",
+          formatItem: function(data, i, max, value, term) {
+            return value;
+          },
+          parse: function(data) {
+            var mytab = new Array();
+            for (var i = 0; i < data.length; i++)
+              mytab[mytab.length] = {
+                data: data[i],
+                value: '<img alt="' + data[i].pname + '" src="' + data[i].image + '"><div class="right-search"><h5>' + data[i].pname + '</h5><span class="price">' + data[i].dprice + '</span></div> '
+              };
+            return mytab;
+          },
+          extraParams: {
+            ajaxSearch: 1,
+            id_lang: 1,
+            category_filter: $("#category_filter").val()
           }
-          if (json['error']['mail']) {
-            $('.inputMail').after('<span class="error">' + json['error']['mail'] + '</span>');
-          }
-          if (json['error']['comment']) {
-            $('.inputContent').after('<span class="error">' + json['error']['comment'] + '</span>');
-          }
-          if (json['error']['captcha']) {
-            $('.smartblogcaptcha').after('<span class="error">' + json['error']['captcha'] + '</span>');
-          }
-        }
-        if (json['success']) {
-          $('input[name=\'name\']').val('');
-          $('input[name=\'mail\']').val('');
-          $('input[name=\'website\']').val('');
-          $('textarea[name=\'comment\']').val('');
-          $('input[name=\'smartblogcaptcha\']').val('');
-          $('#commentInput').before('<div class="success">' + json['success'] + '</div>');
-          setTimeout(function() {
-            $('.success').fadeOut(300).delay(450).remove();
-          }, 2500);
-        }
+        }).result(function(event, data, formatted) {
+          $('#search_query_top').val(data.pname);
+          document.location.href = data.product_link;
+        });
+      });
+    });;
+    $('#search_query_top').on('focus', function() {
+      var $this = $(this);
+      if ($this.val() == 'Search...') {
+        $this.val('');
+        $('.btn.button-search').addClass('active');
+      }
+    }).on('blur', function() {
+      var $this = $(this);
+      if ($this.val() == '') {
+        $this.val('Search...');
+        $('.btn.button-search').removeClass('active');
       }
     });
-  });
-  var addComment = {
-    moveForm: function(commId, parentId, respondId, postId) {
-      var t = this,
-        div, comm = t.I(commId),
-        respond = t.I(respondId),
-        cancel = t.I('cancel-comment-reply-link'),
-        parent = t.I('comment_parent'),
-        post = t.I('comment_post_ID');
-      if (!comm || !respond || !cancel || !parent)
-        return;
-      t.respondId = respondId;
-      postId = postId || false;
-      if (!t.I('wp-temp-form-div')) {
-        div = document.createElement('div');
-        div.id = 'wp-temp-form-div';
-        div.style.display = 'none';
-        respond.parentNode.insertBefore(div, respond);
+    $("#click_show_searchbox").click(function(e) {
+      $("#searchbox").toggle();
+      if ($("#searchbox").is(":visible")) {
+        $("#click_show_searchbox").addClass("click_hide");
+      } else {
+        $("#click_show_searchbox").removeClass("click_hide");
       }
-      comm.parentNode.insertBefore(respond, comm.nextSibling);
-      if (post && postId)
-        post.value = postId;
-      parent.value = parentId;
-      cancel.style.display = '';
-      cancel.onclick = function() {
-        var t = addComment,
-          temp = t.I('wp-temp-form-div'),
-          respond = t.I(t.respondId);
-        if (!temp || !respond)
-          return;
-        t.I('comment_parent').value = '0';
-        temp.parentNode.insertBefore(respond, temp);
-        temp.parentNode.removeChild(temp);
-        this.style.display = 'none';
-        this.onclick = null;
-        return false;
+    });
+    $(document).click(function(event) {
+      if (!$(event.target).closest("#searchbox,#click_show_searchbox,.ac_results").length) {
+        $("#searchbox").hide();
+        $("#click_show_searchbox").removeClass("click_hide");
+      }
+    });;
+    $('#submitComment').bind('click', function(event) {
+      event.preventDefault();
+      var data = {
+        'action': 'postcomment',
+        'id_post': $('input[name=\'id_post\']').val(),
+        'comment_parent': $('input[name=\'comment_parent\']').val(),
+        'name': $('input[name=\'name\']').val(),
+        'website': $('input[name=\'website\']').val(),
+        'smartblogcaptcha': $('input[name=\'smartblogcaptcha\']').val(),
+        'comment': $('textarea[name=\'comment\']').val(),
+        'mail': $('input[name=\'mail\']').val()
       };
-      try {
-        t.I('comment').focus();
-      } catch (e) {}
-      return false;
-    },
-    I: function(e) {
-      return document.getElementById(e);
-    }
-  }; /* ]]> */
+      $.ajax({
+        url: baseDir + 'modules/smartblog/ajax.php',
+        data: data,
+        dataType: 'json',
+        beforeSend: function() {
+          $('.success, .warning, .error').remove();
+          $('#submitComment').attr('disabled', true);
+          $('#commentInput').before('<div class="attention"><img src=".img/loading.gif" alt="" />Please wait!</div>');
+        },
+        complete: function() {
+          $('#submitComment').attr('disabled', false);
+          $('.attention').remove();
+        },
+        success: function(json) {
+          if (json['error']) {
+            $('#commentInput').before('<div class="warning">' + '<i class="icon-warning-sign icon-lg"></i>' + json['error']['common'] + '</div>');
+            if (json['error']['name']) {
+              $('.inputName').after('<span class="error">' + json['error']['name'] + '</span>');
+            }
+            if (json['error']['mail']) {
+              $('.inputMail').after('<span class="error">' + json['error']['mail'] + '</span>');
+            }
+            if (json['error']['comment']) {
+              $('.inputContent').after('<span class="error">' + json['error']['comment'] + '</span>');
+            }
+            if (json['error']['captcha']) {
+              $('.smartblogcaptcha').after('<span class="error">' + json['error']['captcha'] + '</span>');
+            }
+          }
+          if (json['success']) {
+            $('input[name=\'name\']').val('');
+            $('input[name=\'mail\']').val('');
+            $('input[name=\'website\']').val('');
+            $('textarea[name=\'comment\']').val('');
+            $('input[name=\'smartblogcaptcha\']').val('');
+            $('#commentInput').before('<div class="success">' + json['success'] + '</div>');
+            setTimeout(function() {
+              $('.success').fadeOut(300).delay(450).remove();
+            }, 2500);
+          }
+        }
+      });
+    });
+    var addComment = {
+      moveForm: function(commId, parentId, respondId, postId) {
+        var t = this,
+          div, comm = t.I(commId),
+          respond = t.I(respondId),
+          cancel = t.I('cancel-comment-reply-link'),
+          parent = t.I('comment_parent'),
+          post = t.I('comment_post_ID');
+        if (!comm || !respond || !cancel || !parent)
+          return;
+        t.respondId = respondId;
+        postId = postId || false;
+        if (!t.I('wp-temp-form-div')) {
+          div = document.createElement('div');
+          div.id = 'wp-temp-form-div';
+          div.style.display = 'none';
+          respond.parentNode.insertBefore(div, respond);
+        }
+        comm.parentNode.insertBefore(respond, comm.nextSibling);
+        if (post && postId)
+          post.value = postId;
+        parent.value = parentId;
+        cancel.style.display = '';
+        cancel.onclick = function() {
+          var t = addComment,
+            temp = t.I('wp-temp-form-div'),
+            respond = t.I(t.respondId);
+          if (!temp || !respond)
+            return;
+          t.I('comment_parent').value = '0';
+          temp.parentNode.insertBefore(respond, temp);
+          temp.parentNode.removeChild(temp);
+          this.style.display = 'none';
+          this.onclick = null;
+          return false;
+        };
+        try {
+          t.I('comment').focus();
+        } catch (e) {}
+        return false;
+      },
+      I: function(e) {
+        return document.getElementById(e);
+      }
+    }; /* ]]> */
+
   </script>
   <div class="colorpicker" id="collorpicker_810">
     <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
