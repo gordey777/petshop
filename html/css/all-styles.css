@@ -145,6 +145,121 @@
   filter: none;
 }
 
+/* PRODUCT-PAGE */
+
+.vertical-thumbnail #thumbs_list li {
+  float: none;
+
+  height: auto;
+  margin: 0;
+  padding: 7px 0;
+}
+
+.vertical-thumbnail #thumbs_list li:first-child {
+  padding-top: 0;
+  padding-bottom: 6px;
+}
+
+.vertical-thumbnail #views_block,
+.vertical-thumbnail #image-block {
+  float: left;
+}
+
+.vertical-thumbnail #image-block {
+  max-width: 450px;
+}
+
+.vertical-thumbnail #views_block {
+  margin-top: 1px;
+  margin-left: 15px;
+}
+
+.vertical-thumbnail #thumbs_list {
+  position: relative;
+
+  width: auto;
+}
+
+
+#more_info_tabs {
+  margin-bottom: 30px;
+  padding-right: 40px;
+  padding-bottom: 10px;
+
+  border-bottom: 1px solid #e2dfdf;
+}
+
+#more_info_tabs li {
+  float: left;
+
+  margin: 0 3px 0 0;
+
+  list-style: outside none none;
+
+  text-align: center;
+}
+
+#more_info_tabs li a {
+  font-family: titlee;
+  font-size: 20px;
+  line-height: 20px;
+
+  display: inline-block;
+
+  padding: 7px 15px;
+
+  text-decoration: none;
+  text-transform: uppercase;
+
+  color: #666;
+  background: #f1f1f1 none repeat scroll 0 0;
+}
+
+#more_info_tabs li a.selected,
+#more_info_tabs li a:hover {
+  cursor: default;
+
+  color: #fff;
+  background: #ee4143 none repeat scroll 0 0;
+}
+@media (max-width:767px) {
+  #product.content_only div.primary_block div.pb-center-column,
+  #product.content_only div.primary_block div.pb-left-column {
+    width: 100%;
+  }
+  .pb-center-column {
+    display: inline-block;
+  }
+  #more_info_tabs li {
+    margin-bottom: 5px;
+  }
+  .vertical-thumbnail #thumbs_list li:first-child {
+    padding-top: 14px;
+    padding-bottom: 7px;
+  }
+  #product.content_only .vertical-thumbnail #thumbs_list li:first-child {
+    padding: 15px 0;
+  }
+  #thumbs_list li img {
+    width: auto;
+    height: auto;
+  }
+}
+
+#idTab1 .rte p {
+  font-size: 13px;
+  line-height: 21px;
+
+  min-height: 1px;
+  margin: 0;
+  padding: 26px 20px;
+
+  text-align: justify;
+
+  color: #666;
+  background: #f1f1f1 none repeat scroll 0 0;
+  text-shadow: 1px 1px #fff;
+}
 
 
 html,
