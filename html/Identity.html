@@ -21,7 +21,7 @@
   </style>
 </head>
 
-<body id="module-smartblog-category" class="module-smartblog-category show-left-column hide-right-column lang_en fullwidth">
+<body id="identity" class="identity hide-left-column hide-right-column lang_en fullwidth">
   <div class="field-demo-wrap">
     <h2 class="field-demo-title">Theme Settings</h2>
     <div class="field-demo-option">
@@ -77,7 +77,7 @@
       </div>
     </div>
     <div class="control inactive">
-      <a href="#"></a>
+      <a href="javascript:void(0)"></a>
     </div>
   </div>
   <div id="page">
@@ -98,7 +98,8 @@
                     <li> <a class="link-myaccount" href="#" title="Account"><i class="icon-user"></i> Account</a></li>
                     <li> <a class="link-wishlist wishlist_block" href="#" title="My wishlist"><i class="icon-heart"></i> My wishlist</a></li>
                     <li> <a class="link-mycart" href="#" title="My cart"><i class="icon-shopping-cart"></i> My cart</a></li>
-                    <li class="last"> <a class="link-login" href="#" title="Login" rel="nofollow"><i class="icon-lock"></i> Login</a></li>
+                    <li> <a href="#" title="View my customer account" class="account" rel="nofollow"><i class="icon-lock"></i> Hi, Jon Smit! </a></li>
+                    <li class="last"> <a class="link-out" href="#" title="Log out" rel="nofollow">Logout</a></li>
                   </ul>
                 </div>
                 <div id="languages-block-top" class="languages-block">
@@ -129,8 +130,8 @@
                       <input type="hidden" name="id_currency" id="id_currency" value="">
                       <input type="hidden" name="SubmitCurrency" value=""> <span class="cur-label"></span> <strong>USD</strong></div>
                     <ul id="first-currencies" class="currencies_ul toogle_content">
-                      <li class="selected"> <a href="#" rel="nofollow" title="Dollar (USD)"> Dollar (USD) </a></li>
-                      <li> <a href="#" rel="nofollow" title="Euro (EUR)"> Euro (EUR) </a></li>
+                      <li class="selected"> <a href="javascript:setCurrency(1);" rel="nofollow" title="Dollar (USD)"> Dollar (USD) </a></li>
+                      <li> <a href="javascript:setCurrency(2);" rel="nofollow" title="Euro (EUR)"> Euro (EUR) </a></li>
                     </ul>
                   </form>
                 </div>
@@ -141,7 +142,7 @@
             </div>
           </div>
         </div>
-        <div class="header_bottom">
+        <div class="header_bottom fieldmegamenu-sticky">
           <div class="container">
             <div class="row">
               <div id="header_logo" class="col-xs-12 col-sm-4 col-md-3">
@@ -395,9 +396,9 @@
                             </a>
                           </div>
                         </li>
-                        <li class="root root-11 ">
+                        <li class="root root-11">
                           <div class="root-item no-description">
-                            <a href="#" class="active">
+                            <a href="#">
                               <div class="title title_font"><span class="title-text">Blog</span></div>
                             </a>
                           </div>
@@ -407,15 +408,23 @@
                   </div>
                 </div>
               </div>
-              <div class="shopping_cart_menu">
-                <div class="ft_bg_hover shopping_cart"> <a href="#" title="View my shopping cart" rel="nofollow"><span class="ajax_cart_quantity unvisible">0</span> <span class="ajax_cart_product_txt unvisible">Item -</span> <span class="ajax_cart_product_txt_s unvisible">Items -</span> <span class="ajax_cart_total unvisible price"> </span> <span class="ajax_cart_no_product">(empty)</span> </a>
+              <div class="shopping_cart_menu cart-sticky">
+                <div class="ft_bg_hover shopping_cart"> <a href="#" title="View my shopping cart" rel="nofollow"><span class="ajax_cart_quantity">1</span> <span class="ajax_cart_product_txt">Item -</span> <span class="ajax_cart_product_txt_s unvisible">Items -</span> <span class="ajax_cart_total price"> $20.50 </span> <span class="ajax_cart_no_product unvisible">(empty)</span> </a>
                   <div class="cart_block block exclusive">
                     <div class="block_content">
                       <div class="cart_block_list">
-                        <p class="cart_block_no_products"> No products</p>
+                        <dl class="products">
+                          <dt data-id="cart_block_product_11_57_0" class="first_item">
+                            <a class="cart-images" href="#" title="Cockatoo"><img src="img/cockatoo.jpg" alt="Cockatoo"></a>
+                            <div class="cart-info">
+                              <div class="product-name"> <span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="#" title="Cockatoo">Cockatoo</a></div>
+                              <div class="product-atributes"> <a class="ft_color_hover" href="#" title="Product detail">S, Yellow</a></div> <span class="price"> $20.50 </span></div> <span class="remove_link"> <a class="ajax_cart_block_remove_link ft_color_hover" href="#" rel="nofollow" title="remove this product from my cart">&nbsp;</a> </span></dt>
+                          <dd data-id="cart_block_combination_of_11_57_0" class="first_item"></dd>
+                        </dl>
+                        <p class="cart_block_no_products unvisible"> No products</p>
                         <div class="cart-prices">
-                          <div class="cart-prices-line first-line"> <span class="price cart_block_shipping_cost ajax_cart_shipping_cost unvisible"> To be determined </span> <span class="unvisible"> Shipping </span></div>
-                          <div class="cart-prices-line last-line"> <span class="price cart_block_total ajax_block_cart_total">$0.00</span> <span>Total</span></div>
+                          <div class="cart-prices-line first-line"> <span class="price cart_block_shipping_cost ajax_cart_shipping_cost"> $7.00 </span> <span> Shipping </span></div>
+                          <div class="cart-prices-line last-line"> <span class="price cart_block_total ajax_block_cart_total">$27.50</span> <span>Total</span></div>
                         </div>
                         <p class="cart-buttons">
                           <a id="button_order_cart" class="ft_bg_default ft_bg_hover" href="#" title="Check out" rel="nofollow"> <span> Check out<i class="icon-chevron-right right"></i> </span> </a>
@@ -436,10 +445,10 @@
                     </div>
                   </div>
                   <div class="layer_cart_cart col-xs-12 col-md-6">
-                    <h2> <span class="ajax_cart_product_txt_s unvisible"> There are <span class="ajax_cart_quantity">0</span> items in your cart. </span> <span class="ajax_cart_product_txt "> There is 1 item in your cart. </span></h2>
-                    <div class="layer_cart_row"> <strong class="dark"> Total products </strong> <span class="ajax_block_products_total"> </span></div>
-                    <div class="layer_cart_row"> <strong class="dark unvisible"> Total shipping&nbsp; </strong> <span class="ajax_cart_shipping_cost unvisible"> To be determined </span></div>
-                    <div class="layer_cart_row"> <strong class="dark"> Total </strong> <span class="ajax_block_cart_total"> </span></div>
+                    <h2> <span class="ajax_cart_product_txt_s unvisible"> There are <span class="ajax_cart_quantity">1</span> items in your cart. </span> <span class="ajax_cart_product_txt "> There is 1 item in your cart. </span></h2>
+                    <div class="layer_cart_row"> <strong class="dark"> Total products </strong> <span class="ajax_block_products_total"> $20.50 </span></div>
+                    <div class="layer_cart_row"> <strong class="dark"> Total shipping&nbsp; </strong> <span class="ajax_cart_shipping_cost"> $7.00 </span></div>
+                    <div class="layer_cart_row"> <strong class="dark"> Total </strong> <span class="ajax_block_cart_total"> $27.50 </span></div>
                     <div class="button-container"> <span class="continue ft_bg_default ft_btn_default ft_bg_hover" title="Continue shopping"> <span> <i class="icon-chevron-left left"></i>Continue shopping </span> </span>
                       <a class="ft_bg_default ft_btn_default ft_bg_hover" href="#" title="Proceed to checkout" rel="nofollow"> <span> Proceed to checkout<i class="icon-chevron-right right"></i> </span> </a>
                     </div>
@@ -448,7 +457,7 @@
                 <div class="crossseling"></div>
               </div>
               <div class="layer_cart_overlay"></div>
-              <div id="search_block_top">
+              <div id="search_block_top" class="search-sticky">
                 <div class="field-search"> <span id="click_show_searchbox" class="icon-search"></span>
                   <form method="get" action="#" id="searchbox">
                     <input type="hidden" name="controller" value="search">
@@ -714,7 +723,7 @@
               </li>
               <li class="root root-11 ">
                 <div class="root-item no-description">
-                  <a href="#" class="active">
+                  <a href="#">
                     <div class="title title_font"><span class="title-text">Blog</span></div>
                   </a>
                 </div>
@@ -727,157 +736,261 @@
     <div class="columns-container">
       <div id="columns" class="container">
         <div id="slider_row" class="row"></div>
-        <div class="breadcrumb clearfix"> <a class="home" href="#" title="Return to Home"><span class="title">Home</span></a> <span class="navigation-pipe"><i class="icon-chevron-right"></i></span> <a href="#">All Blog News</a></div>
+        <div class="breadcrumb clearfix"> <a class="home" href="#" title="Return to Home"><span class="title">Home</span></a> <span class="navigation-pipe"><i class="icon-chevron-right"></i></span> <span class="navigation_page"> <span itemscope="" itemtype="#"><a itemprop="url" href="#"> My account </a> <span class="navigation-pipe"> &gt; </span> <span class="navigation_page"> Your personal information </span> </span>
+          </span>
+        </div>
         <div class="row">
-          <div id="left_column" class="column col-xs-12 col-sm-3">
-            <div id="recent_article_smart_blog_block_left" class="block blogModule boxPlain">
-              <h4 class="title_block sdstitle_block"><a href="#">Recent Posts</a></h4>
-              <div class="block_content sdsbox-content" style="">
-                <ul class="recentArticles">
-                  <li>
-                    <a class="image" title="Bibendum Auctor" href="#"> <img alt="Bibendum Auctor" src="img/5-home-small.jpg"> </a> <a class="title" title="Bibendum Auctor" href="#">Bibendum Auctor</a> <span class="info">Feb 17, 2016</span></li>
-                  <li>
-                    <a class="image" title="Bibendum Auctor" href="#"> <img alt="Bibendum Auctor" src="img/4-home-small.jpg"> </a> <a class="title" title="Bibendum Auctor" href="#">Bibendum Auctor</a> <span class="info">Feb 17, 2016</span></li>
-                  <li>
-                    <a class="image" title="Summer Entertaining" href="#"> <img alt="Summer Entertaining" src="img/3-home-small.jpg"> </a> <a class="title" title="Summer Entertaining" href="#">Summer Entertaining</a> <span class="info">Feb 17, 2016</span></li>
-                  <li>
-                    <a class="image" title="Accumsan Ipsum" href="#"> <img alt="Accumsan Ipsum" src="img/2-home-small.jpg"> </a> <a class="title" title="Accumsan Ipsum" href="#">Accumsan Ipsum</a> <span class="info">Feb 17, 2016</span></li>
-                </ul>
-              </div>
-            </div>
-            <div id="best-sellers_block_right" class="block title_center vertical_mode">
-              <h4 class="title_block title_font"> <span class="title_text"> <a href="#" title="View a top sellers products"> Top sellers </a> <em class="logo-circle"><i class="circle"></i></em> </span></h4>
-              <div id="field_bestsellers" class="grid carousel-grid owl-carousel block_content owl-theme" style="display: block; opacity: 1;">
-                <div class="owl-wrapper-outer">
-                  <div class="owl-wrapper" style="width: 476px; left: 0px; display: block;">
-                    <div class="owl-item" style="width: 238px;">
-                      <div class="item">
-                        <div class="item-content clearfix">
-                          <div class="left-content">
-                            <a href="#" title=""> <img src="img/dog-and-cat.jpg" height="103" width="103" alt=""> </a>
-                          </div>
-                          <div class="right-content">
-                            <h3 class="sub_title_font product-name"> <a href="#" title="Dog and Cat"> Dog and Cat </a></h3>
-                            <div class="comments_note" itemtype="#" itemscope="">
-                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <meta itemprop="worstRating" content="0">
-                                <meta itemprop="ratingValue" content="5">
-                                <meta itemprop="bestRating" content="5">
-                              </div>
-                            </div>
-                            <div class="content_price"> <span class="price product-price"> $27.00 </span></div>
-                          </div>
+          <div id="center_column" class="center_column col-xs-12 col-sm-12">
+            <div class="box">
+              <h1 class="page-subheading"> Your personal information</h1>
+              <p class="info-title"> Please be sure to update your personal information if it has changed.</p>
+              <p class="required"> <sup>*</sup>Required field</p>
+              <form action="#" method="post" class="std">
+                <fieldset>
+                  <div class="clearfix">
+                    <label>Social title</label>
+                    <br>
+                    <div class="radio-inline">
+                      <label for="id_gender1" class="top">
+                        <div class="radio" id="uniform-id_gender1"><span class="checked"><input type="radio" name="id_gender" id="id_gender1" value="1" checked="checked"></span></div> Mr.</label>
+                    </div>
+                    <div class="radio-inline">
+                      <label for="id_gender2" class="top">
+                        <div class="radio" id="uniform-id_gender2"><span><input type="radio" name="id_gender" id="id_gender2" value="2"></span></div> Mrs.</label>
+                    </div>
+                  </div>
+                  <div class="required form-group">
+                    <label for="firstname" class="required"> First name </label>
+                    <input class="is_required validate form-control" data-validate="isName" type="text" id="firstname" name="firstname" value="Jon">
+                  </div>
+                  <div class="required form-group">
+                    <label for="lastname" class="required"> Last name </label>
+                    <input class="is_required validate form-control" data-validate="isName" type="text" name="lastname" id="lastname" value="Smit">
+                  </div>
+                  <div class="required form-group">
+                    <label for="email" class="required"> E-mail address </label>
+                    <input class="is_required validate form-control" data-validate="isEmail" type="email" name="email" id="email" value="den9911@gmail.com">
+                  </div>
+                  <div class="form-group">
+                    <label> Date of Birth </label>
+                    <div class="row">
+                      <div class="col-xs-4">
+                        <div class="selector" id="uniform-days" style="width: 82px;"><span style="width: 72px; -webkit-user-select: none;">17&nbsp;&nbsp;</span>
+                          <select name="days" id="days" class="form-control">
+                            <option value="">-</option>
+                            <option value="1">1&nbsp;&nbsp;</option>
+                            <option value="2">2&nbsp;&nbsp;</option>
+                            <option value="3">3&nbsp;&nbsp;</option>
+                            <option value="4">4&nbsp;&nbsp;</option>
+                            <option value="5">5&nbsp;&nbsp;</option>
+                            <option value="6">6&nbsp;&nbsp;</option>
+                            <option value="7">7&nbsp;&nbsp;</option>
+                            <option value="8">8&nbsp;&nbsp;</option>
+                            <option value="9">9&nbsp;&nbsp;</option>
+                            <option value="10">10&nbsp;&nbsp;</option>
+                            <option value="11">11&nbsp;&nbsp;</option>
+                            <option value="12">12&nbsp;&nbsp;</option>
+                            <option value="13">13&nbsp;&nbsp;</option>
+                            <option value="14">14&nbsp;&nbsp;</option>
+                            <option value="15">15&nbsp;&nbsp;</option>
+                            <option value="16">16&nbsp;&nbsp;</option>
+                            <option value="17" selected="selected">17&nbsp;&nbsp;</option>
+                            <option value="18">18&nbsp;&nbsp;</option>
+                            <option value="19">19&nbsp;&nbsp;</option>
+                            <option value="20">20&nbsp;&nbsp;</option>
+                            <option value="21">21&nbsp;&nbsp;</option>
+                            <option value="22">22&nbsp;&nbsp;</option>
+                            <option value="23">23&nbsp;&nbsp;</option>
+                            <option value="24">24&nbsp;&nbsp;</option>
+                            <option value="25">25&nbsp;&nbsp;</option>
+                            <option value="26">26&nbsp;&nbsp;</option>
+                            <option value="27">27&nbsp;&nbsp;</option>
+                            <option value="28">28&nbsp;&nbsp;</option>
+                            <option value="29">29&nbsp;&nbsp;</option>
+                            <option value="30">30&nbsp;&nbsp;</option>
+                            <option value="31">31&nbsp;&nbsp;</option>
+                          </select>
                         </div>
-                        <div class="item-content clearfix">
-                          <div class="left-content">
-                            <a href="#" title=""> <img src="img/cute-cat.jpg" height="103" width="103" alt=""> </a>
-                          </div>
-                          <div class="right-content">
-                            <h3 class="sub_title_font product-name"> <a href="#" title="Cute Cat"> Cute Cat </a></h3>
-                            <div class="content_price"> <span class="price product-price"> $26.00 </span></div>
-                          </div>
+                      </div>
+                      <div class="col-xs-4">
+                        <div class="selector" id="uniform-months" style="width: 82px;"><span style="width: 72px; -webkit-user-select: none;">June&nbsp;</span>
+                          <select id="months" name="months" class="form-control">
+                            <option value="">-</option>
+                            <option value="1">January&nbsp;</option>
+                            <option value="2">February&nbsp;</option>
+                            <option value="3">March&nbsp;</option>
+                            <option value="4">April&nbsp;</option>
+                            <option value="5">May&nbsp;</option>
+                            <option value="6" selected="selected">June&nbsp;</option>
+                            <option value="7">July&nbsp;</option>
+                            <option value="8">August&nbsp;</option>
+                            <option value="9">September&nbsp;</option>
+                            <option value="10">October&nbsp;</option>
+                            <option value="11">November&nbsp;</option>
+                            <option value="12">December&nbsp;</option>
+                          </select>
                         </div>
-                        <div class="item-content clearfix">
-                          <div class="left-content">
-                            <a href="#" title=""> <img src="img/dog-beautiful.jpg" height="103" width="103" alt=""> </a>
-                          </div>
-                          <div class="right-content">
-                            <h3 class="sub_title_font product-name"> <a href="#" title="Dog Beautiful"> Dog Beautiful </a></h3>
-                            <div class="content_price"> <span class="price product-price"> $16.51 </span></div>
-                          </div>
+                      </div>
+                      <div class="col-xs-4">
+                        <div class="selector" id="uniform-years" style="width: 82px;"><span style="width: 72px; -webkit-user-select: none;">1977&nbsp;&nbsp;</span>
+                          <select id="years" name="years" class="form-control">
+                            <option value="">-</option>
+                            <option value="2016">2016&nbsp;&nbsp;</option>
+                            <option value="2015">2015&nbsp;&nbsp;</option>
+                            <option value="2014">2014&nbsp;&nbsp;</option>
+                            <option value="2013">2013&nbsp;&nbsp;</option>
+                            <option value="2012">2012&nbsp;&nbsp;</option>
+                            <option value="2011">2011&nbsp;&nbsp;</option>
+                            <option value="2010">2010&nbsp;&nbsp;</option>
+                            <option value="2009">2009&nbsp;&nbsp;</option>
+                            <option value="2008">2008&nbsp;&nbsp;</option>
+                            <option value="2007">2007&nbsp;&nbsp;</option>
+                            <option value="2006">2006&nbsp;&nbsp;</option>
+                            <option value="2005">2005&nbsp;&nbsp;</option>
+                            <option value="2004">2004&nbsp;&nbsp;</option>
+                            <option value="2003">2003&nbsp;&nbsp;</option>
+                            <option value="2002">2002&nbsp;&nbsp;</option>
+                            <option value="2001">2001&nbsp;&nbsp;</option>
+                            <option value="2000">2000&nbsp;&nbsp;</option>
+                            <option value="1999">1999&nbsp;&nbsp;</option>
+                            <option value="1998">1998&nbsp;&nbsp;</option>
+                            <option value="1997">1997&nbsp;&nbsp;</option>
+                            <option value="1996">1996&nbsp;&nbsp;</option>
+                            <option value="1995">1995&nbsp;&nbsp;</option>
+                            <option value="1994">1994&nbsp;&nbsp;</option>
+                            <option value="1993">1993&nbsp;&nbsp;</option>
+                            <option value="1992">1992&nbsp;&nbsp;</option>
+                            <option value="1991">1991&nbsp;&nbsp;</option>
+                            <option value="1990">1990&nbsp;&nbsp;</option>
+                            <option value="1989">1989&nbsp;&nbsp;</option>
+                            <option value="1988">1988&nbsp;&nbsp;</option>
+                            <option value="1987">1987&nbsp;&nbsp;</option>
+                            <option value="1986">1986&nbsp;&nbsp;</option>
+                            <option value="1985">1985&nbsp;&nbsp;</option>
+                            <option value="1984">1984&nbsp;&nbsp;</option>
+                            <option value="1983">1983&nbsp;&nbsp;</option>
+                            <option value="1982">1982&nbsp;&nbsp;</option>
+                            <option value="1981">1981&nbsp;&nbsp;</option>
+                            <option value="1980">1980&nbsp;&nbsp;</option>
+                            <option value="1979">1979&nbsp;&nbsp;</option>
+                            <option value="1978">1978&nbsp;&nbsp;</option>
+                            <option value="1977" selected="selected">1977&nbsp;&nbsp;</option>
+                            <option value="1976">1976&nbsp;&nbsp;</option>
+                            <option value="1975">1975&nbsp;&nbsp;</option>
+                            <option value="1974">1974&nbsp;&nbsp;</option>
+                            <option value="1973">1973&nbsp;&nbsp;</option>
+                            <option value="1972">1972&nbsp;&nbsp;</option>
+                            <option value="1971">1971&nbsp;&nbsp;</option>
+                            <option value="1970">1970&nbsp;&nbsp;</option>
+                            <option value="1969">1969&nbsp;&nbsp;</option>
+                            <option value="1968">1968&nbsp;&nbsp;</option>
+                            <option value="1967">1967&nbsp;&nbsp;</option>
+                            <option value="1966">1966&nbsp;&nbsp;</option>
+                            <option value="1965">1965&nbsp;&nbsp;</option>
+                            <option value="1964">1964&nbsp;&nbsp;</option>
+                            <option value="1963">1963&nbsp;&nbsp;</option>
+                            <option value="1962">1962&nbsp;&nbsp;</option>
+                            <option value="1961">1961&nbsp;&nbsp;</option>
+                            <option value="1960">1960&nbsp;&nbsp;</option>
+                            <option value="1959">1959&nbsp;&nbsp;</option>
+                            <option value="1958">1958&nbsp;&nbsp;</option>
+                            <option value="1957">1957&nbsp;&nbsp;</option>
+                            <option value="1956">1956&nbsp;&nbsp;</option>
+                            <option value="1955">1955&nbsp;&nbsp;</option>
+                            <option value="1954">1954&nbsp;&nbsp;</option>
+                            <option value="1953">1953&nbsp;&nbsp;</option>
+                            <option value="1952">1952&nbsp;&nbsp;</option>
+                            <option value="1951">1951&nbsp;&nbsp;</option>
+                            <option value="1950">1950&nbsp;&nbsp;</option>
+                            <option value="1949">1949&nbsp;&nbsp;</option>
+                            <option value="1948">1948&nbsp;&nbsp;</option>
+                            <option value="1947">1947&nbsp;&nbsp;</option>
+                            <option value="1946">1946&nbsp;&nbsp;</option>
+                            <option value="1945">1945&nbsp;&nbsp;</option>
+                            <option value="1944">1944&nbsp;&nbsp;</option>
+                            <option value="1943">1943&nbsp;&nbsp;</option>
+                            <option value="1942">1942&nbsp;&nbsp;</option>
+                            <option value="1941">1941&nbsp;&nbsp;</option>
+                            <option value="1940">1940&nbsp;&nbsp;</option>
+                            <option value="1939">1939&nbsp;&nbsp;</option>
+                            <option value="1938">1938&nbsp;&nbsp;</option>
+                            <option value="1937">1937&nbsp;&nbsp;</option>
+                            <option value="1936">1936&nbsp;&nbsp;</option>
+                            <option value="1935">1935&nbsp;&nbsp;</option>
+                            <option value="1934">1934&nbsp;&nbsp;</option>
+                            <option value="1933">1933&nbsp;&nbsp;</option>
+                            <option value="1932">1932&nbsp;&nbsp;</option>
+                            <option value="1931">1931&nbsp;&nbsp;</option>
+                            <option value="1930">1930&nbsp;&nbsp;</option>
+                            <option value="1929">1929&nbsp;&nbsp;</option>
+                            <option value="1928">1928&nbsp;&nbsp;</option>
+                            <option value="1927">1927&nbsp;&nbsp;</option>
+                            <option value="1926">1926&nbsp;&nbsp;</option>
+                            <option value="1925">1925&nbsp;&nbsp;</option>
+                            <option value="1924">1924&nbsp;&nbsp;</option>
+                            <option value="1923">1923&nbsp;&nbsp;</option>
+                            <option value="1922">1922&nbsp;&nbsp;</option>
+                            <option value="1921">1921&nbsp;&nbsp;</option>
+                            <option value="1920">1920&nbsp;&nbsp;</option>
+                            <option value="1919">1919&nbsp;&nbsp;</option>
+                            <option value="1918">1918&nbsp;&nbsp;</option>
+                            <option value="1917">1917&nbsp;&nbsp;</option>
+                            <option value="1916">1916&nbsp;&nbsp;</option>
+                            <option value="1915">1915&nbsp;&nbsp;</option>
+                            <option value="1914">1914&nbsp;&nbsp;</option>
+                            <option value="1913">1913&nbsp;&nbsp;</option>
+                            <option value="1912">1912&nbsp;&nbsp;</option>
+                            <option value="1911">1911&nbsp;&nbsp;</option>
+                            <option value="1910">1910&nbsp;&nbsp;</option>
+                            <option value="1909">1909&nbsp;&nbsp;</option>
+                            <option value="1908">1908&nbsp;&nbsp;</option>
+                            <option value="1907">1907&nbsp;&nbsp;</option>
+                            <option value="1906">1906&nbsp;&nbsp;</option>
+                            <option value="1905">1905&nbsp;&nbsp;</option>
+                            <option value="1904">1904&nbsp;&nbsp;</option>
+                            <option value="1903">1903&nbsp;&nbsp;</option>
+                            <option value="1902">1902&nbsp;&nbsp;</option>
+                            <option value="1901">1901&nbsp;&nbsp;</option>
+                            <option value="1900">1900&nbsp;&nbsp;</option>
+                          </select>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                  <div class="required form-group">
+                    <label for="old_passwd" class="required"> Current Password </label>
+                    <input class="is_required validate form-control" type="password" data-validate="isPasswd" name="old_passwd" id="old_passwd">
+                  </div>
+                  <div class="password form-group">
+                    <label for="passwd"> New Password </label>
+                    <input class="is_required validate form-control" type="password" data-validate="isPasswd" name="passwd" id="passwd">
+                  </div>
+                  <div class="password form-group">
+                    <label for="confirmation"> Confirmation </label>
+                    <input class="is_required validate form-control" type="password" data-validate="isPasswd" name="confirmation" id="confirmation">
+                  </div>
+                  <div class="checkbox">
+                    <label for="newsletter">
+                      <div class="checker" id="uniform-newsletter"><span><input type="checkbox" id="newsletter" name="newsletter" value="1"></span></div> Sign up for our newsletter! </label>
+                  </div>
+                  <div class="checkbox">
+                    <label for="optin">
+                      <div class="checker" id="uniform-optin"><span><input type="checkbox" name="optin" id="optin" value="1"></span></div> Receive special offers from our partners! </label>
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" name="submitIdentity" class="btn btn-default button button-medium"> <span>Save<i class="icon-chevron-right right"></i></span> </button>
+                  </div>
+                </fieldset>
+              </form>
             </div>
-          </div>
-          <div id="center_column" class="center_column col-xs-12 col-sm-9">
-            <div id="smartblogcat" class="clearfix">
-              <div class="row">
-                <div itemtype="#" itemscope="" class="sdsarticleCat col-xs-12 col-sm-6">
-                  <div id="smartblogpost-5">
-                    <div class="articleContent">
-                      <a itemprop="url" title="Bibendum Auctor" class="imageFeaturedLink"> </a>
-                      <a title="Bibendum Auctor" href="#" class="r_more"> <img itemprop="image" alt="Bibendum Auctor" src="img/5-single-default.jpg" class="imageFeatured"></a>
-                    </div>
-                    <div class="right_blog_cat">
-                      <div class="sdsarticleHeader">
-                        <p class="sdstitle_block title_font"><a title="Bibendum Auctor" href="#">Bibendum Auctor</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (106)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
-                      </div>
-                      <div class="sdsarticle-des"> <span itemprop="description" class="clearfix"><div id="lipsum"> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id tincidunt ut sed semper vel Lorem condimentum ornare. Laoreet Vestibulum lacinia massa a commodo habi</div></span></div>
-                      <div class="sdsreadMore"></div>
-                    </div>
-                  </div>
-                </div>
-                <div itemtype="#" itemscope="" class="sdsarticleCat col-xs-12 col-sm-6">
-                  <div id="smartblogpost-4">
-                    <div class="articleContent">
-                      <a itemprop="url" title="Bibendum Auctor" class="imageFeaturedLink"> </a>
-                      <a title="Bibendum Auctor" href="#" class="r_more"> <img itemprop="image" alt="Bibendum Auctor" src="img/4-single-default.jpg" class="imageFeatured"></a>
-                    </div>
-                    <div class="right_blog_cat">
-                      <div class="sdsarticleHeader">
-                        <p class="sdstitle_block title_font"><a title="Bibendum Auctor" href="#">Bibendum Auctor</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (87)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
-                      </div>
-                      <div class="sdsarticle-des"> <span itemprop="description" class="clearfix"><div id="lipsum"> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id tincidunt ut sed semper vel Lorem condimentum ornare. Laoreet Vestibulum lacinia massa a commodo habi</div></span></div>
-                      <div class="sdsreadMore"></div>
-                    </div>
-                  </div>
-                </div>
-                <div itemtype="#" itemscope="" class="sdsarticleCat col-xs-12 col-sm-6">
-                  <div id="smartblogpost-3">
-                    <div class="articleContent">
-                      <a itemprop="url" title="Summer Entertaining" class="imageFeaturedLink"> </a>
-                      <a title="Summer Entertaining" href="#" class="r_more"> <img itemprop="image" alt="Summer Entertaining" src="img/3-single-default.jpg" class="imageFeatured"></a>
-                    </div>
-                    <div class="right_blog_cat">
-                      <div class="sdsarticleHeader">
-                        <p class="sdstitle_block title_font"><a title="Summer Entertaining" href="#">Summer Entertaining</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (77)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
-                      </div>
-                      <div class="sdsarticle-des"> <span itemprop="description" class="clearfix"><div id="lipsum"> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id tincidunt ut sed semper vel Lorem condimentum ornare. Laoreet Vestibulum lacinia massa a commodo habi</div></span></div>
-                      <div class="sdsreadMore"></div>
-                    </div>
-                  </div>
-                </div>
-                <div itemtype="#" itemscope="" class="sdsarticleCat col-xs-12 col-sm-6">
-                  <div id="smartblogpost-2">
-                    <div class="articleContent">
-                      <a itemprop="url" title="Accumsan Ipsum" class="imageFeaturedLink"> </a>
-                      <a title="Accumsan Ipsum" href="#" class="r_more"> <img itemprop="image" alt="Accumsan Ipsum" src="img/2-single-default.jpg" class="imageFeatured"></a>
-                    </div>
-                    <div class="right_blog_cat">
-                      <div class="sdsarticleHeader">
-                        <p class="sdstitle_block title_font"><a title="Accumsan Ipsum" href="#">Accumsan Ipsum</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (82)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
-                      </div>
-                      <div class="sdsarticle-des"> <span itemprop="description" class="clearfix"><div id="lipsum"> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id tincidunt ut sed semper vel Lorem condimentum ornare. Laoreet Vestibulum lacinia massa a commodo habi</div></span></div>
-                      <div class="sdsreadMore"></div>
-                    </div>
-                  </div>
-                </div>
-                <div itemtype="#" itemscope="" class="sdsarticleCat col-xs-12 col-sm-6">
-                  <div id="smartblogpost-1">
-                    <div class="articleContent">
-                      <a itemprop="url" title="Vulputate Cursus" class="imageFeaturedLink"> </a>
-                      <a title="Vulputate Cursus" href="#" class="r_more"> <img itemprop="image" alt="Vulputate Cursus" src="img/1-single-default.jpg" class="imageFeatured"></a>
-                    </div>
-                    <div class="right_blog_cat">
-                      <div class="sdsarticleHeader">
-                        <p class="sdstitle_block title_font"><a title="Vulputate Cursus" href="#">Vulputate Cursus</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (78)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
-                      </div>
-                      <div class="sdsarticle-des"> <span itemprop="description" class="clearfix"><div id="lipsum"> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id tincidunt ut sed semper vel Lorem condimentum ornare. Laoreet Vestibulum lacinia massa a commodo habi</div></span></div>
-                      <div class="sdsreadMore"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <ul class="footer_links clearfix">
+              <li>
+                <a class="btn btn-default button button-small" href="#"> <span> <i class="icon-chevron-left"></i>Back to your account </span> </a>
+              </li>
+              <li>
+                <a class="btn btn-default button button-small" href="#"> <span> <i class="icon-chevron-left"></i>Home </span> </a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -970,7 +1083,7 @@
                       <li><a href="#" title="My credit slips" rel="nofollow">My credit slips</a></li>
                       <li><a href="#" title="My addresses" rel="nofollow">My addresses</a></li>
                       <li><a href="#" title="Manage my personal information" rel="nofollow">My personal info</a></li>
-                      <li><a class="link-login" href="#" title="Login" rel="nofollow">Login</a></li>
+                      <li><a href="#" title="Sign out" rel="nofollow">Sign out</a></li>
                     </ul>
                   </div>
                 </section>
@@ -1042,253 +1155,13 @@
     </div>
   </div>
   <div id="back-top" style="display: none;"><a href="#" class="mypresta_scrollup hidden-phone"><i class="icon-chevron-up"></i></a></div>
-  <script type="text/javascript">
-    /* <![CDATA[ */ ;
-    var CUSTOMIZE_TEXTFIELD = 1;
-    var FIELD_enableCountdownTimer = true;
-    var FIELD_mainLayout = 'fullwidth';
-    var FIELD_stickyCart = true;
-    var FIELD_stickyMenu = true;
-    var FIELD_stickySearch = true;
-    var FancyboxI18nClose = 'Close';
-    var FancyboxI18nNext = 'Next';
-    var FancyboxI18nPrev = 'Previous';
-    var LANG_RTL = '0';
-    var added_to_wishlist = 'The product was successfully added to your wishlist.';
-    var ajax_allowed = true;
-    var ajaxsearch = true;
-    var baseDir = 'http://demo.fieldthemes.com/petshop/home1/';
-    var baseUri = 'http://demo.fieldthemes.com/petshop/home1/';
-    var comparator_max_item = 3;
-    var comparedProductsIds = [];
-    var contentOnly = false;
-    var countdownDay = 'Day';
-    var countdownDays = 'Days';
-    var countdownHour = 'Hour';
-    var countdownHours = 'Hours';
-    var countdownMinute = 'Min';
-    var countdownMinutes = 'Mins';
-    var countdownSecond = 'Sec';
-    var countdownSeconds = 'Secs';
-    var currency = {
-      "id": 1,
-      "name": "Dollar",
-      "iso_code": "USD",
-      "iso_code_num": "840",
-      "sign": "$",
-      "blank": "0",
-      "conversion_rate": "1.000000",
-      "deleted": "0",
-      "format": "1",
-      "decimals": "1",
-      "active": "1",
-      "prefix": "$ ",
-      "suffix": "",
-      "id_shop_list": null,
-      "force_id": false
-    };
-    var currencyBlank = 0;
-    var currencyFormat = 1;
-    var currencyRate = 1;
-    var currencySign = '$';
-    var customizationIdMessage = 'Customization #';
-    var delete_txt = 'Delete';
-    var displayList = false;
-    var fieldbestsellers_autoscroll = false;
-    var fieldbestsellers_navigation = false;
-    var fieldbestsellers_pagination = false;
-    var fieldbestsellers_pauseonhover = false;
-    var fieldblocksearch_type = 'top';
-    var fieldbs_autoscroll = false;
-    var fieldbs_maxitem = '5';
-    var fieldbs_minitem = '2';
-    var fieldbs_navigation = true;
-    var fieldbs_pagination = false;
-    var fieldbs_pauseonhover = false;
-    var freeProductTranslation = 'Free!';
-    var freeShippingTranslation = 'Free shipping!';
-    var generated_date = 1469547263;
-    var hasDeliveryAddress = false;
-    var highDPI = false;
-    var id_lang = 1;
-    var img_dir = 'http://demo.fieldthemes.com/petshop/home1/themes/petshop/img/';
-    var instantsearch = false;
-    var isGuest = 0;
-    var isLogged = 0;
-    var isMobile = false;
-    var langIso = 'en-us';
-    var loggin_required = 'You must be logged in to manage your wishlist.';
-    var max_item = 'You cannot add more than 3 product(s) to the product comparison';
-    var min_item = 'Please select at least one product';
-    var mywishlist_url = 'http://demo.fieldthemes.com/petshop/home1/en/module/blockwishlist/mywishlist';
-    var page_name = 'module-smartblog-category';
-    var placeholder_blocknewsletter = 'Your e-mail';
-    var priceDisplayMethod = 1;
-    var priceDisplayPrecision = 2;
-    var quickView = true;
-    var removingLinkText = 'remove this product from my cart';
-    var roundMode = 2;
-    var search_url = 'http://demo.fieldthemes.com/petshop/home1/en/search';
-    var static_token = '86de8cec65ff0019f7b7f41977d25940';
-    var toBeDetermined = 'To be determined';
-    var token = 'bb78bb574b4df0040ff320b9a9475335';
-    var usingSecureMode = false;
-    var wishlistProductsIds = false; /* ]]> */
 
-  </script>
-  <script type="text/javascript" src="js/v_12_ad2bbfb75c7b1df3f8f60a9ca2182fed.js"></script>
+  <script type="text/javascript" src="js/script-first.js"></script>
+  <script type="text/javascript" src="js/script-1.js"></script>
   <script type="text/javascript" src="js/jquery.elevatezoom.min.js"></script>
-  <script type="text/javascript">
-    /* <![CDATA[ */ ;
-    var zoom_type = 'window';
-    var zoom_fade_in = 400;
-    var zoom_fade_out = 550;
-    var zoom_cursor_type = 'default';
-    var zoom_window_pos = 1;
-    var zoom_scroll = true;
-    var zoom_easing = true;
-    var zoom_tint = true;
-    var zoom_tint_color = '#333';
-    var zoom_tint_opacity = 0.4;
-    var zoom_lens_shape = 'round';
-    var zoom_lens_size = 345;;
+  <script type="text/javascript" src="js/script-3.js"></script>
 
-    function applyElevateZoom() {
-      var src = $('.thickbox.shown').attr('href');
-      var bigimage = $('.fancybox.shown').attr('href');
-      $('#bigpic').elevateZoom({
-        zoomType: zoom_type,
-        cursor: zoom_cursor_type,
-        zoomWindowFadeIn: zoom_fade_in,
-        zoomWindowFadeOut: zoom_fade_out,
-        zoomWindowPosition: zoom_window_pos,
-        scrollZoom: zoom_scroll,
-        easing: zoom_easing,
-        tint: zoom_tint,
-        tintColour: zoom_tint_color,
-        tintOpacity: zoom_tint_opacity,
-        lensShape: zoom_lens_shape,
-        lensSize: zoom_lens_size,
-        zoomImage: bigimage,
-        borderSize: 1,
-        borderColour: '#e2dfdf',
-        zoomWindowWidth: 450,
-        zoomWindowHeight: 450,
-        zoomLevel: 0.7,
-        lensBorderSize: 0
-      });
-    }
-    $(document).ready(function() {
-      applyElevateZoom();
-      $('#color_to_pick_list').click(function() {
-        restartElevateZoom();
-      });
-      $('#color_to_pick_list').hover(function() {
-        restartElevateZoom();
-      });
-      $('#views_block li a').hover(function() {
-        restartElevateZoom();
-      });
-    });
-
-    function restartElevateZoom() {
-      $(".zoomContainer").remove();
-      applyElevateZoom();
-    };;
-    var $input = $("#search_query_top");
-    var width_ac_results = $input.parent('form').width();
-    $('document').ready(function() {
-      $("#search_query_top").autocomplete('http://demo.fieldthemes.com/petshop/home1/en/search', {
-        minChars: 3,
-        max: 10,
-        width: (width_ac_results > 0 ? width_ac_results : 500),
-        selectFirst: false,
-        scroll: true,
-        dataType: "json",
-        formatItem: function(data, i, max, value, term) {
-          return value;
-        },
-        parse: function(data) {
-          var mytab = new Array();
-          for (var i = 0; i < data.length; i++)
-            mytab[mytab.length] = {
-              data: data[i],
-              value: '<img alt="' + data[i].pname + '" src="' + data[i].image + '"><div class="right-search"><h5>' + data[i].pname + '</h5><span class="price">' + data[i].dprice + '</span></div> '
-            };
-          return mytab;
-        },
-        extraParams: {
-          ajaxSearch: 1,
-          id_lang: 1,
-          category_filter: $("#category_filter").val()
-        }
-      }).result(function(event, data, formatted) {
-        $('#search_query_top').val(data.pname);
-        document.location.href = data.product_link;
-      });
-      $("#category_filter").change(function() {
-        $(".ac_results").remove();
-        $("#search_query_top").trigger('unautocomplete');
-        $("#search_query_top").autocomplete('http://demo.fieldthemes.com/petshop/home1/en/search', {
-          minChars: 3,
-          max: 10,
-          width: (width_ac_results > 0 ? width_ac_results : 500),
-          selectFirst: false,
-          scroll: true,
-          dataType: "json",
-          formatItem: function(data, i, max, value, term) {
-            return value;
-          },
-          parse: function(data) {
-            var mytab = new Array();
-            for (var i = 0; i < data.length; i++)
-              mytab[mytab.length] = {
-                data: data[i],
-                value: '<img alt="' + data[i].pname + '" src="' + data[i].image + '"><div class="right-search"><h5>' + data[i].pname + '</h5><span class="price">' + data[i].dprice + '</span></div> '
-              };
-            return mytab;
-          },
-          extraParams: {
-            ajaxSearch: 1,
-            id_lang: 1,
-            category_filter: $("#category_filter").val()
-          }
-        }).result(function(event, data, formatted) {
-          $('#search_query_top').val(data.pname);
-          document.location.href = data.product_link;
-        });
-      });
-    });;
-    $('#search_query_top').on('focus', function() {
-      var $this = $(this);
-      if ($this.val() == 'Search...') {
-        $this.val('');
-        $('.btn.button-search').addClass('active');
-      }
-    }).on('blur', function() {
-      var $this = $(this);
-      if ($this.val() == '') {
-        $this.val('Search...');
-        $('.btn.button-search').removeClass('active');
-      }
-    });
-    $("#click_show_searchbox").click(function(e) {
-      $("#searchbox").toggle();
-      if ($("#searchbox").is(":visible")) {
-        $("#click_show_searchbox").addClass("click_hide");
-      } else {
-        $("#click_show_searchbox").removeClass("click_hide");
-      }
-    });
-    $(document).click(function(event) {
-      if (!$(event.target).closest("#searchbox,#click_show_searchbox,.ac_results").length) {
-        $("#searchbox").hide();
-        $("#click_show_searchbox").removeClass("click_hide");
-      }
-    }); /* ]]> */
-
-  </script>
-  <div class="colorpicker" id="collorpicker_881">
+  <div class="colorpicker" id="collorpicker_329">
     <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
       <div>
         <div style="left: 0px; top: 99px;"></div>
@@ -1316,7 +1189,7 @@
       <input type="text" maxlength="3" size="3"><span></span></div>
     <div class="colorpicker_submit"></div>
   </div>
-  <div class="colorpicker" id="collorpicker_575">
+  <div class="colorpicker" id="collorpicker_182">
     <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
       <div>
         <div style="left: 0px; top: 99px;"></div>
