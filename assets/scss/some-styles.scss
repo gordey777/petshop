@@ -60,3 +60,20 @@
     margin: 0 0 0 11px;
   }
 }
+
+/* TEXT-PAGE */
+
+#page .rte {
+  background: transparent none repeat scroll 0 0;
+}
+.rte ul {
+  padding-left: 15px;
+
+  list-style-type: disc;
+}
+
+.rte ol {
+  padding-left: 15px;
+
+  list-style-type: decimal;
+}

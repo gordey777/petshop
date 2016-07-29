@@ -3,7 +3,7 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <title>petshop</title>
+  <title>category-page</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, minimum-scale=0.25, maximum-scale=1.6, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -77,7 +77,7 @@
       </div>
     </div>
     <div class="control inactive">
-      <a href="#"></a>
+      <a href="javascript:void(0)"></a>
     </div>
   </div>
   <div id="page">
@@ -124,13 +124,13 @@
                   </ul>
                 </div>
                 <div id="currencies-block-top">
-                  <form id="setCurrency" action="http://demo.fieldthemes.com/petshop/home1/en/12-dogs" method="post">
+                  <form id="setCurrency" action="#" method="post">
                     <div class="current">
                       <input type="hidden" name="id_currency" id="id_currency" value="">
                       <input type="hidden" name="SubmitCurrency" value=""> <span class="cur-label"></span> <strong>USD</strong></div>
                     <ul id="first-currencies" class="currencies_ul toogle_content">
-                      <li class="selected"> <a href="#" rel="nofollow" title="Dollar (USD)"> Dollar (USD) </a></li>
-                      <li> <a href="#" rel="nofollow" title="Euro (EUR)"> Euro (EUR) </a></li>
+                      <li class="selected"> <a href="javascript:setCurrency(1);" rel="nofollow" title="Dollar (USD)"> Dollar (USD) </a></li>
+                      <li> <a href="javascript:setCurrency(2);" rel="nofollow" title="Euro (EUR)"> Euro (EUR) </a></li>
                     </ul>
                   </form>
                 </div>
@@ -408,14 +408,22 @@
                 </div>
               </div>
               <div class="shopping_cart_menu">
-                <div class="ft_bg_hover shopping_cart"> <a href="#" title="View my shopping cart" rel="nofollow"><span class="ajax_cart_quantity unvisible">0</span> <span class="ajax_cart_product_txt unvisible">Item -</span> <span class="ajax_cart_product_txt_s unvisible">Items -</span> <span class="ajax_cart_total unvisible price"> </span> <span class="ajax_cart_no_product">(empty)</span> </a>
+                <div class="ft_bg_hover shopping_cart"> <a href="#" title="View my shopping cart" rel="nofollow"><span class="ajax_cart_quantity">1</span> <span class="ajax_cart_product_txt">Item -</span> <span class="ajax_cart_product_txt_s unvisible">Items -</span> <span class="ajax_cart_total price"> $20.50 </span> <span class="ajax_cart_no_product unvisible">(empty)</span> </a>
                   <div class="cart_block block exclusive">
                     <div class="block_content">
                       <div class="cart_block_list">
-                        <p class="cart_block_no_products"> No products</p>
+                        <dl class="products">
+                          <dt data-id="cart_block_product_13_69_0" class="first_item">
+                            <a class="cart-images" href="#" title="Cuckoos"><img src="img/cuckoos.jpg" alt="Cuckoos"></a>
+                            <div class="cart-info">
+                              <div class="product-name"> <span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="#" title="Cuckoos">Cuckoos</a></div>
+                              <div class="product-atributes"> <a class="ft_color_hover" href="#" title="Product detail">S, Yellow</a></div> <span class="price"> $20.50 </span></div> <span class="remove_link"> <a class="ajax_cart_block_remove_link ft_color_hover" href="#" rel="nofollow" title="remove this product from my cart">&nbsp;</a> </span></dt>
+                          <dd data-id="cart_block_combination_of_13_69_0" class="first_item"></dd>
+                        </dl>
+                        <p class="cart_block_no_products unvisible"> No products</p>
                         <div class="cart-prices">
-                          <div class="cart-prices-line first-line"> <span class="price cart_block_shipping_cost ajax_cart_shipping_cost unvisible"> To be determined </span> <span class="unvisible"> Shipping </span></div>
-                          <div class="cart-prices-line last-line"> <span class="price cart_block_total ajax_block_cart_total">$0.00</span> <span>Total</span></div>
+                          <div class="cart-prices-line first-line"> <span class="price cart_block_shipping_cost ajax_cart_shipping_cost"> $7.00 </span> <span> Shipping </span></div>
+                          <div class="cart-prices-line last-line"> <span class="price cart_block_total ajax_block_cart_total">$27.50</span> <span>Total</span></div>
                         </div>
                         <p class="cart-buttons">
                           <a id="button_order_cart" class="ft_bg_default ft_bg_hover" href="#" title="Check out" rel="nofollow"> <span> Check out<i class="icon-chevron-right right"></i> </span> </a>
@@ -436,10 +444,10 @@
                     </div>
                   </div>
                   <div class="layer_cart_cart col-xs-12 col-md-6">
-                    <h2> <span class="ajax_cart_product_txt_s unvisible"> There are <span class="ajax_cart_quantity">0</span> items in your cart. </span> <span class="ajax_cart_product_txt "> There is 1 item in your cart. </span></h2>
-                    <div class="layer_cart_row"> <strong class="dark"> Total products </strong> <span class="ajax_block_products_total"> </span></div>
-                    <div class="layer_cart_row"> <strong class="dark unvisible"> Total shipping&nbsp; </strong> <span class="ajax_cart_shipping_cost unvisible"> To be determined </span></div>
-                    <div class="layer_cart_row"> <strong class="dark"> Total </strong> <span class="ajax_block_cart_total"> </span></div>
+                    <h2> <span class="ajax_cart_product_txt_s unvisible"> There are <span class="ajax_cart_quantity">1</span> items in your cart. </span> <span class="ajax_cart_product_txt "> There is 1 item in your cart. </span></h2>
+                    <div class="layer_cart_row"> <strong class="dark"> Total products </strong> <span class="ajax_block_products_total"> $20.50 </span></div>
+                    <div class="layer_cart_row"> <strong class="dark"> Total shipping&nbsp; </strong> <span class="ajax_cart_shipping_cost"> $7.00 </span></div>
+                    <div class="layer_cart_row"> <strong class="dark"> Total </strong> <span class="ajax_block_cart_total"> $27.50 </span></div>
                     <div class="button-container"> <span class="continue ft_bg_default ft_btn_default ft_bg_hover" title="Continue shopping"> <span> <i class="icon-chevron-left left"></i>Continue shopping </span> </span>
                       <a class="ft_bg_default ft_btn_default ft_bg_hover" href="#" title="Proceed to checkout" rel="nofollow"> <span> Proceed to checkout<i class="icon-chevron-right right"></i> </span> </a>
                     </div>
@@ -450,7 +458,7 @@
               <div class="layer_cart_overlay"></div>
               <div id="search_block_top">
                 <div class="field-search"> <span id="click_show_searchbox" class="icon-search"></span>
-                  <form method="get" action="http://demo.fieldthemes.com/petshop/home1/en/search" id="searchbox">
+                  <form method="get" action="#" id="searchbox">
                     <input type="hidden" name="controller" value="search">
                     <input type="hidden" name="orderby" value="position">
                     <input type="hidden" name="orderway" value="desc">
@@ -821,7 +829,7 @@
             <div id="layered_block_left" class="block">
               <p class="title_block">Catalog</p>
               <div class="block_content" style="">
-                <form action="http://demo.fieldthemes.com/petshop/home1/en/12-dogs#" id="layered_form">
+                <form action="#" id="layered_form">
                   <div>
                     <div class="layered_price" style="">
                       <div class="layered_subtitle_heading"> <span class="layered_subtitle">Price</span></div>
@@ -976,8 +984,8 @@
                           </div>
                           <div class="right-content">
                             <h3 class="sub_title_font product-name"> <a href="#" title="Dog and Cat"> Dog and Cat </a></h3>
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
@@ -1018,7 +1026,7 @@
           </div>
           <div id="center_column" class="center_column col-xs-12 col-sm-9">
             <div class="content_scene_cat">
-              <div class="content_scene_cat_bg" style="min-height: 210px; background: url(&quot;http://demo.fieldthemes.com/petshop/home1/c/12-category_default/dogs.jpg&quot;) right center / cover no-repeat;">
+              <div class="content_scene_cat_bg" style="min-height: 210px; background: url(&quot;img/dogs.jpg&quot;) right center / cover no-repeat;">
                 <div class="cat_desc"> <span class="category-name title_font"> Dogs </span></div>
               </div>
             </div>
@@ -1032,7 +1040,7 @@
             <div class="content_sortPagiBar container clearfix">
               <div class="top-pagination-content row sortPagiBar clearfix">
                 <div class="top-pagination-left col-xs-12 col-sm-12 col-md-4">
-                  <form id="productsSortForm" action="http://demo.fieldthemes.com/petshop/home1/en/12-dogs" class="productsSortForm">
+                  <form id="productsSortForm" action="#" class="productsSortForm">
                     <div class="select selector1">
                       <label for="selectProductSort">Sort by</label>
                       <div class="selector" id="uniform-selectProductSort" style="width: 30px;"><span style="width: 20px; -webkit-user-select: none;">--</span>
@@ -1050,17 +1058,17 @@
                     </div>
                   </form>
                   <ul class="display hidden-xs">
-                    <li id="grid" class="selected"><a rel="nofollow" href="#" title="Grid"><i class="icon-th-large"></i></a></li>
-                    <li id="list"><a rel="nofollow" href="#" title="List"><i class="icon-th-list"></i></a></li>
+                    <li id="grid"><a rel="nofollow" href="#" title="Grid"><i class="icon-th-large"></i></a></li>
+                    <li id="list" class="selected"><a rel="nofollow" href="#" title="List"><i class="icon-th-list"></i></a></li>
                   </ul>
-                  <form method="post" action="http://demo.fieldthemes.com/petshop/home1/en/products-comparison" class="compare-form">
+                  <form method="post" action="#" class="compare-form">
                     <button type="submit" class="btn btn-default button button-medium bt_compare bt_compare_top" disabled="disabled"> <span>Product Compare (<strong class="total-compare-val">0</strong>)</span> </button>
                     <input type="hidden" name="compare_product_count" class="compare_product_count" value="0">
                     <input type="hidden" name="compare_product_list" class="compare_product_list" value="">
                   </form>
                 </div>
                 <div class="top-pagination-center col-xs-12 col-sm-12 col-md-4">
-                  <form action="http://demo.fieldthemes.com/petshop/home1/en/12-dogs" method="get" class="nbrItemPage">
+                  <form action="#" method="get" class="nbrItemPage">
                     <div class="clearfix selector1">
                       <label for="nb_item"> Show </label>
                       <input type="hidden" name="id_category" value="12">
@@ -1074,7 +1082,7 @@
                   </form>
                 </div>
                 <div class="top-pagination-right col-xs-12 col-sm-12 col-md-4">
-                  <form id="productsSortForm" action="http://demo.fieldthemes.com/petshop/home1/en/12-dogs" class="productsSortForm">
+                  <form id="productsSortForm" action="#" class="productsSortForm">
                     <div class="select selector1">
                       <label for="selectProductSort">Sort by</label>
                       <div class="selector" id="uniform-selectProductSort" style="width: 190px;"><span style="width: 180px; -webkit-user-select: none;">--</span>
@@ -1092,27 +1100,67 @@
                     </div>
                   </form>
                   <ul class="display hidden-xs">
-                    <li id="grid" class="selected"><a rel="nofollow" href="#" title="Grid"><i class="icon-th-large"></i></a></li>
-                    <li id="list"><a rel="nofollow" href="#" title="List"><i class="icon-th-list"></i></a></li>
+                    <li id="grid"><a rel="nofollow" href="#" title="Grid"><i class="icon-th-large"></i></a></li>
+                    <li id="list" class="selected"><a rel="nofollow" href="#" title="List"><i class="icon-th-list"></i></a></li>
                   </ul>
                 </div>
               </div>
             </div>
             <div class=" hide-color-options hide-stock-info">
-              <ul class="product_list grid row">
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 first-in-line first-item-of-tablet-line first-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
+              <ul class="product_list row list">
+                <li class="ajax_block_product first-in-line first-item-of-tablet-line first-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
                     <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Bengal Cat" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/bengal-cat.jpg" alt="Bengal Cat" title="Bengal Cat"></span> <span class="img_root"> <img src="img/bengal-cat(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Bengal Cat"> </span> </a>
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Bengal Cat" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/bengal-cat.jpg" alt="Bengal Cat" title="Bengal Cat"></span> <span class="img_root"> <img src="img/bengal-cat(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Bengal Cat"> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default disabled" href="#"> <i class="icon-shopping-cart"></i> <span>Out stock</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_17" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;17&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="17" data-product-cover="img/bengal-cat.jpg" data-product-name="Bengal Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Bengal Cat" itemprop="url"> Bengal Cat </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $20.50 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/LimitedAvailability">Product available with different options</span></div>
+                          <div class="hook-reviews">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <meta itemprop="worstRating" content="0">
+                                <meta itemprop="ratingValue" content="5">
+                                <meta itemprop="bestRating" content="5">
+                              </div>
+                            </div>
+                          </div>
+                          <p class="product-desc"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class="label-warning"> Product available with different options </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default disabled" href="#"> <i class="icon-shopping-cart"></i> <span>Out stock</span> </a>
                             </div>
@@ -1120,24 +1168,55 @@
                               <a class="title_font addToWishlist wishlistProd_17" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;17&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="17" data-product-cover="http://demo.fieldthemes.com/petshop/home1/91-small_default/bengal-cat.jpg" data-product-name="Bengal Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="17" data-product-cover="img/bengal-cat.jpg" data-product-name="Bengal Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/summer-dresses/17-bengal-cat.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Bengal Cat" itemprop="url"> Bengal Cat </a></h5>
-                        <p class="product-desc" itemprop="description"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $20.50 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">Product available with different options</span></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="ajax_block_product last-item-of-tablet-line last-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
+                    <div class="item-inner">
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Beagle" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/beagle.jpg" alt="Beagle" title="Beagle"></span> <span class="img_root"> <img src="img/beagle(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Beagle"> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="16" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_16" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;16&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="16" data-product-cover="img.jpg" data-product-name="Beagle"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Beagle" itemprop="url"> Beagle </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $20.50 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
                           <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
@@ -1149,25 +1228,10 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class="label-warning"> Product available with different options </span> </span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 last-item-of-tablet-line last-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
-                    <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Beagle" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/beagle.jpg" alt="Beagle" title="Beagle"></span> <span class="img_root"> <img src="img/beagle(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Beagle"> </span> </a>
-                        </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                          <p class="product-desc"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="16" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
@@ -1175,24 +1239,55 @@
                               <a class="title_font addToWishlist wishlistProd_16" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;16&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="16" data-product-cover="http://demo.fieldthemes.com/petshop/home1/96-small_default/beagle.jpg" data-product-name="Beagle"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="16" data-product-cover="img.jpg" data-product-name="Beagle"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/summer-dresses/16-beagle.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Beagle" itemprop="url"> Beagle </a></h5>
-                        <p class="product-desc" itemprop="description"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $20.50 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="ajax_block_product first-item-of-tablet-line first-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
+                    <div class="item-inner">
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Cuckoos" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/cuckoos(1).jpg" alt="Cuckoos" title="Cuckoos"></span> <span class="img_root"> <img src="img/cuckoos(2).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Cuckoos"> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="13" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_13" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;13&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="13" data-product-cover="img/cuckoos.jpg" data-product-name="Cuckoos"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Cuckoos" itemprop="url"> Cuckoos </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $20.50 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
                           <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
@@ -1204,25 +1299,10 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 first-item-of-tablet-line first-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
-                    <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Cuckoos" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/cuckoos.jpg" alt="Cuckoos" title="Cuckoos"></span> <span class="img_root"> <img src="img/cuckoos(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Cuckoos"> </span> </a>
-                        </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                          <p class="product-desc"> Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="13" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
@@ -1230,55 +1310,57 @@
                               <a class="title_font addToWishlist wishlistProd_13" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;13&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="13" data-product-cover="http://demo.fieldthemes.com/petshop/home1/87-small_default/cuckoos.jpg" data-product-name="Cuckoos"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="13" data-product-cover="img/cuckoos.jpg" data-product-name="Cuckoos"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/summer-dresses/13-cuckoos.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Cuckoos" itemprop="url"> Cuckoos </a></h5>
-                        <p class="product-desc" itemprop="description"> Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $20.50 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
-                          <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <meta itemprop="worstRating" content="0">
-                                <meta itemprop="ratingValue" content="5">
-                                <meta itemprop="bestRating" content="5">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
                       </div>
                     </div>
                   </div>
                 </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 last-in-line last-item-of-tablet-line last-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
+                <li class="ajax_block_product last-in-line last-item-of-tablet-line last-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
                     <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Swallow" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/swallow.jpg" alt="Swallow" title="Swallow"></span> <span class="img_root"> <img src="img/swallow(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Swallow"> </span> </a>
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Swallow" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/swallow.jpg" alt="Swallow" title="Swallow"></span> <span class="img_root"> <img src="img/swallow(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Swallow"> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                              <p class="sale">Sale!</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="12" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_12" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;12&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="12" data-product-cover="img/swallow.jpg" data-product-name="Swallow"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                          <p class="sale">Sale!</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Swallow" itemprop="url"> Swallow </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $20.50 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
+                          <p class="product-desc"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="12" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
@@ -1286,40 +1368,70 @@
                               <a class="title_font addToWishlist wishlistProd_12" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;12&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="12" data-product-cover="http://demo.fieldthemes.com/petshop/home1/82-small_default/swallow.jpg" data-product-name="Swallow"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="12" data-product-cover="img/swallow.jpg" data-product-name="Swallow"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/summer-dresses/12-swallow.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Swallow" itemprop="url"> Swallow </a></h5>
-                        <p class="product-desc" itemprop="description"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $20.50 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
-                      </div>
                     </div>
                   </div>
                 </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 first-in-line first-item-of-tablet-line first-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
+                <li class="ajax_block_product first-in-line first-item-of-tablet-line first-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
                     <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Cockatoo" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/cockatoo.jpg" alt="Cockatoo" title="Cockatoo"></span> <span class="img_root"> <img src="img/cockatoo(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Cockatoo"> </span> </a>
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Cockatoo" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/cockatoo.jpg" alt="Cockatoo" title="Cockatoo"></span> <span class="img_root"> <img src="img/cockatoo(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Cockatoo"> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="11" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_11" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;11&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="11" data-product-coveimg/cockatoo.jpg" data-product-name="Cockatoo"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Cockatoo" itemprop="url"> Cockatoo </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $20.50 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
+                          <div class="hook-reviews">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <meta itemprop="worstRating" content="0">
+                                <meta itemprop="ratingValue" content="5">
+                                <meta itemprop="bestRating" content="5">
+                              </div>
+                            </div>
+                          </div>
+                          <p class="product-desc"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="11" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
@@ -1327,24 +1439,55 @@
                               <a class="title_font addToWishlist wishlistProd_11" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;11&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="11" data-product-cover="http://demo.fieldthemes.com/petshop/home1/81-small_default/cockatoo.jpg" data-product-name="Cockatoo"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="11" data-product-coveimg/cockatoo.jpg" data-product-name="Cockatoo"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/summer-dresses/11-cockatoo.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Cockatoo" itemprop="url"> Cockatoo </a></h5>
-                        <p class="product-desc" itemprop="description"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $20.50 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="ajax_block_product last-item-of-tablet-line last-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
+                    <div class="item-inner">
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Parrot Beautiful" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/parrot-beautiful.jpg" alt="Framed-Sleeve Tops" title="Framed-Sleeve Tops"></span> <span class="img_root"> <img src="img/parrot-beautiful(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Framed-Sleeve Tops"> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="9" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_9" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;9&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="9" data-product-coveimg/parrot-beautiful.jpg" data-product-name="Parrot Beautiful"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Parrot Beautiful" itemprop="url"> Parrot Beautiful </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $80.00 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="old-price product-price"> $100.00 </span> <span class="price-percent-reduction">-20%</span> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In Stock </span></div>
                           <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
@@ -1356,25 +1499,10 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 last-item-of-tablet-line last-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
-                    <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Parrot Beautiful" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/parrot-beautiful.jpg" alt="Framed-Sleeve Tops" title="Framed-Sleeve Tops"></span> <span class="img_root"> <img src="img/parrot-beautiful(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Framed-Sleeve Tops"> </span> </a>
-                        </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                          <p class="product-desc"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,...</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In Stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="9" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
@@ -1382,54 +1510,56 @@
                               <a class="title_font addToWishlist wishlistProd_9" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;9&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="9" data-product-cover="http://demo.fieldthemes.com/petshop/home1/72-small_default/parrot-beautiful.jpg" data-product-name="Parrot Beautiful"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="9" data-product-coveimg/parrot-beautiful.jpg" data-product-name="Parrot Beautiful"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/dogs/9-parrot-beautiful.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Parrot Beautiful" itemprop="url"> Parrot Beautiful </a></h5>
-                        <p class="product-desc" itemprop="description"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,...</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $80.00 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="old-price product-price"> $100.00 </span> <span class="price-percent-reduction">-20%</span> <span class="unvisible"><link itemprop="availability" href="#">In Stock </span></div>
-                          <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <meta itemprop="worstRating" content="0">
-                                <meta itemprop="ratingValue" content="5">
-                                <meta itemprop="bestRating" content="5">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In Stock </span> </span>
                       </div>
                     </div>
                   </div>
                 </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 first-item-of-tablet-line first-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
+                <li class="ajax_block_product first-item-of-tablet-line first-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
                     <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Black Cat" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/black-cat.jpg" alt="Black Cat" title="Black Cat"></span> <span class="img_root"> <img src="img/black-cat(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Black Cat" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/black-cat.jpg" alt="Black Cat" title="Black Cat"></span> <span class="img_root"> <img src="img/black-cat(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="button_cart button ajax_add_to_cart_button btn btn-default title_font" href="#"> <i class="icon-shopping-cart"></i> <span>Customize</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_10" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;10&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="10" data-product-coveimg/black-cat.jpg" data-product-name="Black Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Black Cat" itemprop="url"> Black Cat </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $50.99 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
+                          <p class="product-desc"> Printed evening dress with straight sleeves with black thin waist belt and ruffled linings.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="button_cart button ajax_add_to_cart_button btn btn-default title_font" href="#"> <i class="icon-shopping-cart"></i> <span>Customize</span> </a>
                             </div>
@@ -1437,65 +1567,55 @@
                               <a class="title_font addToWishlist wishlistProd_10" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;10&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="10" data-product-cover="http://demo.fieldthemes.com/petshop/home1/75-small_default/black-cat.jpg" data-product-name="Black Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="10" data-product-coveimg/black-cat.jpg" data-product-name="Black Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/evening-dresses/10-black-cat.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Black Cat" itemprop="url"> Black Cat </a></h5>
-                        <p class="product-desc" itemprop="description"> Printed evening dress with straight sleeves with black thin waist belt and ruffled linings.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $50.99 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
                       </div>
                     </div>
                   </div>
                 </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 last-in-line last-item-of-tablet-line last-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
+                <li class="ajax_block_product last-in-line last-item-of-tablet-line last-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
                     <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Cute Cat Love" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/cute-cat-love.jpg" alt="Cute Cat Love" title="Cute Cat Love"></span> <span class="img_root"> <img src="img/cute-cat-love(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
-                        </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
-                            <div class="box-button-cart">
-                              <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="7" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Cute Cat Love" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/cute-cat-love.jpg" alt="Cute Cat Love" title="Cute Cat Love"></span> <span class="img_root"> <img src="img/cute-cat-love(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
                             </div>
-                            <div class="box-button-wishlist splist">
-                              <a class="title_font addToWishlist wishlistProd_7" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;7&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
                             </div>
-                            <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="7" data-product-cover="http://demo.fieldthemes.com/petshop/home1/64-small_default/cute-cat-love.jpg" data-product-name="Cute Cat Love"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                            </div>
-                            <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/summer-dresses/7-cute-cat-love.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="7" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_7" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;7&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="7" data-product-coveimg/cute-cat-love.jpg" data-product-name="Cute Cat Love"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Cute Cat Love" itemprop="url"> Cute Cat Love </a></h5>
-                        <p class="product-desc" itemprop="description"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $20.50 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Cute Cat Love" itemprop="url"> Cute Cat Love </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $20.50 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
                           <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
@@ -1507,50 +1627,66 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
-                    <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Macaw Parrot" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/macaw-parrot.jpg" alt="Pilot Jacket" title="Pilot Jacket"></span> <span class="img_root"> <img src="img/macaw-parrot(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Pilot Jacket"> </span> </a>
-                        </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                          <p class="product-desc"> Printed chiffon knee length dress with tank straps. Deep v-neckline.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
-                              <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default disabled" href="#"> <i class="icon-shopping-cart"></i> <span>Out stock</span> </a>
+                              <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="7" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
                             <div class="box-button-wishlist splist">
-                              <a class="title_font addToWishlist wishlistProd_8" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;8&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                              <a class="title_font addToWishlist wishlistProd_7" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;7&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="8" data-product-cover="http://demo.fieldthemes.com/petshop/home1/67-small_default/macaw-parrot.jpg" data-product-name="Macaw Parrot"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="7" data-product-coveimg/cute-cat-love.jpg" data-product-name="Cute Cat Love"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/home/8-macaw-parrot.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Macaw Parrot" itemprop="url"> Macaw Parrot </a></h5>
-                        <p class="product-desc" itemprop="description"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,...</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $60.00 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">Out of stock </span></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="ajax_block_product first-in-line last-line first-item-of-tablet-line first-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
+                    <div class="item-inner">
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Macaw Parrot" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/macaw-parrot.jpg" alt="Pilot Jacket" title="Pilot Jacket"></span> <span class="img_root"> <img src="img/macaw-parrot(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt="Pilot Jacket"> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default disabled" href="#"> <i class="icon-shopping-cart"></i> <span>Out stock</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_8" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;8&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="8" data-product-coveimg/macaw-parrot.jpg" data-product-name="Macaw Parrot"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Macaw Parrot" itemprop="url"> Macaw Parrot </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $60.00 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/OutOfStock">Out of stock </span></div>
                           <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
@@ -1562,26 +1698,82 @@
                               </div>
                             </div>
                           </div>
+                          <p class="product-desc"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,...</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class="label-danger"> Out of stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
+                            <div class="box-button-cart">
+                              <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default disabled" href="#"> <i class="icon-shopping-cart"></i> <span>Out stock</span> </a>
+                            </div>
+                            <div class="box-button-wishlist splist">
+                              <a class="title_font addToWishlist wishlistProd_8" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;8&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                            </div>
+                            <div class="box-button-compare splist">
+                              <a class="add_to_compare title_font" href="#" data-id-product="8" data-product-coveimg/macaw-parrot.jpg" data-product-name="Macaw Parrot"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                            </div>
+                            <div class="box-button-quick-view splist">
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                            </div>
+                          </div>
                         </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class="label-danger"> Out of stock </span> </span>
                       </div>
                     </div>
                   </div>
                 </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 last-line last-item-of-tablet-line last-item-of-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
+                <li class="ajax_block_product last-line last-item-of-tablet-line last-item-of-mobile-line col-xs-12">
+                  <div class="product-container">
                     <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Baby Cat" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/baby-cat.jpg" alt="Baby Cat" title="Baby Cat"></span> <span class="img_root"> <img src="img/baby-cat(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Baby Cat" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/baby-cat.jpg" alt="Baby Cat" title="Baby Cat"></span> <span class="img_root"> <img src="img/baby-cat(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                              <p class="sale">Sale!</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="6" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_6" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;6&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="6" data-product-coveimg/baby-cat.jpg" data-product-name="Baby Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                          <p class="sale">Sale!</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Baby Cat" itemprop="url"> Baby Cat </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $24.40 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="old-price product-price"> $30.50 </span> <span class="price-percent-reduction">-20%</span> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
+                          <div class="hook-reviews">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <div class="star star_on"></div>
+                                <meta itemprop="worstRating" content="0">
+                                <meta itemprop="ratingValue" content="5">
+                                <meta itemprop="bestRating" content="5">
+                              </div>
+                            </div>
+                          </div>
+                          <p class="product-desc"> Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="6" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
@@ -1589,24 +1781,55 @@
                               <a class="title_font addToWishlist wishlistProd_6" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;6&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="6" data-product-cover="http://demo.fieldthemes.com/petshop/home1/61-small_default/baby-cat.jpg" data-product-name="Baby Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="6" data-product-coveimg/baby-cat.jpg" data-product-name="Baby Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/summer-dresses/6-baby-cat.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Baby Cat" itemprop="url"> Baby Cat </a></h5>
-                        <p class="product-desc" itemprop="description"> Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $24.40 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="old-price product-price"> $30.50 </span> <span class="price-percent-reduction">-20%</span> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="ajax_block_product last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line col-xs-12">
+                  <div class="product-container">
+                    <div class="item-inner">
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Bird Beautiful" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/bird-beautiful.jpg" alt="Bird Beautiful" title="Bird Beautiful"></span> <span class="img_root"> <img src="img/bird-beautiful(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="5" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_5" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;5&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="5" data-product-coveimg/bird-beautiful.jpg" data-product-name="Bird Beautiful"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Bird Beautiful" itemprop="url"> Bird Beautiful </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $30.51 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
                           <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
@@ -1618,25 +1841,10 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 last-line first-item-of-tablet-line first-item-of-mobile-line last-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
-                    <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Bird Beautiful" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/bird-beautiful.jpg" alt="Bird Beautiful" title="Bird Beautiful"></span> <span class="img_root"> <img src="img/bird-beautiful(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
-                        </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                          <p class="product-desc"> Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="5" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
@@ -1644,24 +1852,55 @@
                               <a class="title_font addToWishlist wishlistProd_5" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;5&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="5" data-product-cover="http://demo.fieldthemes.com/petshop/home1/38-small_default/bird-beautiful.jpg" data-product-name="Bird Beautiful"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="5" data-product-coveimg/bird-beautiful.jpg" data-product-name="Bird Beautiful"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/summer-dresses/5-bird-beautiful.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Bird Beautiful" itemprop="url"> Bird Beautiful </a></h5>
-                        <p class="product-desc" itemprop="description"> Long printed dress with thin adjustable straps. V-neckline and wiring under the bust with ruffles at the bottom of the dress.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $30.51 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
+                    </div>
+                  </div>
+                </li>
+                <li class="ajax_block_product last-in-line last-line last-item-of-tablet-line last-item-of-mobile-line last-mobile-line col-xs-12">
+                  <div class="product-container">
+                    <div class="item-inner">
+                      <div class="row">
+                        <div class="left-block col-xs-12 col-sm-5 col-md-4">
+                          <div class="left-block-inner">
+                            <div class="product-image-container">
+                              <a class="product_img_link product_img" href="#" title="Love Bird" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/love-bird.jpg" alt="Love Bird" title="Love Bird"></span> <span class="img_root"> <img src="img/love-bird(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
+                            </div>
+                            <div class="conditions-box">
+                              <p class="new">New</p>
+                            </div>
+                            <div class="product-flags"></div>
+                            <div class="tab_button">
+                              <div class="button-container">
+                                <div class="box-button-cart">
+                                  <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="4" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                                </div>
+                                <div class="box-button-wishlist splist">
+                                  <a class="title_font addToWishlist wishlistProd_4" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;4&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                                </div>
+                                <div class="box-button-compare splist">
+                                  <a class="add_to_compare title_font" href="#" data-id-product="4" data-product-coveimg/love-bird.jpg" data-product-name="Love Bird"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                                </div>
+                                <div class="box-button-quick-view splist">
+                                  <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="right-block col-xs-12 col-sm-7 col-md-8">
+                          <h5 itemprop="name"> <a class="product-name" href="#" title="Love Bird" itemprop="url"> Love Bird </a></h5>
+                          <div class="content_price"> <span itemprop="price" class="price product-price"> $50.99 </span>
+                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="https://schema.org/InStock">In stock </span></div>
                           <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                            <div class="comments_note" itemtype="#" itemscope="">
+                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
                                 <div class="star star_on"></div>
@@ -1673,25 +1912,10 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                <li class="ajax_block_product col-xs-12 col-sm-6 col-md-3 last-in-line last-line last-item-of-tablet-line last-item-of-mobile-line last-mobile-line">
-                  <div class="product-container" itemscope="" itemtype="https://schema.org/Product">
-                    <div class="item-inner">
-                      <div class="left-block">
-                        <div class="product-image-container">
-                          <a class="product_img_link product_img" href="#" title="Love Bird" itemprop="url"> <span class="hover-image"><img class="replace-2x" src="img/love-bird.jpg" alt="Love Bird" title="Love Bird"></span> <span class="img_root"> <img src="img/love-bird(1).jpg" height="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;109&lt;/b&gt;&lt;br /&gt; " width="&lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Undefined index: specialSize in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; &lt;br /&gt; &lt;b&gt;Notice&lt;/b&gt;: Trying to get property of non-object in &lt;b&gt;/home/fieldthemes/public_html/demo/petshop/home1/cache/smarty/compile/64/23/ec/6423ec66adea44542358e6d10a67a052286130f3.file.product-list.tpl.php&lt;/b&gt; on line &lt;b&gt;110&lt;/b&gt;&lt;br /&gt; " alt=""> </span> </a>
-                        </div>
-                        <div class="conditions-box">
-                          <p class="new">New</p>
-                        </div>
-                        <div class="product-flags"></div>
-                        <div class="tab_button">
-                          <div class="button-container">
+                          <p class="product-desc"> Printed evening dress with straight sleeves with black thin waist belt and ruffled linings.</p>
+                          <p class="learn-more"> <a href="#" title="See more in the product page">Learn more...</a></p>
+                          <div class="color-list-container"></div><span class="availability"> <span class=" label-success"> In stock </span> </span>
+                          <div itemprop="offers" itemscope="" itemtype="https://schema.org/Offer" class="button-container">
                             <div class="box-button-cart">
                               <a class="title_font button_cart button ajax_add_to_cart_button btn btn-default" href="#" rel="nofollow" data-id-product="4" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
                             </div>
@@ -1699,37 +1923,13 @@
                               <a class="title_font addToWishlist wishlistProd_4" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;4&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
                             </div>
                             <div class="box-button-compare splist">
-                              <a class="add_to_compare title_font" href="#" data-id-product="4" data-product-cover="http://demo.fieldthemes.com/petshop/home1/54-small_default/love-bird.jpg" data-product-name="Love Bird"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                              <a class="add_to_compare title_font" href="#" data-id-product="4" data-product-coveimg/love-bird.jpg" data-product-name="Love Bird"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                             </div>
                             <div class="box-button-quick-view splist">
-                              <a class="quick-view title_font" href="#" rel="http://demo.fieldthemes.com/petshop/home1/en/evening-dresses/4-love-bird.html"> <i class="icon-eye"></i> <span>Quick view</span> </a>
+                              <a class="quick-view title_font" href="#" rel="#"> <i class="icon-eye"></i> <span>Quick view</span> </a>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="right-block">
-                        <h5 itemprop="name"> <a class="product-name" href="#" title="Love Bird" itemprop="url"> Love Bird </a></h5>
-                        <p class="product-desc" itemprop="description"> Printed evening dress with straight sleeves with black thin waist belt and ruffled linings.</p>
-                        <p class="learn-more" itemprop="url"> <a href="#" title="See more in the product page">Learn more...</a></p>
-                        <div class="price-rating">
-                          <div class="content_price" itemprop="offers" itemscope="" itemtype="https://schema.org/Offer"> <span itemprop="price" class="price product-price"> $50.99 </span>
-                            <meta itemprop="priceCurrency" content="USD"> <span class="unvisible"><link itemprop="availability" href="#">In stock </span></div>
-                          <div class="hook-reviews">
-                            <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
-                              <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <meta itemprop="worstRating" content="0">
-                                <meta itemprop="ratingValue" content="5">
-                                <meta itemprop="bestRating" content="5">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="color-list-container"></div> <span class="availability"> <span class=" label-success"> In stock </span> </span>
                       </div>
                     </div>
                   </div>
@@ -1740,7 +1940,7 @@
               <div class="bottom-pagination-content sortPagiBar clearfix">
                 <div class="row">
                   <div class="bottom-pagination-left col-xs-12 col-sm-12 col-md-4">
-                    <form method="post" action="http://demo.fieldthemes.com/petshop/home1/en/products-comparison" class="compare-form">
+                    <form method="post" action="#" class="compare-form">
                       <button type="submit" class="btn btn-default button button-medium bt_compare bt_compare_bottom" disabled="disabled"> <span>Product Compare (<strong class="total-compare-val">0</strong>)</span> </button>
                       <input type="hidden" name="compare_product_count" class="compare_product_count" value="0">
                       <input type="hidden" name="compare_product_list" class="compare_product_list" value="">
@@ -1759,7 +1959,7 @@
                           <a href="#" rel="next"> <i class="icon-chevron-right"></i> </a>
                         </li>
                       </ul>
-                      <form class="showall" action="http://demo.fieldthemes.com/petshop/home1/en/12-dogs" method="get">
+                      <form class="showall" action="#" method="get">
                         <div>
                           <button type="submit" class="btn btn-default button exclusive-medium"> <span>Show all</span> </button>
                           <input type="hidden" name="id_category" value="12">
@@ -1782,7 +1982,7 @@
                           <a href="#" rel="next"> <i class="icon-chevron-right"></i> </a>
                         </li>
                       </ul>
-                      <form class="showall" action="http://demo.fieldthemes.com/petshop/home1/en/12-dogs" method="get">
+                      <form class="showall" action="#" method="get">
                         <div>
                           <button type="submit" class="btn btn-default button exclusive-medium"> <span>Show all</span> </button>
                           <input type="hidden" name="id_category" value="12">
@@ -1905,15 +2105,15 @@
                 <div class="connect_with footer-block custom_list col-xs-12 col-sm-6 col-md-2">
                   <h4>Connect Us</h4>
                   <ul class="toggle-footer bullet" style="">
-                    <li class="item"><a href="#"><i class="icon-fb"></i> Facebook </a></li>
-                    <li class="item"><a href="#"><i class="icon-twitter"></i> Twitter </a></li>
-                    <li class="item"><a href="#"><i class="icon-instagram"></i> Instagram </a></li>
-                    <li class="item"><a href="#"><i class="icon-prineres"></i> Prineres </a></li>
+                    <li class="item"><a href="https://www.facebook.com/"><i class="icon-fb"></i> Facebook </a></li>
+                    <li class="item"><a href="https://www.twitter.com/"><i class="icon-twitter"></i> Twitter </a></li>
+                    <li class="item"><a href="https://www.instagram.com/"><i class="icon-instagram"></i> Instagram </a></li>
+                    <li class="item"><a href="https://www.pinterest.com/"><i class="icon-prineres"></i> Prineres </a></li>
                     <li class="item">
-                      <a href="#"> <i class="icon-youtube"></i> Youtube </a>
+                      <a href="https://www.youtube.com/"> <i class="icon-youtube"></i> Youtube </a>
                     </li>
                     <li class="item">
-                      <a href="#"> <i class="icon-google"></i>Google+ </a>
+                      <a href="https://www.google.com/"> <i class="icon-google"></i>Google+ </a>
                     </li>
                   </ul>
                 </div>
@@ -1925,7 +2125,7 @@
                     </div>
                     <div id="newsletter_block_left">
                       <div class="block_content">
-                        <form action="http://demo.fieldthemes.com/petshop/home1/en/" method="post">
+                        <form action="#" method="post">
                           <div class="form-group">
                             <input class="inputNew form-control grey newsletter-input" id="newsletter-input" type="text" name="email" size="18" value="Your e-mail">
                             <button type="submit" name="submitNewsletter" class="btn btn-default button button-small"> <span>Sign Up</span> </button>
@@ -1959,522 +2159,13 @@
     </div>
   </div>
   <div id="back-top" style="display: none;"><a href="#" class="mypresta_scrollup hidden-phone"><i class="icon-chevron-up"></i></a></div>
-  <script type="text/javascript">
-    /* <![CDATA[ */ ;
-    var CUSTOMIZE_TEXTFIELD = 1;
-    var FIELD_enableCountdownTimer = true;
-    var FIELD_mainLayout = 'fullwidth';
-    var FIELD_stickyCart = true;
-    var FIELD_stickyMenu = true;
-    var FIELD_stickySearch = true;
-    var FancyboxI18nClose = 'Close';
-    var FancyboxI18nNext = 'Next';
-    var FancyboxI18nPrev = 'Previous';
-    var LANG_RTL = '0';
-    var added_to_wishlist = 'The product was successfully added to your wishlist.';
-    var ajax_allowed = true;
-    var ajaxsearch = true;
-    var baseDir = 'http://demo.fieldthemes.com/petshop/home1/';
-    var baseUri = 'http://demo.fieldthemes.com/petshop/home1/';
-    var blocklayeredSliderName = {
-      "price": "price",
-      "weight": "weight"
-    };
-    var comparator_max_item = 3;
-    var comparedProductsIds = [];
-    var contentOnly = false;
-    var countdownDay = 'Day';
-    var countdownDays = 'Days';
-    var countdownHour = 'Hour';
-    var countdownHours = 'Hours';
-    var countdownMinute = 'Min';
-    var countdownMinutes = 'Mins';
-    var countdownSecond = 'Sec';
-    var countdownSeconds = 'Secs';
-    var currency = {
-      "id": 1,
-      "name": "Dollar",
-      "iso_code": "USD",
-      "iso_code_num": "840",
-      "sign": "$",
-      "blank": "0",
-      "conversion_rate": "1.000000",
-      "deleted": "0",
-      "format": "1",
-      "decimals": "1",
-      "active": "1",
-      "prefix": "$ ",
-      "suffix": "",
-      "id_shop_list": null,
-      "force_id": false
-    };
-    var currencyBlank = 0;
-    var currencyFormat = 1;
-    var currencyRate = 1;
-    var currencySign = '$';
-    var customizationIdMessage = 'Customization #';
-    var delete_txt = 'Delete';
-    var displayList = false;
-    var fieldbestsellers_autoscroll = false;
-    var fieldbestsellers_navigation = false;
-    var fieldbestsellers_pagination = false;
-    var fieldbestsellers_pauseonhover = false;
-    var fieldblocksearch_type = 'top';
-    var fieldbs_autoscroll = false;
-    var fieldbs_maxitem = '5';
-    var fieldbs_minitem = '2';
-    var fieldbs_navigation = true;
-    var fieldbs_pagination = false;
-    var fieldbs_pauseonhover = false;
-    var filters = [{
-      "type_lite": "price",
-      "type": "price",
-      "id_key": 0,
-      "name": "Price",
-      "slider": true,
-      "max": "104",
-      "min": "16",
-      "values": {
-        "1": "104",
-        "0": "16"
-      },
-      "unit": "$",
-      "format": "1",
-      "filter_show_limit": "0",
-      "filter_type": "0"
-    }, {
-      "type_lite": "id_attribute_group",
-      "type": "id_attribute_group",
-      "id_key": 3,
-      "name": "Color",
-      "is_color_group": true,
-      "values": {
-        "7": {
-          "color": "#f5f5dc",
-          "name": "Beige",
-          "nbr": 2,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#color-beige",
-          "rel": ""
-        },
-        "8": {
-          "color": "#ffffff",
-          "name": "White",
-          "nbr": 2,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#color-white",
-          "rel": ""
-        },
-        "11": {
-          "color": "#434A54",
-          "name": "Black",
-          "nbr": 2,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#color-black",
-          "rel": ""
-        },
-        "13": {
-          "color": "#F39C11",
-          "name": "Orange",
-          "nbr": 3,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#color-orange",
-          "rel": ""
-        },
-        "14": {
-          "color": "#5D9CEC",
-          "name": "Blue",
-          "nbr": 2,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#color-blue",
-          "rel": ""
-        },
-        "15": {
-          "color": "#A0D468",
-          "name": "Green",
-          "nbr": 6,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#color-green",
-          "rel": ""
-        },
-        "16": {
-          "color": "#F1C40F",
-          "name": "Yellow",
-          "nbr": 8,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#color-yellow",
-          "rel": ""
-        },
-        "24": {
-          "color": "#FCCACD",
-          "name": "Pink",
-          "nbr": 2,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#color-pink",
-          "rel": ""
-        }
-      },
-      "url_name": null,
-      "meta_title": null,
-      "filter_show_limit": "0",
-      "filter_type": "0"
-    }, {
-      "type_lite": "id_attribute_group",
-      "type": "id_attribute_group",
-      "id_key": 1,
-      "name": "Size",
-      "is_color_group": false,
-      "values": {
-        "1": {
-          "color": null,
-          "name": "S",
-          "nbr": 13,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#size-s",
-          "rel": ""
-        },
-        "2": {
-          "color": null,
-          "name": "M",
-          "nbr": 13,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#size-m",
-          "rel": ""
-        },
-        "3": {
-          "color": null,
-          "name": "L",
-          "nbr": 13,
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#size-l",
-          "rel": ""
-        }
-      },
-      "url_name": null,
-      "meta_title": null,
-      "filter_show_limit": "0",
-      "filter_type": "0"
-    }, {
-      "type_lite": "quantity",
-      "type": "quantity",
-      "id_key": 0,
-      "name": "Availability",
-      "values": [{
-        "name": "Not available",
-        "nbr": 1,
-        "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#availability-not_available",
-        "rel": "nofollow"
-      }, {
-        "name": "In stock",
-        "nbr": 14,
-        "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#availability-in_stock",
-        "rel": "nofollow"
-      }],
-      "filter_show_limit": "0",
-      "filter_type": "0"
-    }, {
-      "type_lite": "condition",
-      "type": "condition",
-      "id_key": 0,
-      "name": "Condition",
-      "values": {
-        "new": {
-          "name": "New",
-          "nbr": 13,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#condition-new",
-          "rel": "nofollow"
-        },
-        "used": {
-          "name": "Used",
-          "nbr": 2,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#condition-used",
-          "rel": "nofollow"
-        },
-        "refurbished": {
-          "name": "Refurbished",
-          "nbr": 0,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#condition-refurbished",
-          "rel": "nofollow"
-        }
-      },
-      "filter_show_limit": "0",
-      "filter_type": "0"
-    }, {
-      "type_lite": "id_feature",
-      "type": "id_feature",
-      "id_key": 5,
-      "values": {
-        "5": {
-          "nbr": 5,
-          "name": "Cotton",
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#compositions-cotton",
-          "rel": ""
-        },
-        "1": {
-          "nbr": 7,
-          "name": "Polyester",
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#compositions-polyester",
-          "rel": ""
-        },
-        "3": {
-          "nbr": 3,
-          "name": "Viscose",
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#compositions-viscose",
-          "rel": ""
-        }
-      },
-      "name": "Compositions",
-      "url_name": null,
-      "meta_title": null,
-      "filter_show_limit": "0",
-      "filter_type": "0"
-    }, {
-      "type_lite": "id_feature",
-      "type": "id_feature",
-      "id_key": 6,
-      "values": {
-        "15": {
-          "nbr": 1,
-          "name": "Basic",
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#styles-basic",
-          "rel": ""
-        },
-        "11": {
-          "nbr": 4,
-          "name": "Casual",
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#styles-casual",
-          "rel": ""
-        },
-        "16": {
-          "nbr": 2,
-          "name": "Dressy",
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#styles-dressy",
-          "rel": ""
-        },
-        "13": {
-          "nbr": 8,
-          "name": "Girly",
-          "url_name": null,
-          "meta_title": null,
-          "link": "http:\/\/demo.fieldthemes.com\/petshop\/home1\/en\/12-dogs#styles-girly",
-          "rel": ""
-        }
-      },
-      "name": "Styles",
-      "url_name": null,
-      "meta_title": null,
-      "filter_show_limit": "0",
-      "filter_type": "0"
-    }];
-    var freeProductTranslation = 'Free!';
-    var freeShippingTranslation = 'Free shipping!';
-    var generated_date = 1469547220;
-    var hasDeliveryAddress = false;
-    var highDPI = false;
-    var id_lang = 1;
-    var img_dir = 'http://demo.fieldthemes.com/petshop/home1/themes/petshop/img/';
-    var instantsearch = false;
-    var isGuest = 0;
-    var isLogged = 0;
-    var isMobile = false;
-    var langIso = 'en-us';
-    var loggin_required = 'You must be logged in to manage your wishlist.';
-    var max_item = 'You cannot add more than 3 product(s) to the product comparison';
-    var min_item = 'Please select at least one product';
-    var mywishlist_url = 'http://demo.fieldthemes.com/petshop/home1/en/module/blockwishlist/mywishlist';
-    var page_name = 'category';
-    var param_product_url = '#';
-    var placeholder_blocknewsletter = 'Your e-mail';
-    var priceDisplayMethod = 1;
-    var priceDisplayPrecision = 2;
-    var quickView = true;
-    var removingLinkText = 'remove this product from my cart';
-    var request = 'http://demo.fieldthemes.com/petshop/home1/en/12-dogs';
-    var roundMode = 2;
-    var search_url = 'http://demo.fieldthemes.com/petshop/home1/en/search';
-    var static_token = '86de8cec65ff0019f7b7f41977d25940';
-    var toBeDetermined = 'To be determined';
-    var token = 'bb78bb574b4df0040ff320b9a9475335';
-    var usingSecureMode = false;
-    var wishlistProductsIds = false; /* ]]> */
 
-  </script>
-  <script type="text/javascript" src="js/v_12_c9f5da948b0b0981f3a577aa9288ffa1.js"></script>
+  <script type="text/javascript" src="js/script-first.js"></script>
+  <script type="text/javascript" src="js/category.js"></script>
   <script type="text/javascript" src="js/jquery.elevatezoom.min.js"></script>
-  <script type="text/javascript">
-    /* <![CDATA[ */ ;
-    var zoom_type = 'window';
-    var zoom_fade_in = 400;
-    var zoom_fade_out = 550;
-    var zoom_cursor_type = 'default';
-    var zoom_window_pos = 1;
-    var zoom_scroll = true;
-    var zoom_easing = true;
-    var zoom_tint = true;
-    var zoom_tint_color = '#333';
-    var zoom_tint_opacity = 0.4;
-    var zoom_lens_shape = 'round';
-    var zoom_lens_size = 345;;
+  <script type="text/javascript" src="js/script-3.js"></script>
 
-    function applyElevateZoom() {
-      var src = $('.thickbox.shown').attr('href');
-      var bigimage = $('.fancybox.shown').attr('href');
-      $('#bigpic').elevateZoom({
-        zoomType: zoom_type,
-        cursor: zoom_cursor_type,
-        zoomWindowFadeIn: zoom_fade_in,
-        zoomWindowFadeOut: zoom_fade_out,
-        zoomWindowPosition: zoom_window_pos,
-        scrollZoom: zoom_scroll,
-        easing: zoom_easing,
-        tint: zoom_tint,
-        tintColour: zoom_tint_color,
-        tintOpacity: zoom_tint_opacity,
-        lensShape: zoom_lens_shape,
-        lensSize: zoom_lens_size,
-        zoomImage: bigimage,
-        borderSize: 1,
-        borderColour: '#e2dfdf',
-        zoomWindowWidth: 450,
-        zoomWindowHeight: 450,
-        zoomLevel: 0.7,
-        lensBorderSize: 0
-      });
-    }
-    $(document).ready(function() {
-      applyElevateZoom();
-      $('#color_to_pick_list').click(function() {
-        restartElevateZoom();
-      });
-      $('#color_to_pick_list').hover(function() {
-        restartElevateZoom();
-      });
-      $('#views_block li a').hover(function() {
-        restartElevateZoom();
-      });
-    });
-
-    function restartElevateZoom() {
-      $(".zoomContainer").remove();
-      applyElevateZoom();
-    };;
-    var $input = $("#search_query_top");
-    var width_ac_results = $input.parent('form').width();
-    $('document').ready(function() {
-      $("#search_query_top").autocomplete('http://demo.fieldthemes.com/petshop/home1/en/search', {
-        minChars: 3,
-        max: 10,
-        width: (width_ac_results > 0 ? width_ac_results : 500),
-        selectFirst: false,
-        scroll: true,
-        dataType: "json",
-        formatItem: function(data, i, max, value, term) {
-          return value;
-        },
-        parse: function(data) {
-          var mytab = new Array();
-          for (var i = 0; i < data.length; i++)
-            mytab[mytab.length] = {
-              data: data[i],
-              value: '<img alt="' + data[i].pname + '" src="' + data[i].image + '"><div class="right-search"><h5>' + data[i].pname + '</h5><span class="price">' + data[i].dprice + '</span></div> '
-            };
-          return mytab;
-        },
-        extraParams: {
-          ajaxSearch: 1,
-          id_lang: 1,
-          category_filter: $("#category_filter").val()
-        }
-      }).result(function(event, data, formatted) {
-        $('#search_query_top').val(data.pname);
-        document.location.href = data.product_link;
-      });
-      $("#category_filter").change(function() {
-        $(".ac_results").remove();
-        $("#search_query_top").trigger('unautocomplete');
-        $("#search_query_top").autocomplete('http://demo.fieldthemes.com/petshop/home1/en/search', {
-          minChars: 3,
-          max: 10,
-          width: (width_ac_results > 0 ? width_ac_results : 500),
-          selectFirst: false,
-          scroll: true,
-          dataType: "json",
-          formatItem: function(data, i, max, value, term) {
-            return value;
-          },
-          parse: function(data) {
-            var mytab = new Array();
-            for (var i = 0; i < data.length; i++)
-              mytab[mytab.length] = {
-                data: data[i],
-                value: '<img alt="' + data[i].pname + '" src="' + data[i].image + '"><div class="right-search"><h5>' + data[i].pname + '</h5><span class="price">' + data[i].dprice + '</span></div> '
-              };
-            return mytab;
-          },
-          extraParams: {
-            ajaxSearch: 1,
-            id_lang: 1,
-            category_filter: $("#category_filter").val()
-          }
-        }).result(function(event, data, formatted) {
-          $('#search_query_top').val(data.pname);
-          document.location.href = data.product_link;
-        });
-      });
-    });;
-    $('#search_query_top').on('focus', function() {
-      var $this = $(this);
-      if ($this.val() == 'Search...') {
-        $this.val('');
-        $('.btn.button-search').addClass('active');
-      }
-    }).on('blur', function() {
-      var $this = $(this);
-      if ($this.val() == '') {
-        $this.val('Search...');
-        $('.btn.button-search').removeClass('active');
-      }
-    });
-    $("#click_show_searchbox").click(function(e) {
-      $("#searchbox").toggle();
-      if ($("#searchbox").is(":visible")) {
-        $("#click_show_searchbox").addClass("click_hide");
-      } else {
-        $("#click_show_searchbox").removeClass("click_hide");
-      }
-    });
-    $(document).click(function(event) {
-      if (!$(event.target).closest("#searchbox,#click_show_searchbox,.ac_results").length) {
-        $("#searchbox").hide();
-        $("#click_show_searchbox").removeClass("click_hide");
-      }
-    }); /* ]]> */
-
-  </script>
-  <div class="colorpicker" id="collorpicker_66">
+  <div class="colorpicker" id="collorpicker_516">
     <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
       <div>
         <div style="left: 0px; top: 99px;"></div>
@@ -2502,7 +2193,7 @@
       <input type="text" maxlength="3" size="3"><span></span></div>
     <div class="colorpicker_submit"></div>
   </div>
-  <div class="colorpicker" id="collorpicker_985">
+  <div class="colorpicker" id="collorpicker_884">
     <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
       <div>
         <div style="left: 0px; top: 99px;"></div>
