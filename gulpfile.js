@@ -234,7 +234,7 @@ gulp.task('styles', function(callback) {
 // Consolidated dev phase task
 gulp.task('serve', function(callback) {
   runSequence(
-    'cache:clear', ['sprite', 'base64', 'images'], ['scripts'], ['scss', 'fonts'], ['postcss'], ['browserSync', 'watch'],
+     /* 'cache:clear', ['sprite', 'base64', 'images'], ['scripts'], ['scss', 'fonts'], ['postcss'], */ ['browserSync', 'watch'],
     callback
   );
 });
@@ -245,13 +245,13 @@ gulp.task('watch', function() {
     basePaths.dest + '**/*.{html,htm,php}'
   ]).on('change', reload);
 
-  gulp.watch(paths.sprite.src, ['cache:clear', 'sprite', 'images', 'styles', reload]);
+/*  gulp.watch(paths.sprite.src, ['cache:clear', 'sprite', 'images', 'styles', reload]);
   gulp.watch(paths.images.srcimg, ['images', reload]);
   gulp.watch(paths.styles.src + '/_base64.scss', ['base64', reload]);
   gulp.watch(appFiles.styles, ['styles', reload]);
   gulp.watch(paths.sprite.src, ['styles', reload]);
   gulp.watch(paths.fonts.src, ['fonts', reload]);
-  gulp.watch(appFiles.scripts, ['scripts:development', reload]);
+  gulp.watch(appFiles.scripts, ['scripts', reload]); */
 });
 
 // Custom Plumber function for catching errors
