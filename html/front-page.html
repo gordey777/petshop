@@ -22,20 +22,20 @@
 </head>
 
 <body id="index" class="index hide-left-column hide-right-column lang_en fullwidth">
-  <div class="field-demo-wrap" style="box-shadow: none; left: -210px; background: transparent;">
-    <h2 class="field-demo-title" style="opacity: 0;">Theme Settings</h2>
-    <div class="field-demo-option" style="opacity: 0;">
+  <div class="field-demo-wrap">
+    <h2 class="field-demo-title">Theme Settings</h2>
+    <div class="field-demo-option">
       <div class="cl-wrapper">
         <div class="cl-container">
           <div class="cl-table">
             <div class="cl-tr cl-tr-mode-label">Mode Layout</div>
             <div class="cl-tr cl-tr-mode">
               <div class="cl-td-l">
-                <div class="radio" id="uniform-mode_box"><span><input id="mode_box" type="radio" name="mode_css" value="box"></span></div>
+                <input id="mode_box" type="radio" name="mode_css" value="box">
                 <label for="mode_box">Box</label>
               </div>
               <div class="cl-td-r">
-                <div class="radio" id="uniform-mode_full"><span class="checked"><input id="mode_full" type="radio" name="mode_css" value="wide" checked="checked"></span></div>
+                <input id="mode_full" type="radio" name="mode_css" value="wide">
                 <label for="mode_full">Wide</label>
               </div>
             </div>
@@ -77,7 +77,7 @@
       </div>
     </div>
     <div class="control inactive">
-      <a href="#"></a>
+      <a href="javascript:void(0)"></a>
     </div>
   </div>
   <div id="page">
@@ -94,7 +94,7 @@
               <nav>
                 <div id="mobile_links">
                   <div class="current selected"> <span class="cur-label"> <i class="icon-user"></i> My account</span></div>
-                  <ul class="toogle_content header_link" style="">
+                  <ul class="toogle_content header_link">
                     <li> <a class="link-myaccount" href="#" title="Account"><i class="icon-user"></i> Account</a></li>
                     <li> <a class="link-wishlist wishlist_block" href="#" title="My wishlist"><i class="icon-heart"></i> My wishlist</a></li>
                     <li> <a class="link-mycart" href="#" title="My cart"><i class="icon-shopping-cart"></i> My cart</a></li>
@@ -103,7 +103,7 @@
                 </div>
                 <div id="languages-block-top" class="languages-block">
                   <div class="current"> <img src="img/1.jpg" alt="en" width="16" height="11"> <span>English</span></div>
-                  <ul id="first-languages" class="languages-block_ul toogle_content" style="">
+                  <ul id="first-languages" class="languages-block_ul toogle_content">
                     <li class="selected"> <span> <img src="img/1.jpg" alt="en" width="16" height="11"> <span>English</span> </span>
                     </li>
                     <li>
@@ -128,9 +128,9 @@
                     <div class="current">
                       <input type="hidden" name="id_currency" id="id_currency" value="">
                       <input type="hidden" name="SubmitCurrency" value=""> <span class="cur-label"></span> <strong>USD</strong></div>
-                    <ul id="first-currencies" class="currencies_ul toogle_content" style="">
-                      <li class="selected"> <a href="#" rel="nofollow" title="Dollar (USD)"> Dollar (USD) </a></li>
-                      <li> <a href="#" rel="nofollow" title="Euro (EUR)"> Euro (EUR) </a></li>
+                    <ul id="first-currencies" class="currencies_ul toogle_content">
+                      <li class="selected"> <a href="javascript:setCurrency(1);" rel="nofollow" title="Dollar (USD)"> Dollar (USD) </a></li>
+                      <li> <a href="javascript:setCurrency(2);" rel="nofollow" title="Euro (EUR)"> Euro (EUR) </a></li>
                     </ul>
                   </form>
                 </div>
@@ -154,7 +154,7 @@
                       <ul>
                         <li class="root root-1 menu-home">
                           <div class="root-item no-description">
-                            <a href="#" class="active">
+                            <a href="#">
                               <div class="title title_font"><span class="title-text">Home</span></div>
                             </a>
                           </div>
@@ -228,13 +228,13 @@
                             </li>
                           </ul>
                         </li>
-                        <li class="root root-8">
+                        <li class="root root-8 ">
                           <div class="root-item no-description">
                             <a href="#">
                               <div class="title title_font"><span class="title-text">Cat</span></div>
                             </a>
                           </div>
-                          <ul class="menu-items col-md-9 col-xs-12" style="top: 68px; left: 285px; display: none;">
+                          <ul class="menu-items col-md-9 col-xs-12">
                             <li class="menu-item menu-item-51 depth-1 category menucol-1-4 ">
                               <div class="title title_font"> <a href="#"> Clothing </a></div>
                               <ul class="submenu submenu-depth-2">
@@ -395,7 +395,7 @@
                             </a>
                           </div>
                         </li>
-                        <li class="root root-11">
+                        <li class="root root-11 ">
                           <div class="root-item no-description">
                             <a href="#">
                               <div class="title title_font"><span class="title-text">Blog</span></div>
@@ -408,14 +408,22 @@
                 </div>
               </div>
               <div class="shopping_cart_menu">
-                <div class="ft_bg_hover shopping_cart"> <a href="#" title="View my shopping cart" rel="nofollow"><span class="ajax_cart_quantity unvisible">0</span> <span class="ajax_cart_product_txt unvisible">Item -</span> <span class="ajax_cart_product_txt_s unvisible">Items -</span> <span class="ajax_cart_total unvisible price"> </span> <span class="ajax_cart_no_product">(empty)</span> </a>
+                <div class="ft_bg_hover shopping_cart"> <a href="#" title="View my shopping cart" rel="nofollow"><span class="ajax_cart_quantity">1</span> <span class="ajax_cart_product_txt">Item -</span> <span class="ajax_cart_product_txt_s unvisible">Items -</span> <span class="ajax_cart_total price"> $16.51 </span> <span class="ajax_cart_no_product unvisible">(empty)</span> </a>
                   <div class="cart_block block exclusive">
                     <div class="block_content">
                       <div class="cart_block_list">
-                        <p class="cart_block_no_products"> No products</p>
+                        <dl class="products">
+                          <dt data-id="cart_block_product_1_1_0" class="first_item">
+                            <a class="cart-images" href="#" title="Dog Beautiful"><img src="img/dog-beautiful.jpg" alt="Dog Beautiful"></a>
+                            <div class="cart-info">
+                              <div class="product-name"> <span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="#" title="Dog Beautiful">Dog Beautiful</a></div>
+                              <div class="product-atributes"> <a class="ft_color_hover" href="#" title="Product detail">S, Orange</a></div> <span class="price"> $16.51 </span></div> <span class="remove_link"> <a class="ajax_cart_block_remove_link ft_color_hover" href="#" rel="nofollow" title="remove this product from my cart">&nbsp;</a> </span></dt>
+                          <dd data-id="cart_block_combination_of_1_1_0" class="first_item"></dd>
+                        </dl>
+                        <p class="cart_block_no_products unvisible"> No products</p>
                         <div class="cart-prices">
-                          <div class="cart-prices-line first-line"> <span class="price cart_block_shipping_cost ajax_cart_shipping_cost unvisible"> To be determined </span> <span class="unvisible"> Shipping </span></div>
-                          <div class="cart-prices-line last-line"> <span class="price cart_block_total ajax_block_cart_total">$0.00</span> <span>Total</span></div>
+                          <div class="cart-prices-line first-line"> <span class="price cart_block_shipping_cost ajax_cart_shipping_cost"> $7.00 </span> <span> Shipping </span></div>
+                          <div class="cart-prices-line last-line"> <span class="price cart_block_total ajax_block_cart_total">$23.51</span> <span>Total</span></div>
                         </div>
                         <p class="cart-buttons">
                           <a id="button_order_cart" class="ft_bg_default ft_bg_hover" href="#" title="Check out" rel="nofollow"> <span> Check out<i class="icon-chevron-right right"></i> </span> </a>
@@ -436,10 +444,10 @@
                     </div>
                   </div>
                   <div class="layer_cart_cart col-xs-12 col-md-6">
-                    <h2> <span class="ajax_cart_product_txt_s unvisible"> There are <span class="ajax_cart_quantity">0</span> items in your cart. </span> <span class="ajax_cart_product_txt "> There is 1 item in your cart. </span></h2>
-                    <div class="layer_cart_row"> <strong class="dark"> Total products </strong> <span class="ajax_block_products_total"> </span></div>
-                    <div class="layer_cart_row"> <strong class="dark unvisible"> Total shipping&nbsp; </strong> <span class="ajax_cart_shipping_cost unvisible"> To be determined </span></div>
-                    <div class="layer_cart_row"> <strong class="dark"> Total </strong> <span class="ajax_block_cart_total"> </span></div>
+                    <h2> <span class="ajax_cart_product_txt_s unvisible"> There are <span class="ajax_cart_quantity">1</span> items in your cart. </span> <span class="ajax_cart_product_txt "> There is 1 item in your cart. </span></h2>
+                    <div class="layer_cart_row"> <strong class="dark"> Total products </strong> <span class="ajax_block_products_total"> $16.51 </span></div>
+                    <div class="layer_cart_row"> <strong class="dark"> Total shipping&nbsp; </strong> <span class="ajax_cart_shipping_cost"> $7.00 </span></div>
+                    <div class="layer_cart_row"> <strong class="dark"> Total </strong> <span class="ajax_block_cart_total"> $23.51 </span></div>
                     <div class="button-container"> <span class="continue ft_bg_default ft_btn_default ft_bg_hover" title="Continue shopping"> <span> <i class="icon-chevron-left left"></i>Continue shopping </span> </span>
                       <a class="ft_bg_default ft_btn_default ft_bg_hover" href="#" title="Proceed to checkout" rel="nofollow"> <span> Proceed to checkout<i class="icon-chevron-right right"></i> </span> </a>
                     </div>
@@ -448,13 +456,13 @@
                 <div class="crossseling"></div>
               </div>
               <div class="layer_cart_overlay"></div>
-              <div id="search_block_top" class="">
+              <div id="search_block_top">
                 <div class="field-search"> <span id="click_show_searchbox" class="icon-search"></span>
-                  <form method="get" action="#" id="searchbox" style="display: none;">
+                  <form method="get" action="#" id="searchbox">
                     <input type="hidden" name="controller" value="search">
                     <input type="hidden" name="orderby" value="position">
                     <input type="hidden" name="orderway" value="desc">
-                    <input class="search_query form-control ac_input" type="text" id="search_query_top" name="search_query" value="Search..." autocomplete="off">
+                    <input class="search_query form-control" type="text" id="search_query_top" name="search_query" value="Search...">
                     <button type="submit" name="submit_search" class="btn button-search"> <span class="icon-search"></span> </button>
                   </form>
                 </div>
@@ -467,11 +475,11 @@
     <div id="header_mobile_menu" class="navbar-inactive visible-sm visible-xs">
       <div class="container">
         <div class="fieldmm-nav col-sm-12 col-xs-12"> <span class="brand">Menu list</span> <span id="fieldmm-button"><i class="icon-reorder"></i></span>
-          <nav id="fieldmegamenu-mobile" class="fieldmegamenu inactive">
+          <nav id="fieldmegamenu-mobile" class="fieldmegamenu">
             <ul>
               <li class="root root-1 menu-home">
                 <div class="root-item no-description">
-                  <a href="#" class="active">
+                  <a href="#">
                     <div class="title title_font"><span class="title-text">Home</span></div>
                   </a>
                 </div>
@@ -481,7 +489,7 @@
                   <a href="#">
                     <div class="title title_font"><span class="title-text">Dogs</span></div>
                   </a>
-                </div><span class="fieldmegamenu-mobile-handle icon-plus small"></span>
+                </div>
                 <ul class="menu-items col-md-12 col-xs-12">
                   <li class="menu-item menu-item-19 depth-1 category menucol-1-5 ">
                     <div class="title title_font"> <a href="#"> Collar Belt </a></div>
@@ -550,7 +558,7 @@
                   <a href="#">
                     <div class="title title_font"><span class="title-text">Cat</span></div>
                   </a>
-                </div><span class="fieldmegamenu-mobile-handle icon-plus small"></span>
+                </div>
                 <ul class="menu-items col-md-9 col-xs-12">
                   <li class="menu-item menu-item-51 depth-1 category menucol-1-4 ">
                     <div class="title title_font"> <a href="#"> Clothing </a></div>
@@ -633,7 +641,7 @@
                 <div class="root-item">
                   <a href="#">
                     <div class="title title_font"><span class="title-text">Dresses</span></div> <span class="description">NEW</span> </a>
-                </div><span class="fieldmegamenu-mobile-handle icon-plus small"></span>
+                </div>
                 <ul class="menu-items col-md-9 col-xs-12">
                   <li class="menu-item menu-item-72 depth-1 category menucol-1-4 ">
                     <div class="title title_font"> <a href="#"> Collar Belt </a></div>
@@ -724,44 +732,43 @@
         </div>
       </div>
     </div>
-<div class="field-main-slider block" style="overflow: hidden;">
-  <div id="insideslider_mod" class="outer-slide" style="width: 1920px; height: 500px">
-    <div class="loading">
-      <div class="bg-loading"></div>
-      <div class="icon-loading"></div>
-    </div>
-    <div data-u="slides" style="width: 1920px; height: 500px">
-      <div class="field-main-slider_1">
-        <a href="#"> <img class="img-slider" src="http://demo.fieldthemes.com/petshop/home1/modules/fieldslideshow/images/slider-111.jpg" alt="" data-u="image"> </a>
-        <div class="container">
-          <div class="large-slide-title title_font" data-u="caption" data-t="T-*IB" data-t2="ZML|TR" data-d="-300"> YOUR CUTE PET</div>
-          <div class="big-slide-title title_font" data-u="caption" data-t="ZM*WVR|LB" data-t2="WVC|R" data-d="-300"> new collection 2016</div>
-          <div class="div-slide-button shop_now" data-u="caption" data-t="B-R*"> <a class="slide-button title_font" href="#"> SHOP NOW </a></div>
+    <div class="field-main-slider block" style="overflow: hidden;">
+      <div id="insideslider_mod" class="outer-slide" style="width: 1920px; height: 500px">
+        <div class="loading">
+          <div class="bg-loading"></div>
+          <div class="icon-loading"></div>
+        </div>
+        <div data-u="slides" style="width: 1920px; height: 500px">
+          <div class="field-main-slider_1">
+            <a href="#"> <img class="img-slider" src="img/slider-111.jpg" alt="" data-u="image"> </a>
+            <div class="container">
+              <div class="large-slide-title title_font" data-u="caption" data-t="T-*IB" data-t2="ZML|TR" data-d="-300"> YOUR CUTE PET</div>
+              <div class="big-slide-title title_font" data-u="caption" data-t="ZM*WVR|LB" data-t2="WVC|R" data-d="-300"> new collection 2016</div>
+              <div class="div-slide-button shop_now" data-u="caption" data-t="B-R*"> <a class="slide-button title_font" href="#"> SHOP NOW </a></div>
+            </div>
+          </div>
+          <div class="field-main-slider_2">
+            <a href="#"> <img class="img-slider" src="img/slider-222.jpg" alt="" data-u="image"> </a>
+            <div class="container">
+              <div class="large-slide-title title_font" data-u="caption" data-t="ZM*JUP1|T" data-t2="FLTTRWN|LT"> CUTE CAT LOVE</div>
+              <div class="big-slide-title title_font" data-u="caption" data-t="ZM*JUP1|T" data-t2="FLTTRWN|LT"> SALE UP TO 40% OFF</div>
+              <div class="div-slide-button shop_now" data-u="caption" data-t="ZM*JUP1|B"> <a class="slide-button title_font" href="#"> SHOP NOW </a></div>
+            </div>
+          </div>
+          <div class="field-main-slider_3">
+            <a href="#"> <img class="img-slider" src="img/slider-333.jpg" alt="" data-u="image"> </a>
+            <div class="container">
+              <div class="large-slide-title title_font" data-u="caption" data-t="ZM*WVR|RT" data-t2="WVC|B" data-d="-300"> new arrivals</div>
+              <div class="big-slide-title title_font" data-u="caption" data-t="ZM*WVR|LB" data-t2="WVC|T" data-d="-300"> sale up to 40% off</div>
+              <div class="div-slide-button shop_now" data-u="caption" data-t="ZM*WVR|LB" data-t2="WVC|T" data-d="-300"> <a class="slide-button title_font" href="#"> SHOP NOW </a></div>
+            </div>
+          </div>
+        </div>
+        <div data-u="navigator">
+          <div data-u="prototype"></div>
         </div>
       </div>
-      <div class="field-main-slider_2">
-        <a href="#"> <img class="img-slider" src="http://demo.fieldthemes.com/petshop/home1/modules/fieldslideshow/images/slider-222.jpg" alt="" data-u="image"> </a>
-        <div class="container">
-          <div class="large-slide-title title_font" data-u="caption" data-t="ZM*JUP1|T" data-t2="FLTTRWN|LT"> CUTE CAT LOVE</div>
-          <div class="big-slide-title title_font" data-u="caption" data-t="ZM*JUP1|T" data-t2="FLTTRWN|LT"> SALE UP TO 40% OFF</div>
-          <div class="div-slide-button shop_now" data-u="caption" data-t="ZM*JUP1|B"> <a class="slide-button title_font" href="#"> SHOP NOW </a></div>
-        </div>
-      </div>
-      <div class="field-main-slider_3">
-        <a href="#"> <img class="img-slider" src="http://demo.fieldthemes.com/petshop/home1/modules/fieldslideshow/images/slider-333.jpg" alt="" data-u="image"> </a>
-        <div class="container">
-          <div class="large-slide-title title_font" data-u="caption" data-t="ZM*WVR|RT" data-t2="WVC|B" data-d="-300"> new arrivals</div>
-          <div class="big-slide-title title_font" data-u="caption" data-t="ZM*WVR|LB" data-t2="WVC|T" data-d="-300"> sale up to 40% off</div>
-          <div class="div-slide-button shop_now" data-u="caption" data-t="ZM*WVR|LB" data-t2="WVC|T" data-d="-300"> <a class="slide-button title_font" href="#"> SHOP NOW </a></div>
-        </div>
-      </div>
     </div>
-    <div data-u="navigator">
-      <div data-u="prototype"></div>
-    </div>
-  </div>
-</div>
-
     <div class="columns-container">
       <div id="columns" class="container">
         <div id="slider_row" class="row"></div>
@@ -801,12 +808,12 @@
                     </ul> <em class="logo-circle"><i class="circle"></i></em></div>
                 </div>
                 <div class="fieldtabproductsisotope-products">
-                  <ul class="isotope-grid" style="position: relative; height: 664px;">
-                    <li class="col-product-iso isotope-item item fatured-products bestseller" style="position: absolute; left: 0px; top: 0px;">
+                  <ul class="isotope-grid">
+                    <li class="col-product-iso isotope-item item fatured-products bestseller">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
-                            <a class="product_img" href="#" title=""> <span class="hover-image"><img class="replace-2x" src="img/dog-beautiful.jpg" alt="Dog Beautiful" title="Dog Beautiful" height="216" width="216"></span> <span class="img_root"> <img src="img/dog-beautiful(1).jpg" height="216" width="216" alt=""> </span> </a> <span class="new">New</span> <span class="sale">Sale</span>
+                            <a class="product_img" href="#" title=""> <span class="hover-image"><img class="replace-2x" src="img/dog-beautiful(1).jpg" alt="Dog Beautiful" title="Dog Beautiful" height="216" width="216"></span> <span class="img_root"> <img src="img/dog-beautiful(2).jpg" height="216" width="216" alt=""> </span> </a> <span class="new">New</span> <span class="sale">Sale</span>
                             <div class="button-container">
                               <div class="box-button-cart">
                                 <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="1" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
@@ -831,7 +838,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products bestseller" style="position: absolute; left: 238px; top: 0px;">
+                    <li class="col-product-iso isotope-item item fatured-products bestseller">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -855,8 +862,8 @@
                             <h5 class="sub_title_font"> <a class="product-name" href="#" title="Dog and Cat"> Dog and Cat </a></h5>
                             <div class="price-rating">
                               <div class="content_price"> <span class="price product-price"> $27.00 </span></div>
-                              <div class="comments_note" itemtype="#" itemscope="">
-                                <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                              <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                                <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
@@ -872,7 +879,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products bestseller" style="position: absolute; left: 476px; top: 0px;">
+                    <li class="col-product-iso isotope-item item fatured-products bestseller">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -901,7 +908,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products" style="position: absolute; left: 714px; top: 0px;">
+                    <li class="col-product-iso isotope-item item fatured-products">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -925,8 +932,8 @@
                             <h5 class="sub_title_font"> <a class="product-name" href="#" title="Love Bird"> Love Bird </a></h5>
                             <div class="price-rating">
                               <div class="content_price"> <span class="price product-price"> $50.99 </span></div>
-                              <div class="comments_note" itemtype="#" itemscope="">
-                                <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                              <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                                <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
@@ -942,7 +949,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products bestseller" style="position: absolute; left: 952px; top: 0px;">
+                    <li class="col-product-iso isotope-item item fatured-products bestseller">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -966,8 +973,8 @@
                             <h5 class="sub_title_font"> <a class="product-name" href="#" title="Bird Beautiful"> Bird Beautiful </a></h5>
                             <div class="price-rating">
                               <div class="content_price"> <span class="price product-price"> $30.51 </span></div>
-                              <div class="comments_note" itemtype="#" itemscope="">
-                                <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                              <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                                <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
@@ -983,7 +990,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products bestseller" style="position: absolute; left: 0px; top: 332px;">
+                    <li class="col-product-iso isotope-item item fatured-products bestseller">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -1007,8 +1014,8 @@
                             <h5 class="sub_title_font"> <a class="product-name" href="#" title="Cute Cat Love"> Cute Cat Love </a></h5>
                             <div class="price-rating">
                               <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
-                              <div class="comments_note" itemtype="#" itemscope="">
-                                <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                              <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                                <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
@@ -1024,7 +1031,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products" style="position: absolute; left: 238px; top: 332px;">
+                    <li class="col-product-iso isotope-item item fatured-products">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -1048,8 +1055,8 @@
                             <h5 class="sub_title_font"> <a class="product-name" href="#" title="Macaw Parrot"> Macaw Parrot </a></h5>
                             <div class="price-rating">
                               <div class="content_price"> <span class="price product-price"> $60.00 </span></div>
-                              <div class="comments_note" itemtype="#" itemscope="">
-                                <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                              <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                                <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
@@ -1065,7 +1072,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products" style="position: absolute; left: 476px; top: 332px;">
+                    <li class="col-product-iso isotope-item item fatured-products">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -1094,7 +1101,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products" style="position: absolute; left: 714px; top: 332px;">
+                    <li class="col-product-iso isotope-item item fatured-products">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -1118,8 +1125,8 @@
                             <h5 class="sub_title_font"> <a class="product-name" href="#" title="Cockatoo"> Cockatoo </a></h5>
                             <div class="price-rating">
                               <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
-                              <div class="comments_note" itemtype="#" itemscope="">
-                                <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                              <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                                <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
@@ -1135,7 +1142,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item fatured-products" style="position: absolute; left: 952px; top: 332px;">
+                    <li class="col-product-iso isotope-item item fatured-products">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -1164,7 +1171,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item onsale" style="position: absolute; left: 0px; top: 664px; display: none;">
+                    <li class="col-product-iso isotope-item item onsale">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -1188,8 +1195,8 @@
                             <h5 class="sub_title_font"> <a class="product-name" href="#" title="Parrot Beautiful"> Parrot Beautiful </a></h5>
                             <div class="price-rating">
                               <div class="content_price"> <span class="price product-price"> $80.00 </span> <span class="old-price product-price"> $100.00 </span> <span class="price-percent-reduction">-20%</span></div>
-                              <div class="comments_note" itemtype="#" itemscope="">
-                                <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                              <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                                <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
@@ -1205,7 +1212,7 @@
                         </div>
                       </div>
                     </li>
-                    <li class="col-product-iso isotope-item item onsale bestseller" style="position: absolute; left: 238px; top: 664px; display: none;">
+                    <li class="col-product-iso isotope-item item onsale bestseller">
                       <div class="item-wrapper">
                         <div class="item-inner">
                           <div class="left-block">
@@ -1229,8 +1236,8 @@
                             <h5 class="sub_title_font"> <a class="product-name" href="#" title="Baby Cat"> Baby Cat </a></h5>
                             <div class="price-rating">
                               <div class="content_price"> <span class="price product-price"> $24.40 </span> <span class="old-price product-price"> $30.50 </span> <span class="price-percent-reduction">-20%</span></div>
-                              <div class="comments_note" itemtype="#" itemscope="">
-                                <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                              <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                                <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
                                   <div class="star star_on"></div>
@@ -1246,74 +1253,73 @@
                         </div>
                       </div>
                     </li>
-                    <li class="isotope-item item grid-sizer" style="position: absolute; left: 476px; top: 664px; display: none;"></li>
+                    <li class="isotope-item item grid-sizer"></li>
                   </ul>
                 </div>
               </div>
             </div>
             <div class="testimonial">
-              <div class="block block_testimonials" style="background: url(img/background_1.jpg?112649 ) top left no-repeat; background-attachment: fixed; background-blend-mode: screen; background-clip: border-box; background-color: rgba(0, 0, 0, 0); background-size:cover; background-origin: padding-box; background-repeat: no-repeat;">
+              <div class="block block_testimonials" style="background: url(img/background_1.jpg?052604 ) top left no-repeat; background-attachment: fixed; background-blend-mode: screen; background-clip: border-box; background-color: rgba(0, 0, 0, 0); background-size:cover; background-origin: padding-box; background-repeat: no-repeat;">>
                 <div id="testimonials_block_right">
                   <div class="title">
                     <h4 class="title_font title_text">What client says</h4></div>
                   <div id="wrapper" class="block_content">
-          <div id="slide-panel">
-  <div id="slide">
-    <div class="main-block">
-      <div class="show-info">
-        <div class="content_test_top">
-          <p class="des_testimonial">Aliquam quis risus viverra, ornare ipsum vitae, congue tellus. Vestibulum nunc lorem, scelerisque a tristique non, accumsan ornare eros. Nullam sapien metus, volutpat dictum. Praesent tellus felis, aliquet id augue at, tincidunt vestibulum leo.</p>
-        </div>
-        <div class="media">
-          <div class="media-content">
-            <a class="fancybox-media" href="img/630-client-3.png?id_test=1"> <img src="img/630-client-3.png" alt="Image Testimonial"> </a>
-          </div>
-          <div class="content_test">
-            <p class="des_namepost title_font">Jane Doe</p>
-            <p class="des_company">Online Marketer</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="main-block">
-      <div class="show-info">
-        <div class="content_test_top">
-          <p class="des_testimonial">This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. In molestie augue magna. Pellentesque felis lorem, pulvinar sed eros non, sagittis consequat urna.</p>
-        </div>
-        <div class="media">
-          <div class="media-content">
-            <a class="fancybox-media" href="img/993-client-6.png?id_test=2"> <img src="img/993-client-6.png" alt="Image Testimonial"> </a>
-          </div>
-          <div class="content_test">
-            <p class="des_namepost title_font">Cornelius Reeves</p>
-            <p class="des_company">Project Manager</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="main-block">
-      <div class="show-info">
-        <div class="content_test_top">
-          <p class="des_testimonial">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-        </div>
-        <div class="media">
-          <div class="media-content">
-            <a class="fancybox-media" href="img/58-client-8.png?id_test=3"> <img src="img/58-client-8.png" alt="Image Testimonial"> </a>
-          </div>
-          <div class="content_test">
-            <p class="des_namepost title_font">Jochen Rechsteiner</p>
-            <p class="des_company">Stylish Manager</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="bx-controls-direction">
-    <a class="prev bx-prev" href=""></a>
-    <a class="next bx-next" href=""></a>
-  </div>
-</div>
-
+                    <div id="slide-panel">
+                      <div id="slide">
+                        <div class="main-block">
+                          <div class="show-info">
+                            <div class="content_test_top">
+                              <p class="des_testimonial">Aliquam quis risus viverra, ornare ipsum vitae, congue tellus. Vestibulum nunc lorem, scelerisque a tristique non, accumsan ornare eros. Nullam sapien metus, volutpat dictum. Praesent tellus felis, aliquet id augue at, tincidunt vestibulum leo.</p>
+                            </div>
+                            <div class="media">
+                              <div class="media-content">
+                                <a class="fancybox-media" href="#"> <img src="img/630-client-3.png" alt="Image Testimonial"> </a>
+                              </div>
+                              <div class="content_test">
+                                <p class="des_namepost title_font">Jane Doe</p>
+                                <p class="des_company">Online Marketer</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="main-block">
+                          <div class="show-info">
+                            <div class="content_test_top">
+                              <p class="des_testimonial">This is Photoshop's version of Lorem Ipsum. Proin gravida nibh vel velit.Lorem ipsum dolor sit amet, consectetur adipiscing elit. In molestie augue magna. Pellentesque felis lorem, pulvinar sed eros non, sagittis consequat urna.</p>
+                            </div>
+                            <div class="media">
+                              <div class="media-content">
+                                <a class="fancybox-media" href="#"> <img src="img/993-client-6.png" alt="Image Testimonial"> </a>
+                              </div>
+                              <div class="content_test">
+                                <p class="des_namepost title_font">Cornelius Reeves</p>
+                                <p class="des_company">Project Manager</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="main-block">
+                          <div class="show-info">
+                            <div class="content_test_top">
+                              <p class="des_testimonial">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                            </div>
+                            <div class="media">
+                              <div class="media-content">
+                                <a class="fancybox-media" href="#"> <img src="img/58-client-8.png" alt="Image Testimonial"> </a>
+                              </div>
+                              <div class="content_test">
+                                <p class="des_namepost title_font">Jochen Rechsteiner</p>
+                                <p class="des_company">Stylish Manager</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="bx-controls-direction">
+                        <a class="prev bx-prev" href="#"></a>
+                        <a class="next bx-next" href="#"></a>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1321,240 +1327,214 @@
             <div id="field_newproductslider" class="block title_center horizontal_mode">
               <h4 class="title_block title_font"> <span class="title_text"> <a href="#" title="NEW ARRIVALS"> NEW ARRIVALS </a> <em class="logo-circle"><i class="circle"></i></em> </span></h4>
               <div class="row">
-                <div id="new_products" class="carousel-grid owl-carousel owl-theme" style="display: block; opacity: 1;">
-                  <div class="owl-wrapper-outer">
-                    <div class="owl-wrapper" style="width: 2856px; left: 0px; display: block;">
-                      <div class="owl-item" style="width: 238px;">
-                        <div class="item first">
-                          <div class="item-inner">
-                            <div class="left-block">
-                              <a class="product_img" href="#" title="Bengal Cat"> <span class="hover-image"><img class="replace-2x" src="img/bengal-cat.jpg" alt="Bengal Cat" title="Bengal Cat" height="216" width="216"></span> <span class="img_root"> <img src="img/bengal-cat(1).jpg" height="216" width="216" alt="Bengal Cat"> </span> </a> <span class="new">New</span>
-                              <div class="button-container">
-                                <div class="box-button-cart">
-                                  <a class="ajax_add_to_cart_button btn" href="#"> <i class="icon-shopping-cart"></i> <span>Out stock</span> </a>
-                                </div>
-                                <div class="box-button-quick-view">
-                                  <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
-                                </div>
-                                <div class="box-button-wishlist splist">
-                                  <a class="title_font addToWishlist wishlistProd_17" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;17&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
-                                </div>
-                                <div class="box-button-compare">
-                                  <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="17" data-product-cover=".img/bengal-cat.jpg" data-product-name="Bengal Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="right-block">
-                              <h5 class="sub_title_font"> <a class="product-name" href="#" title="Bengal Cat"> Bengal Cat </a></h5>
-                              <div class="price-rating">
-                                <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
-                                <div class="comments_note" itemtype="#" itemscope="">
-                                  <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <meta itemprop="worstRating" content="0">
-                                    <meta itemprop="ratingValue" content="5">
-                                    <meta itemprop="bestRating" content="5">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+                <div id="new_products" class="carousel-grid owl-carousel">
+                  <div class="item first">
+                    <div class="item-inner">
+                      <div class="left-block">
+                        <a class="product_img" href="#" title="Bengal Cat"> <span class="hover-image"><img class="replace-2x" src="img/bengal-cat.jpg" alt="Bengal Cat" title="Bengal Cat" height="216" width="216"></span> <span class="img_root"> <img src="img/bengal-cat(1).jpg" height="216" width="216" alt="Bengal Cat"> </span> </a> <span class="new">New</span>
+                        <div class="button-container">
+                          <div class="box-button-cart">
+                            <a class="ajax_add_to_cart_button btn" href="#"> <i class="icon-shopping-cart"></i> <span>Out stock</span> </a>
+                          </div>
+                          <div class="box-button-quick-view">
+                            <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
+                          </div>
+                          <div class="box-button-wishlist splist">
+                            <a class="title_font addToWishlist wishlistProd_17" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;17&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                          </div>
+                          <div class="box-button-compare">
+                            <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="17" data-product-cover="img/bengal-cat.jpg" data-product-name="Bengal Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                           </div>
                         </div>
                       </div>
-                      <div class="owl-item" style="width: 238px;">
-                        <div class="item">
-                          <div class="item-inner">
-                            <div class="left-block">
-                              <a class="product_img" href="#" title="Beagle"> <span class="hover-image"><img class="replace-2x" src="img/beagle.jpg" alt="Beagle" title="Beagle" height="216" width="216"></span> <span class="img_root"> <img src="img/beagle(1).jpg" height="216" width="216" alt="Beagle"> </span> </a> <span class="new">New</span>
-                              <div class="button-container">
-                                <div class="box-button-cart">
-                                  <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="16" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
-                                </div>
-                                <div class="box-button-quick-view">
-                                  <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
-                                </div>
-                                <div class="box-button-wishlist splist">
-                                  <a class="title_font addToWishlist wishlistProd_16" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;16&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
-                                </div>
-                                <div class="box-button-compare">
-                                  <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="16" data-product-cover=".img/beagle.jpg" data-product-name="Beagle"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="right-block">
-                              <h5 class="sub_title_font"> <a class="product-name" href="#" title="Beagle"> Beagle </a></h5>
-                              <div class="price-rating">
-                                <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
-                                <div class="comments_note" itemtype="#" itemscope="">
-                                  <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <meta itemprop="worstRating" content="0">
-                                    <meta itemprop="ratingValue" content="5">
-                                    <meta itemprop="bestRating" content="5">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 238px;">
-                        <div class="item">
-                          <div class="item-inner">
-                            <div class="left-block">
-                              <a class="product_img" href="#" title="Cuckoos"> <span class="hover-image"><img class="replace-2x" src="img/cuckoos.jpg" alt="Cuckoos" title="Cuckoos" height="216" width="216"></span> <span class="img_root"> <img src="img/cuckoos(1).jpg" height="216" width="216" alt="Cuckoos"> </span> </a> <span class="new">New</span>
-                              <div class="button-container">
-                                <div class="box-button-cart">
-                                  <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="13" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
-                                </div>
-                                <div class="box-button-quick-view">
-                                  <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
-                                </div>
-                                <div class="box-button-wishlist splist">
-                                  <a class="title_font addToWishlist wishlistProd_13" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;13&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
-                                </div>
-                                <div class="box-button-compare">
-                                  <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="13" data-product-cover=".img/cuckoos.jpg" data-product-name="Cuckoos"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="right-block">
-                              <h5 class="sub_title_font"> <a class="product-name" href="#" title="Cuckoos"> Cuckoos </a></h5>
-                              <div class="price-rating">
-                                <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
-                                <div class="comments_note" itemtype="#" itemscope="">
-                                  <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <meta itemprop="worstRating" content="0">
-                                    <meta itemprop="ratingValue" content="5">
-                                    <meta itemprop="bestRating" content="5">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 238px;">
-                        <div class="item">
-                          <div class="item-inner">
-                            <div class="left-block">
-                              <a class="product_img" href="#" title="Swallow"> <span class="hover-image"><img class="replace-2x" src="img/swallow.jpg" alt="Swallow" title="Swallow" height="216" width="216"></span> <span class="img_root"> <img src="img/swallow(1).jpg" height="216" width="216" alt="Swallow"> </span> </a> <span class="new">New</span> <span class="sale">Sale</span>
-                              <div class="button-container">
-                                <div class="box-button-cart">
-                                  <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="12" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
-                                </div>
-                                <div class="box-button-quick-view">
-                                  <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
-                                </div>
-                                <div class="box-button-wishlist splist">
-                                  <a class="title_font addToWishlist wishlistProd_12" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;12&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
-                                </div>
-                                <div class="box-button-compare">
-                                  <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="12" data-product-cover=".img/swallow.jpg" data-product-name="Swallow"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="right-block">
-                              <h5 class="sub_title_font"> <a class="product-name" href="#" title="Swallow"> Swallow </a></h5>
-                              <div class="price-rating">
-                                <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 238px;">
-                        <div class="item">
-                          <div class="item-inner">
-                            <div class="left-block">
-                              <a class="product_img" href="#" title="Cockatoo"> <span class="hover-image"><img class="replace-2x" src="img/cockatoo.jpg" alt="Cockatoo" title="Cockatoo" height="216" width="216"></span> <span class="img_root"> <img src="img/cockatoo(1).jpg" height="216" width="216" alt="Cockatoo"> </span> </a> <span class="new">New</span>
-                              <div class="button-container">
-                                <div class="box-button-cart">
-                                  <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="11" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
-                                </div>
-                                <div class="box-button-quick-view">
-                                  <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
-                                </div>
-                                <div class="box-button-wishlist splist">
-                                  <a class="title_font addToWishlist wishlistProd_11" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;11&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
-                                </div>
-                                <div class="box-button-compare">
-                                  <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="11" data-product-cover=".img/cockatoo.jpg" data-product-name="Cockatoo"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="right-block">
-                              <h5 class="sub_title_font"> <a class="product-name" href="#" title="Cockatoo"> Cockatoo </a></h5>
-                              <div class="price-rating">
-                                <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
-                                <div class="comments_note" itemtype="#" itemscope="">
-                                  <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <meta itemprop="worstRating" content="0">
-                                    <meta itemprop="ratingValue" content="5">
-                                    <meta itemprop="bestRating" content="5">
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="owl-item" style="width: 238px;">
-                        <div class="item">
-                          <div class="item-inner">
-                            <div class="left-block">
-                              <a class="product_img" href="#" title=""> <span class="hover-image"><img class="replace-2x" src="img/black-cat.jpg" alt="Black Cat" title="Black Cat" height="216" width="216"></span> <span class="img_root"> <img src="img/black-cat(1).jpg" height="216" width="216" alt=""> </span> </a> <span class="new">New</span>
-                              <div class="button-container">
-                                <div class="box-button-cart">
-                                  <a class="ajax_add_to_cart_button btn" href="#"> <i class="icon-shopping-cart"></i> <span>Customize</span> </a>
-                                </div>
-                                <div class="box-button-quick-view">
-                                  <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
-                                </div>
-                                <div class="box-button-wishlist splist">
-                                  <a class="title_font addToWishlist wishlistProd_10" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;10&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
-                                </div>
-                                <div class="box-button-compare">
-                                  <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="10" data-product-cover="#" data-product-name="Black Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="right-block">
-                              <h5 class="sub_title_font"> <a class="product-name" href="#" title="Black Cat"> Black Cat </a></h5>
-                              <div class="price-rating">
-                                <div class="content_price"> <span class="price product-price"> $50.99 </span></div>
-                              </div>
+                      <div class="right-block">
+                        <h5 class="sub_title_font"> <a class="product-name" href="#" title="Bengal Cat"> Bengal Cat </a></h5>
+                        <div class="price-rating">
+                          <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
+                          <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                            <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <meta itemprop="worstRating" content="0">
+                              <meta itemprop="ratingValue" content="5">
+                              <meta itemprop="bestRating" content="5">
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="owl-controls clickable">
-                    <div class="owl-buttons">
-                      <div class="owl-prev" style="margin-right: 88px;">
-                        <div class="carousel-previous disable-select"><span class="icon-chevron-left"></span></div>
+                  <div class="item">
+                    <div class="item-inner">
+                      <div class="left-block">
+                        <a class="product_img" href="#" title="Beagle"> <span class="hover-image"><img class="replace-2x" src="img/beagle.jpg" alt="Beagle" title="Beagle" height="216" width="216"></span> <span class="img_root"> <img src="img/beagle(1).jpg" height="216" width="216" alt="Beagle"> </span> </a> <span class="new">New</span>
+                        <div class="button-container">
+                          <div class="box-button-cart">
+                            <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="16" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                          </div>
+                          <div class="box-button-quick-view">
+                            <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
+                          </div>
+                          <div class="box-button-wishlist splist">
+                            <a class="title_font addToWishlist wishlistProd_16" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;16&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                          </div>
+                          <div class="box-button-compare">
+                            <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="16" data-product-cover="img/beagle.jpg" data-product-name="Beagle"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                          </div>
+                        </div>
                       </div>
-                      <div class="owl-next" style="margin-left: 88px;">
-                        <div class="carousel-next disable-select"><span class="icon-chevron-right"></span></div>
+                      <div class="right-block">
+                        <h5 class="sub_title_font"> <a class="product-name" href="#" title="Beagle"> Beagle </a></h5>
+                        <div class="price-rating">
+                          <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
+                          <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                            <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <meta itemprop="worstRating" content="0">
+                              <meta itemprop="ratingValue" content="5">
+                              <meta itemprop="bestRating" content="5">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="item-inner">
+                      <div class="left-block">
+                        <a class="product_img" href="#" title="Cuckoos"> <span class="hover-image"><img class="replace-2x" src="img/cuckoos.jpg" alt="Cuckoos" title="Cuckoos" height="216" width="216"></span> <span class="img_root"> <img src="img/cuckoos(1).jpg" height="216" width="216" alt="Cuckoos"> </span> </a> <span class="new">New</span>
+                        <div class="button-container">
+                          <div class="box-button-cart">
+                            <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="13" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                          </div>
+                          <div class="box-button-quick-view">
+                            <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
+                          </div>
+                          <div class="box-button-wishlist splist">
+                            <a class="title_font addToWishlist wishlistProd_13" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;13&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                          </div>
+                          <div class="box-button-compare">
+                            <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="13" data-product-cover="img/cuckoos.jpg" data-product-name="Cuckoos"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-block">
+                        <h5 class="sub_title_font"> <a class="product-name" href="#" title="Cuckoos"> Cuckoos </a></h5>
+                        <div class="price-rating">
+                          <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
+                          <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                            <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <meta itemprop="worstRating" content="0">
+                              <meta itemprop="ratingValue" content="5">
+                              <meta itemprop="bestRating" content="5">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="item-inner">
+                      <div class="left-block">
+                        <a class="product_img" href="#" title="Swallow"> <span class="hover-image"><img class="replace-2x" src="img/swallow.jpg" alt="Swallow" title="Swallow" height="216" width="216"></span> <span class="img_root"> <img src="img/swallow(1).jpg" height="216" width="216" alt="Swallow"> </span> </a> <span class="new">New</span> <span class="sale">Sale</span>
+                        <div class="button-container">
+                          <div class="box-button-cart">
+                            <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="12" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                          </div>
+                          <div class="box-button-quick-view">
+                            <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
+                          </div>
+                          <div class="box-button-wishlist splist">
+                            <a class="title_font addToWishlist wishlistProd_12" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;12&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                          </div>
+                          <div class="box-button-compare">
+                            <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="12" data-product-cover="img/swallow.jpg" data-product-name="Swallow"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-block">
+                        <h5 class="sub_title_font"> <a class="product-name" href="#" title="Swallow"> Swallow </a></h5>
+                        <div class="price-rating">
+                          <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="item-inner">
+                      <div class="left-block">
+                        <a class="product_img" href="#" title="Cockatoo"> <span class="hover-image"><img class="replace-2x" src="img/cockatoo.jpg" alt="Cockatoo" title="Cockatoo" height="216" width="216"></span> <span class="img_root"> <img src="img/cockatoo(1).jpg" height="216" width="216" alt="Cockatoo"> </span> </a> <span class="new">New</span>
+                        <div class="button-container">
+                          <div class="box-button-cart">
+                            <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="11" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                          </div>
+                          <div class="box-button-quick-view">
+                            <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
+                          </div>
+                          <div class="box-button-wishlist splist">
+                            <a class="title_font addToWishlist wishlistProd_11" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;11&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                          </div>
+                          <div class="box-button-compare">
+                            <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="11" data-product-cover="img/cockatoo.jpg" data-product-name="Cockatoo"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-block">
+                        <h5 class="sub_title_font"> <a class="product-name" href="#" title="Cockatoo"> Cockatoo </a></h5>
+                        <div class="price-rating">
+                          <div class="content_price"> <span class="price product-price"> $20.50 </span></div>
+                          <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                            <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <meta itemprop="worstRating" content="0">
+                              <meta itemprop="ratingValue" content="5">
+                              <meta itemprop="bestRating" content="5">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item">
+                    <div class="item-inner">
+                      <div class="left-block">
+                        <a class="product_img" href="#" title=""> <span class="hover-image"><img class="replace-2x" src="img/black-cat.jpg" alt="Black Cat" title="Black Cat" height="216" width="216"></span> <span class="img_root"> <img src="img/black-cat(1).jpg" height="216" width="216" alt=""> </span> </a> <span class="new">New</span>
+                        <div class="button-container">
+                          <div class="box-button-cart">
+                            <a class="ajax_add_to_cart_button btn" href="#"> <i class="icon-shopping-cart"></i> <span>Customize</span> </a>
+                          </div>
+                          <div class="box-button-quick-view">
+                            <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
+                          </div>
+                          <div class="box-button-wishlist splist">
+                            <a class="title_font addToWishlist wishlistProd_10" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;10&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                          </div>
+                          <div class="box-button-compare">
+                            <a class="btn btn-theme add_to_compare title_font" href="#" data-id-product="10" data-product-cover="img/black-cat.jpg" data-product-name="Black Cat"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="right-block">
+                        <h5 class="sub_title_font"> <a class="product-name" href="#" title="Black Cat"> Black Cat </a></h5>
+                        <div class="price-rating">
+                          <div class="content_price"> <span class="price product-price"> $50.99 </span></div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1564,106 +1544,84 @@
             <div id="special_block_right" class="block title_center horizontal_mode">
               <h4 class="title_block title_font"> <span class="title_text"> <a href="#" title="HOT DEALS"> HOT DEALS </a> <em class="logo-circle"><i class="circle"></i></em> </span></h4>
               <div class="row">
-                <div id="special_products" class="carousel-grid owl-carousel block_content owl-theme" style="display: block; opacity: 1;">
-                  <div class="owl-wrapper-outer">
-                    <div class="owl-wrapper" style="width: 2400px; left: 0px; display: block;">
-                      <div class="owl-item" style="width: 600px;">
-                        <div class="item first">
-                          <div class="item-inner">
-                            <div class="left-block">
-                              <a class="product_img" href="#" title="Framed-Sleeve Tops"> <span class="hover-image"><img class="replace-2x" src="img/parrot-beautiful(2).jpg" alt="Framed-Sleeve Tops" title="Framed-Sleeve Tops" height="285" width="285"></span> <span class="img_root"> <img src="img/parrot-beautiful(3).jpg" height="285" width="285" alt="Framed-Sleeve Tops"> </span> </a>
-                              <div class="button-container">
-                                <div class="box-button-cart">
-                                  <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="9" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
-                                </div>
-                                <div class="box-button-quick-view">
-                                  <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
-                                </div>
-                                <div class="box-button-wishlist splist">
-                                  <a class="title_font addToWishlist wishlistProd_9" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;9&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
-                                </div>
-                                <div class="box-button-compare">
-                                  <a class="btn btn-theme add_to_compare" href="#" data-id-product="9"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="right-block">
-                              <h5 class="sub_title_font"> <a class="product-name" href="#" title="Parrot Beautiful"> Parrot Beautiful </a></h5>
-                              <div class="price-rating">
-                                <div class="content_price"> <span class="price product-price"> $80.00 </span> <span class="old-price product-price"> $100.00 </span> <span class="price-percent-reduction">-20%</span></div>
-                                <div class="comments_note" itemtype="#" itemscope="">
-                                  <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <meta itemprop="worstRating" content="0">
-                                    <meta itemprop="ratingValue" content="5">
-                                    <meta itemprop="bestRating" content="5">
-                                  </div>
-                                </div>
-                              </div>
-                              <p class="product-desc"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut...</p> <span class="item-countdown"> <span class="bg_tranp"></span> <span class="item-countdown-time" data-time="2018-09-11 00:00:00"><span class="section_cout"><span class="Days">776 </span><span class="text">Days</span></span><span class="section_cout"><span class="Hours">05 </span><span class="text">Hours</span></span><span class="section_cout"><span class="Minutes">26 </span><span class="text">Mins</span></span><span class="section_cout"><span class="Seconds">36 </span><span class="text">Secs</span></span>
-                              </span>
-                              </span>
-                            </div>
+                <div id="special_products" class="carousel-grid owl-carousel block_content">
+                  <div class="item first">
+                    <div class="item-inner">
+                      <div class="left-block">
+                        <a class="product_img" href="#" title="Framed-Sleeve Tops"> <span class="hover-image"><img class="replace-2x" src="img/parrot-beautiful(2).jpg" alt="Framed-Sleeve Tops" title="Framed-Sleeve Tops" height="285" width="285"></span> <span class="img_root"> <img src="img/parrot-beautiful(3).jpg" height="285" width="285" alt="Framed-Sleeve Tops"> </span> </a>
+                        <div class="button-container">
+                          <div class="box-button-cart">
+                            <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="9" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                          </div>
+                          <div class="box-button-quick-view">
+                            <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
+                          </div>
+                          <div class="box-button-wishlist splist">
+                            <a class="title_font addToWishlist wishlistProd_9" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;9&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                          </div>
+                          <div class="box-button-compare">
+                            <a class="btn btn-theme add_to_compare" href="#" data-id-product="9"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
                           </div>
                         </div>
                       </div>
-                      <div class="owl-item" style="width: 600px;">
-                        <div class="item">
-                          <div class="item-inner">
-                            <div class="left-block">
-                              <a class="product_img" href="#" title=""> <span class="hover-image"><img class="replace-2x" src="img/baby-cat(2).jpg" alt="Baby Cat" title="Baby Cat" height="285" width="285"></span> <span class="img_root"> <img src="img/baby-cat(3).jpg" height="285" width="285" alt=""> </span> </a>
-                              <div class="button-container">
-                                <div class="box-button-cart">
-                                  <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="6" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
-                                </div>
-                                <div class="box-button-quick-view">
-                                  <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
-                                </div>
-                                <div class="box-button-wishlist splist">
-                                  <a class="title_font addToWishlist wishlistProd_6" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;6&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
-                                </div>
-                                <div class="box-button-compare">
-                                  <a class="btn btn-theme add_to_compare" href="#" data-id-product="6"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="right-block">
-                              <h5 class="sub_title_font"> <a class="product-name" href="#" title="Baby Cat"> Baby Cat </a></h5>
-                              <div class="price-rating">
-                                <div class="content_price"> <span class="price product-price"> $24.40 </span> <span class="old-price product-price"> $30.50 </span> <span class="price-percent-reduction">-20%</span></div>
-                                <div class="comments_note" itemtype="#" itemscope="">
-                                  <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <div class="star star_on"></div>
-                                    <meta itemprop="worstRating" content="0">
-                                    <meta itemprop="ratingValue" content="5">
-                                    <meta itemprop="bestRating" content="5">
-                                  </div>
-                                </div>
-                              </div>
-                              <p class="product-desc"> Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p> <span class="item-countdown"> <span class="bg_tranp"></span> <span class="item-countdown-time" data-time="2018-08-11 00:00:00"><span class="section_cout"><span class="Days">745 </span><span class="text">Days</span></span><span class="section_cout"><span class="Hours">05 </span><span class="text">Hours</span></span><span class="section_cout"><span class="Minutes">26 </span><span class="text">Mins</span></span><span class="section_cout"><span class="Seconds">36 </span><span class="text">Secs</span></span>
-                              </span>
-                              </span>
+                      <div class="right-block">
+                        <h5 class="sub_title_font"> <a class="product-name" href="#" title="Parrot Beautiful"> Parrot Beautiful </a></h5>
+                        <div class="price-rating">
+                          <div class="content_price"> <span class="price product-price"> $80.00 </span> <span class="old-price product-price"> $100.00 </span> <span class="price-percent-reduction">-20%</span></div>
+                          <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                            <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <meta itemprop="worstRating" content="0">
+                              <meta itemprop="ratingValue" content="5">
+                              <meta itemprop="bestRating" content="5">
                             </div>
                           </div>
                         </div>
+                        <p class="product-desc"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut...</p> <span class="item-countdown"> <span class="bg_tranp"></span> <span class="item-countdown-time" data-time="2018-09-11 00:00:00"></span> </span>
                       </div>
                     </div>
                   </div>
-                  <div class="owl-controls clickable" style="display: none;">
-                    <div class="owl-buttons">
-                      <div class="owl-prev" style="margin-right: 74px;">
-                        <div class="carousel-previous disable-select"><span class="icon-chevron-left"></span></div>
+                  <div class="item">
+                    <div class="item-inner">
+                      <div class="left-block">
+                        <a class="product_img" href="#" title=""> <span class="hover-image"><img class="replace-2x" src="img/baby-cat(2).jpg" alt="Baby Cat" title="Baby Cat" height="285" width="285"></span> <span class="img_root"> <img src="img/baby-cat(3).jpg" height="285" width="285" alt=""> </span> </a>
+                        <div class="button-container">
+                          <div class="box-button-cart">
+                            <a class="ajax_add_to_cart_button btn caption-add-to-cart" href="#" rel="nofollow" data-id-product="6" data-minimal_quantity="1"> <i class="icon-shopping-cart"></i> <span>Add to cart</span> </a>
+                          </div>
+                          <div class="box-button-quick-view">
+                            <a class="quick-view" href="#" rel="#"> <i class="icon-eye-open"></i> <span>Quick view</span> </a>
+                          </div>
+                          <div class="box-button-wishlist splist">
+                            <a class="title_font addToWishlist wishlistProd_6" href="#" rel="nofollow" onclick="WishlistCart(&#39;wishlist_block_list&#39;, &#39;add&#39;, &#39;6&#39;, false, 1); return false;"> <i class="icon-heart"></i> <span>Add to wishlist</span> </a>
+                          </div>
+                          <div class="box-button-compare">
+                            <a class="btn btn-theme add_to_compare" href="#" data-id-product="6"> <i class="icon-pluss"></i> <span>Add to compare</span> </a>
+                          </div>
+                        </div>
                       </div>
-                      <div class="owl-next" style="margin-left: 74px;">
-                        <div class="carousel-next disable-select"><span class="icon-chevron-right"></span></div>
+                      <div class="right-block">
+                        <h5 class="sub_title_font"> <a class="product-name" href="#" title="Baby Cat"> Baby Cat </a></h5>
+                        <div class="price-rating">
+                          <div class="content_price"> <span class="price product-price"> $24.40 </span> <span class="old-price product-price"> $30.50 </span> <span class="price-percent-reduction">-20%</span></div>
+                          <div class="comments_note" itemtype="http://schema.org/Offer" itemscope="">
+                            <div class="star_content clearfix" itemtype="http://schema.org/AggregateRating" itemscope="" itemprop="aggregateRating">
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <div class="star star_on"></div>
+                              <meta itemprop="worstRating" content="0">
+                              <meta itemprop="ratingValue" content="5">
+                              <meta itemprop="bestRating" content="5">
+                            </div>
+                          </div>
+                        </div>
+                        <p class="product-desc"> Sleeveless knee-length chiffon dress. V-neckline with elastic under the bust lining.</p> <span class="item-countdown"> <span class="bg_tranp"></span> <span class="item-countdown-time" data-time="2018-08-11 00:00:00"></span> </span>
                       </div>
                     </div>
                   </div>
@@ -1683,103 +1641,79 @@
       <div class="container">
         <h2 class="title_block title_font"> <a class="title_text" href="#">From the blog</a> <em class="logo-circle"><i class="circle"></i></em></h2>
         <div class="row">
-          <div id="smart-blog-custom" class="sdsblog-box-content grid carousel-grid owl-carousel owl-theme" style="display: block; opacity: 1;">
-            <div class="owl-wrapper-outer">
-              <div class="owl-wrapper" style="width: 6000px; left: 0px; display: block;">
-                <div class="owl-item" style="width: 600px;">
-                  <div class="item sds_blog_post">
-                    <div class="news_module_image_holder">
-                      <div class="inline-block_relative">
-                        <div class="right_blog_home">
-                          <div class="content">
-                            <h3 class="sds_post_title title_font"><a href="#">Bibendum Auctor</a></h3>
-                            <p class="date_added">Feb 17, 2016</p>
-                            <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
-                          </div> <a href="#" class="r_more">read more</a></div>
-                        <div class="image_holder_wrap hover_banner_img">
-                          <a href="#"><img alt="Bibendum Auctor" class="feat_img_small" src="img/5-home-default.jpg"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="owl-item" style="width: 600px;">
-                  <div class="item sds_blog_post">
-                    <div class="news_module_image_holder">
-                      <div class="inline-block_relative">
-                        <div class="right_blog_home">
-                          <div class="content">
-                            <h3 class="sds_post_title title_font"><a href="#">Bibendum Auctor</a></h3>
-                            <p class="date_added">Feb 17, 2016</p>
-                            <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
-                          </div> <a href="#" class="r_more">read more</a></div>
-                        <div class="image_holder_wrap hover_banner_img">
-                          <a href="#"><img alt="Bibendum Auctor" class="feat_img_small" src="img/4-home-default.jpg"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="owl-item" style="width: 600px;">
-                  <div class="item sds_blog_post">
-                    <div class="news_module_image_holder">
-                      <div class="inline-block_relative">
-                        <div class="right_blog_home">
-                          <div class="content">
-                            <h3 class="sds_post_title title_font"><a href="#">Summer Entertaining</a></h3>
-                            <p class="date_added">Feb 17, 2016</p>
-                            <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
-                          </div> <a href="#" class="r_more">read more</a></div>
-                        <div class="image_holder_wrap hover_banner_img">
-                          <a href="#"><img alt="Summer Entertaining" class="feat_img_small" src="img/3-home-default.jpg"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="owl-item" style="width: 600px;">
-                  <div class="item sds_blog_post">
-                    <div class="news_module_image_holder">
-                      <div class="inline-block_relative">
-                        <div class="right_blog_home">
-                          <div class="content">
-                            <h3 class="sds_post_title title_font"><a href="#">Accumsan Ipsum</a></h3>
-                            <p class="date_added">Feb 17, 2016</p>
-                            <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
-                          </div> <a href="#" class="r_more">read more</a></div>
-                        <div class="image_holder_wrap hover_banner_img">
-                          <a href="#"><img alt="Accumsan Ipsum" class="feat_img_small" src="img/2-home-default.jpg"></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="owl-item" style="width: 600px;">
-                  <div class="item sds_blog_post">
-                    <div class="news_module_image_holder">
-                      <div class="inline-block_relative">
-                        <div class="right_blog_home">
-                          <div class="content">
-                            <h3 class="sds_post_title title_font"><a href="#">Vulputate Cursus</a></h3>
-                            <p class="date_added">Feb 17, 2016</p>
-                            <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
-                          </div> <a href="#" class="r_more">read more</a></div>
-                        <div class="image_holder_wrap hover_banner_img">
-                          <a href="#"><img alt="Vulputate Cursus" class="feat_img_small" src="img/1-home-default.jpg"></a>
-                        </div>
-                      </div>
-                    </div>
+          <div id="smart-blog-custom" class="sdsblog-box-content grid carousel-grid owl-carousel">
+            <div class="item sds_blog_post">
+              <div class="news_module_image_holder">
+                <div class="inline-block_relative">
+                  <div class="right_blog_home">
+                    <div class="content">
+                      <h3 class="sds_post_title title_font"><a href="#">Bibendum Auctor</a></h3>
+                      <p class="date_added">Feb 17, 2016</p>
+                      <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
+                    </div> <a href="#" class="r_more">read more</a></div>
+                  <div class="image_holder_wrap hover_banner_img">
+                    <a href="#"><img alt="Bibendum Auctor" class="feat_img_small" src="img/5-home-default.jpg"></a>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="owl-controls clickable">
-              <div class="owl-buttons">
-                <div class="owl-prev" style="margin-right: 95px;">
-                  <div class="carousel-previous disable-select"><span class="icon-chevron-left"></span></div>
+            <div class="item sds_blog_post">
+              <div class="news_module_image_holder">
+                <div class="inline-block_relative">
+                  <div class="right_blog_home">
+                    <div class="content">
+                      <h3 class="sds_post_title title_font"><a href="#">Bibendum Auctor</a></h3>
+                      <p class="date_added">Feb 17, 2016</p>
+                      <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
+                    </div> <a href="#" class="r_more">read more</a></div>
+                  <div class="image_holder_wrap hover_banner_img">
+                    <a href="#"><img alt="Bibendum Auctor" class="feat_img_small" src="img/4-home-default.jpg"></a>
+                  </div>
                 </div>
-                <div class="owl-next" style="margin-left: 95px;">
-                  <div class="carousel-next disable-select"><span class="icon-chevron-right"></span></div>
+              </div>
+            </div>
+            <div class="item sds_blog_post">
+              <div class="news_module_image_holder">
+                <div class="inline-block_relative">
+                  <div class="right_blog_home">
+                    <div class="content">
+                      <h3 class="sds_post_title title_font"><a href="#">Summer Entertaining</a></h3>
+                      <p class="date_added">Feb 17, 2016</p>
+                      <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
+                    </div> <a href="#" class="r_more">read more</a></div>
+                  <div class="image_holder_wrap hover_banner_img">
+                    <a href="#"><img alt="Summer Entertaining" class="feat_img_small" src="img/3-home-default.jpg"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item sds_blog_post">
+              <div class="news_module_image_holder">
+                <div class="inline-block_relative">
+                  <div class="right_blog_home">
+                    <div class="content">
+                      <h3 class="sds_post_title title_font"><a href="#">Accumsan Ipsum</a></h3>
+                      <p class="date_added">Feb 17, 2016</p>
+                      <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
+                    </div> <a href="#" class="r_more">read more</a></div>
+                  <div class="image_holder_wrap hover_banner_img">
+                    <a href="#"><img alt="Accumsan Ipsum" class="feat_img_small" src="img/2-home-default.jpg"></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item sds_blog_post">
+              <div class="news_module_image_holder">
+                <div class="inline-block_relative">
+                  <div class="right_blog_home">
+                    <div class="content">
+                      <h3 class="sds_post_title title_font"><a href="#">Vulputate Cursus</a></h3>
+                      <p class="date_added">Feb 17, 2016</p>
+                      <p> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id...</p>
+                    </div> <a href="#" class="r_more">read more</a></div>
+                  <div class="image_holder_wrap hover_banner_img">
+                    <a href="#"><img alt="Vulputate Cursus" class="feat_img_small" src="img/1-home-default.jpg"></a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1792,60 +1726,30 @@
         <div id="fieldbrandslider" class="block title_center horizontal_mode">
           <h4 class="title_block title_font"> <a class="title_text" href="#">Our brands</a> <em class="logo-circle"><i class="circle"></i></em></h4>
           <div class="row">
-            <div id="fieldbrandslider-manufacturers" class="grid carousel-grid owl-carousel owl-theme" style="display: block; opacity: 1;">
-              <div class="owl-wrapper-outer">
-                <div class="owl-wrapper" style="width: 3840px; left: 0px; display: block;">
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 1"> <img class="img-responsive" src="img/2-field_manufacture.jpg" width="210" height="62" alt="Manufacture 1"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 2"> <img class="img-responsive" src="img/3-field_manufacture.jpg" width="210" height="62" alt="Manufacture 2"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 3"> <img class="img-responsive" src="img/4-field_manufacture.jpg" width="210" height="62" alt="Manufacture 3"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 4"> <img class="img-responsive" src="img/5-field_manufacture.jpg" width="210" height="62" alt="Manufacture 4"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 5"> <img class="img-responsive" src="img/6-field_manufacture.jpg" width="210" height="62" alt="Manufacture 5"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 6"> <img class="img-responsive" src="img/7-field_manufacture.jpg" width="210" height="62" alt="Manufacture 6"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 8"> <img class="img-responsive" src="img/8-field_manufacture.jpg" width="210" height="62" alt="Manufacture 8"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 9"> <img class="img-responsive" src="img/9-field_manufacture.jpg" width="210" height="62" alt="Manufacture 9"> </a>
-                    </div>
-                  </div>
-                </div>
+            <div id="fieldbrandslider-manufacturers" class="grid carousel-grid owl-carousel">
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 1"> <img class="img-responsive" src="img/2-field_manufacture.jpg" width="210" height="62" alt="Manufacture 1"> </a>
               </div>
-              <div class="owl-controls clickable">
-                <div class="owl-buttons">
-                  <div class="owl-prev" style="margin-right: 82px;">
-                    <div class="carousel-previous disable-select"><span class="icon-chevron-left"></span></div>
-                  </div>
-                  <div class="owl-next" style="margin-left: 82px;">
-                    <div class="carousel-next disable-select"><span class="icon-chevron-right"></span></div>
-                  </div>
-                </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 2"> <img class="img-responsive" src="img/3-field_manufacture.jpg" width="210" height="62" alt="Manufacture 2"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 3"> <img class="img-responsive" src="img/4-field_manufacture.jpg" width="210" height="62" alt="Manufacture 3"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 4"> <img class="img-responsive" src="img/5-field_manufacture.jpg" width="210" height="62" alt="Manufacture 4"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 5"> <img class="img-responsive" src="img/6-field_manufacture.jpg" width="210" height="62" alt="Manufacture 5"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 6"> <img class="img-responsive" src="img/7-field_manufacture.jpg" width="210" height="62" alt="Manufacture 6"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 8"> <img class="img-responsive" src="img/8-field_manufacture.jpg" width="210" height="62" alt="Manufacture 8"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 9"> <img class="img-responsive" src="img/9-field_manufacture.jpg" width="210" height="62" alt="Manufacture 9"> </a>
               </div>
             </div>
           </div>
@@ -1859,8 +1763,8 @@
             <div class="row">
               <div class="footer-static row-fluid">
                 <div class="footer-block footer-logo col-xs-12 col-sm-6 col-md-3">
-                  <h4><a title="Framework 1614" href="#"> <img class="logo img-responsive" alt="Framework 1614" src="img/logof.jpg" height="42" width="185"> </a></h4>
-                  <ul class="toggle-footer bullet" style="">
+                  <h4><a title="Framework 1614" href="http://localhost/petshop/home1/"> <img class="logo img-responsive" alt="Framework 1614" src="img/logof.jpg" height="42" width="185"> </a></h4>
+                  <ul class="toggle-footer bullet">
                     <li><i class="icon-map-markerr "></i> <em class="em1">Address:</em> <em>1357 Monica - Elysées - Paris</em></li>
                     <li><i class="icon-phonee "></i> <em class="em1">Call us now:</em> <em>0123-456-789</em></li>
                     <li><i class="icon-envelope-altt"></i> <em class="em1">Open time:</em> <em>08:00 am - 05:30 pm / Mon - Sat</em></li>
@@ -1868,7 +1772,7 @@
                 </div>
                 <section class="footer-block col-xs-12 col-sm-6 col-md-2">
                   <h4><a href="#" title="Manage my customer account" rel="nofollow">My account</a></h4>
-                  <div class="block_content toggle-footer" style="">
+                  <div class="block_content toggle-footer">
                     <ul class="bullet">
                       <li><a href="#" title="My account" rel="nofollow">My account</a></li>
                       <li><a href="#" title="My orders" rel="nofollow">My orders</a></li>
@@ -1881,7 +1785,7 @@
                 </section>
                 <section class="footer-block col-xs-12 col-sm-6 col-md-2" id="block_various_links_footer">
                   <h4>Information</h4>
-                  <ul class="toggle-footer bullet" style="">
+                  <ul class="toggle-footer bullet">
                     <li class="item"> <a href="#" title="Specials"> Specials </a></li>
                     <li class="item"> <a href="#" title="New products"> New products </a></li>
                     <li class="item"> <a href="#" title="Best sellers"> Best sellers </a></li>
@@ -1892,22 +1796,22 @@
                 </section>
                 <div class="connect_with footer-block custom_list col-xs-12 col-sm-6 col-md-2">
                   <h4>Connect Us</h4>
-                  <ul class="toggle-footer bullet" style="">
-                    <li class="item"><a href="#"><i class="icon-fb"></i> Facebook </a></li>
-                    <li class="item"><a href="#"><i class="icon-twitter"></i> Twitter </a></li>
-                    <li class="item"><a href="#"><i class="icon-instagram"></i> Instagram </a></li>
-                    <li class="item"><a href="#"><i class="icon-prineres"></i> Prineres </a></li>
+                  <ul class="toggle-footer bullet">
+                    <li class="item"><a href="https://www.facebook.com/"><i class="icon-fb"></i> Facebook </a></li>
+                    <li class="item"><a href="https://www.twitter.com/"><i class="icon-twitter"></i> Twitter </a></li>
+                    <li class="item"><a href="https://www.instagram.com/"><i class="icon-instagram"></i> Instagram </a></li>
+                    <li class="item"><a href="https://www.pinterest.com/"><i class="icon-prineres"></i> Prineres </a></li>
                     <li class="item">
-                      <a href="#"> <i class="icon-youtube"></i> Youtube </a>
+                      <a href="https://www.youtube.com/"> <i class="icon-youtube"></i> Youtube </a>
                     </li>
                     <li class="item">
-                      <a href="#"> <i class="icon-google"></i>Google+ </a>
+                      <a href="https://www.google.com/"> <i class="icon-google"></i>Google+ </a>
                     </li>
                   </ul>
                 </div>
                 <div class="footer-block footer-newsletter col-xs-12 col-sm-12 col-md-3">
                   <h4 class="title_font">Newsletter</h4>
-                  <div class="toggle-footer" style="">
+                  <div class="toggle-footer">
                     <div>
                       <p>Subscribe to our newsletter and keep up with news, promotions, sales and discounts!</p>
                     </div>
@@ -1932,7 +1836,7 @@
           <div class="container">
             <div class="footer-static row-fluid">
               <div class="footer-address col-xs-12 col-sm-6 col-md-6">
-                <p>Copyright © 2016 <a href="#">Field Themes</a>. All rights reserved.</p>
+                <p>Copyright © 2016 <a href="http://fieldthemes.com/">Field Themes</a>. All rights reserved.</p>
               </div>
               <div class="payment col-xs-12 col-sm-6 col-md-6">
                 <a href="#"><img class="img-responsive" src="img/payment_footer.png" alt="" height="24" width="220"> </a>
@@ -1942,7 +1846,7 @@
         </div>
         <div class="container">
           <div class="row">
-            <div class="fieldpopupnewsletter" style="width: 661px; height: 373px; display: none; background-image: url(&quot;img/popupbg_1.jpg?112650&quot;);">
+            <div class="fieldpopupnewsletter" style="width:661px;height:373px;background-image: url(img/popupbg_1.jpg?062403 );">>
               <div id="newsletter_block_popup" class="block">
                 <div class="block_content">
                   <form action="#" method="post">
@@ -1955,7 +1859,7 @@
                   </form>
                 </div>
                 <div class="newsletter_block_popup-bottom">
-                  <div class="checker" id="uniform-newsletter_popup_dont_show_again"><span><input id="newsletter_popup_dont_show_again" type="checkbox"></span></div>
+                  <input id="newsletter_popup_dont_show_again" type="checkbox">
                   <label for="newsletter_popup_dont_show_again">Don't show this popup again</label>
                 </div>
               </div>
@@ -1965,69 +1869,13 @@
       </div>
     </div>
   </div>
-  <div id="back-top" style="display: none;"><a href="#" class="mypresta_scrollup hidden-phone"><i class="icon-chevron-up"></i></a></div>
+  <div id="back-top"><a href="#" class="mypresta_scrollup hidden-phone"><i class="icon-chevron-up"></i></a></div>
 
-  <script type="text/javascript" src="js/script-first.js"></script>
-  <script type="text/javascript" src="js/script-1.js"></script>
-  <script type="text/javascript" src="js/jquery.elevatezoom.min.js"></script>
-  <script type="text/javascript" src="js/script-3.js"></script>
+<script type="text/javascript" src="js/script-first-front.js"></script>
+<script type="text/javascript" src="js/front.js"></script>
+<script type="text/javascript" src="js/jquery.elevatezoom.min.js"></script>
+<script type="text/javascript" src="js/script-last-front.js"></script>
 
-  <div class="colorpicker" id="collorpicker_329">
-    <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
-      <div>
-        <div style="left: 0px; top: 99px;"></div>
-      </div>
-    </div>
-    <div class="colorpicker_hue">
-      <div style="top: 25px;"></div>
-    </div>
-    <div class="colorpicker_new_color" style="background-color: rgb(85, 85, 85);"></div>
-    <div class="colorpicker_current_color" style="background-color: rgb(85, 85, 85);"></div>
-    <div class="colorpicker_hex">
-      <input type="text" maxlength="6" size="6">
-    </div>
-    <div class="colorpicker_rgb_r colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_rgb_g colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_rgb_b colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_h colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_s colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_b colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_submit"></div>
-  </div>
-  <div class="colorpicker" id="collorpicker_182">
-    <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
-      <div>
-        <div style="left: 0px; top: 99px;"></div>
-      </div>
-    </div>
-    <div class="colorpicker_hue">
-      <div style="top: 25px;"></div>
-    </div>
-    <div class="colorpicker_new_color" style="background-color: rgb(85, 85, 85);"></div>
-    <div class="colorpicker_current_color" style="background-color: rgb(85, 85, 85);"></div>
-    <div class="colorpicker_hex">
-      <input type="text" maxlength="6" size="6">
-    </div>
-    <div class="colorpicker_rgb_r colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_rgb_g colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_rgb_b colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_h colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_s colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_b colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_submit"></div>
-  </div>
 </body>
 
 </html>

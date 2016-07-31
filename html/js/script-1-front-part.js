@@ -50,7 +50,10 @@
      itemsCustom: [
        [0, 1],
        [320, 1],
-
+       [480, fieldnewpsl_minitem],
+       [768, fieldnewpsl_mediumitem],
+       [992, fieldnewpsl_maxitem],
+       [1200, fieldnewpsl_maxitem]
      ],
      responsiveRefreshRate: 50,
      slideSpeed: 200,
@@ -71,7 +74,10 @@
      itemsCustom: [
        [0, 1],
        [320, 1],
-
+       [480, fieldspecialpsl_minitem],
+       [768, fieldspecialpsl_mediumitem],
+       [992, fieldspecialpsl_maxitem],
+       [1200, fieldspecialpsl_maxitem]
      ],
      responsiveRefreshRate: 50,
      slideSpeed: 200,

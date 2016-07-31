@@ -19419,7 +19419,7 @@ $(window).load(function() {
     navigationText: ['<div class="carousel-previous disable-select"><span class="icon-chevron-left"></span></div>', '<div class="carousel-next disable-select"><span class="icon-chevron-right"></span></div>']
   });
 });;
-$(window).load(function() {
+/*$(window).load(function() {
   $('#new_products').owlCarousel({
     itemsCustom: [
       [0, 1],
@@ -19440,8 +19440,8 @@ $(window).load(function() {
     navigation: fieldnewpsl_navigation,
     navigationText: ['<div class="carousel-previous disable-select"><span class="icon-chevron-left"></span></div>', '<div class="carousel-next disable-select"><span class="icon-chevron-right"></span></div>']
   });
-});;
-$(window).load(function() {
+});;*/
+/*$(window).load(function() {
   $('#special_products').owlCarousel({
     itemsCustom: [
       [0, 1],
@@ -19470,7 +19470,10 @@ $(window).load(function() {
       'display': 'none'
     });
   }
-});;
+});;*/
+
+
+
 (function($) {
   $.fn.extend({
     autocomplete: function(urlOrData, options) {

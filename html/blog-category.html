@@ -14,10 +14,9 @@
 <script src="js/html5shiv.js"></script>
 <script src="js/respond.min.js"></script> <![endif]-->
   <style type="text/css">
-    .fancybox-margin {
-      margin-right: 17px;
-    }
-
+  .fancybox-margin {
+    margin-right: 17px;
+  }
   </style>
 </head>
 
@@ -31,11 +30,11 @@
             <div class="cl-tr cl-tr-mode-label">Mode Layout</div>
             <div class="cl-tr cl-tr-mode">
               <div class="cl-td-l">
-                <div class="radio" id="uniform-mode_box"><span><input id="mode_box" type="radio" name="mode_css" value="box"></span></div>
+                <input id="mode_box" type="radio" name="mode_css" value="box">
                 <label for="mode_box">Box</label>
               </div>
               <div class="cl-td-r">
-                <div class="radio" id="uniform-mode_full"><span class="checked"><input id="mode_full" type="radio" name="mode_css" value="wide" checked="checked"></span></div>
+                <input id="mode_full" type="radio" name="mode_css" value="wide">
                 <label for="mode_full">Wide</label>
               </div>
             </div>
@@ -77,7 +76,7 @@
       </div>
     </div>
     <div class="control inactive">
-      <a href="#"></a>
+      <a href="javascript:void(0)"></a>
     </div>
   </div>
   <div id="page">
@@ -129,8 +128,8 @@
                       <input type="hidden" name="id_currency" id="id_currency" value="">
                       <input type="hidden" name="SubmitCurrency" value=""> <span class="cur-label"></span> <strong>USD</strong></div>
                     <ul id="first-currencies" class="currencies_ul toogle_content">
-                      <li class="selected"> <a href="#" rel="nofollow" title="Dollar (USD)"> Dollar (USD) </a></li>
-                      <li> <a href="#" rel="nofollow" title="Euro (EUR)"> Euro (EUR) </a></li>
+                      <li class="selected"> <a href="javascript:setCurrency(1);" rel="nofollow" title="Dollar (USD)"> Dollar (USD) </a></li>
+                      <li> <a href="javascript:setCurrency(2);" rel="nofollow" title="Euro (EUR)"> Euro (EUR) </a></li>
                     </ul>
                   </form>
                 </div>
@@ -397,7 +396,7 @@
                         </li>
                         <li class="root root-11 ">
                           <div class="root-item no-description">
-                            <a href="#" class="active">
+                            <a href="#">
                               <div class="title title_font"><span class="title-text">Blog</span></div>
                             </a>
                           </div>
@@ -408,14 +407,22 @@
                 </div>
               </div>
               <div class="shopping_cart_menu">
-                <div class="ft_bg_hover shopping_cart"> <a href="#" title="View my shopping cart" rel="nofollow"><span class="ajax_cart_quantity unvisible">0</span> <span class="ajax_cart_product_txt unvisible">Item -</span> <span class="ajax_cart_product_txt_s unvisible">Items -</span> <span class="ajax_cart_total unvisible price"> </span> <span class="ajax_cart_no_product">(empty)</span> </a>
+                <div class="ft_bg_hover shopping_cart"> <a href="#" title="View my shopping cart" rel="nofollow"><span class="ajax_cart_quantity">1</span> <span class="ajax_cart_product_txt">Item -</span> <span class="ajax_cart_product_txt_s unvisible">Items -</span> <span class="ajax_cart_total price"> $16.51 </span> <span class="ajax_cart_no_product unvisible">(empty)</span> </a>
                   <div class="cart_block block exclusive">
                     <div class="block_content">
                       <div class="cart_block_list">
-                        <p class="cart_block_no_products"> No products</p>
+                        <dl class="products">
+                          <dt data-id="cart_block_product_1_1_0" class="first_item">
+                            <a class="cart-images" href="#" title="Dog Beautiful"><img src="img/dog-beautiful.jpg" alt="Dog Beautiful"></a>
+                            <div class="cart-info">
+                              <div class="product-name"> <span class="quantity-formated"><span class="quantity">1</span>&nbsp;x&nbsp;</span><a class="cart_block_product_name" href="#" title="Dog Beautiful">Dog Beautiful</a></div>
+                              <div class="product-atributes"> <a class="ft_color_hover" href="#" title="Product detail">S, Orange</a></div> <span class="price"> $16.51 </span></div> <span class="remove_link"> <a class="ajax_cart_block_remove_link ft_color_hover" href="#" rel="nofollow" title="remove this product from my cart">&nbsp;</a> </span></dt>
+                          <dd data-id="cart_block_combination_of_1_1_0" class="first_item"></dd>
+                        </dl>
+                        <p class="cart_block_no_products unvisible"> No products</p>
                         <div class="cart-prices">
-                          <div class="cart-prices-line first-line"> <span class="price cart_block_shipping_cost ajax_cart_shipping_cost unvisible"> To be determined </span> <span class="unvisible"> Shipping </span></div>
-                          <div class="cart-prices-line last-line"> <span class="price cart_block_total ajax_block_cart_total">$0.00</span> <span>Total</span></div>
+                          <div class="cart-prices-line first-line"> <span class="price cart_block_shipping_cost ajax_cart_shipping_cost"> $7.00 </span> <span> Shipping </span></div>
+                          <div class="cart-prices-line last-line"> <span class="price cart_block_total ajax_block_cart_total">$23.51</span> <span>Total</span></div>
                         </div>
                         <p class="cart-buttons">
                           <a id="button_order_cart" class="ft_bg_default ft_bg_hover" href="#" title="Check out" rel="nofollow"> <span> Check out<i class="icon-chevron-right right"></i> </span> </a>
@@ -436,10 +443,10 @@
                     </div>
                   </div>
                   <div class="layer_cart_cart col-xs-12 col-md-6">
-                    <h2> <span class="ajax_cart_product_txt_s unvisible"> There are <span class="ajax_cart_quantity">0</span> items in your cart. </span> <span class="ajax_cart_product_txt "> There is 1 item in your cart. </span></h2>
-                    <div class="layer_cart_row"> <strong class="dark"> Total products </strong> <span class="ajax_block_products_total"> </span></div>
-                    <div class="layer_cart_row"> <strong class="dark unvisible"> Total shipping&nbsp; </strong> <span class="ajax_cart_shipping_cost unvisible"> To be determined </span></div>
-                    <div class="layer_cart_row"> <strong class="dark"> Total </strong> <span class="ajax_block_cart_total"> </span></div>
+                    <h2> <span class="ajax_cart_product_txt_s unvisible"> There are <span class="ajax_cart_quantity">1</span> items in your cart. </span> <span class="ajax_cart_product_txt "> There is 1 item in your cart. </span></h2>
+                    <div class="layer_cart_row"> <strong class="dark"> Total products </strong> <span class="ajax_block_products_total"> $16.51 </span></div>
+                    <div class="layer_cart_row"> <strong class="dark"> Total shipping&nbsp; </strong> <span class="ajax_cart_shipping_cost"> $7.00 </span></div>
+                    <div class="layer_cart_row"> <strong class="dark"> Total </strong> <span class="ajax_block_cart_total"> $23.51 </span></div>
                     <div class="button-container"> <span class="continue ft_bg_default ft_btn_default ft_bg_hover" title="Continue shopping"> <span> <i class="icon-chevron-left left"></i>Continue shopping </span> </span>
                       <a class="ft_bg_default ft_btn_default ft_bg_hover" href="#" title="Proceed to checkout" rel="nofollow"> <span> Proceed to checkout<i class="icon-chevron-right right"></i> </span> </a>
                     </div>
@@ -454,7 +461,7 @@
                     <input type="hidden" name="controller" value="search">
                     <input type="hidden" name="orderby" value="position">
                     <input type="hidden" name="orderway" value="desc">
-                    <input class="search_query form-control ac_input" type="text" id="search_query_top" name="search_query" value="Search..." autocomplete="off">
+                    <input class="search_query form-control" type="text" id="search_query_top" name="search_query" value="Search...">
                     <button type="submit" name="submit_search" class="btn button-search"> <span class="icon-search"></span> </button>
                   </form>
                 </div>
@@ -481,7 +488,7 @@
                   <a href="#">
                     <div class="title title_font"><span class="title-text">Dogs</span></div>
                   </a>
-                </div><span class="fieldmegamenu-mobile-handle icon-plus small"></span>
+                </div>
                 <ul class="menu-items col-md-12 col-xs-12">
                   <li class="menu-item menu-item-19 depth-1 category menucol-1-5 ">
                     <div class="title title_font"> <a href="#"> Collar Belt </a></div>
@@ -550,7 +557,7 @@
                   <a href="#">
                     <div class="title title_font"><span class="title-text">Cat</span></div>
                   </a>
-                </div><span class="fieldmegamenu-mobile-handle icon-plus small"></span>
+                </div>
                 <ul class="menu-items col-md-9 col-xs-12">
                   <li class="menu-item menu-item-51 depth-1 category menucol-1-4 ">
                     <div class="title title_font"> <a href="#"> Clothing </a></div>
@@ -633,7 +640,7 @@
                 <div class="root-item">
                   <a href="#">
                     <div class="title title_font"><span class="title-text">Dresses</span></div> <span class="description">NEW</span> </a>
-                </div><span class="fieldmegamenu-mobile-handle icon-plus small"></span>
+                </div>
                 <ul class="menu-items col-md-9 col-xs-12">
                   <li class="menu-item menu-item-72 depth-1 category menucol-1-4 ">
                     <div class="title title_font"> <a href="#"> Collar Belt </a></div>
@@ -714,7 +721,7 @@
               </li>
               <li class="root root-11 ">
                 <div class="root-item no-description">
-                  <a href="#" class="active">
+                  <a href="#">
                     <div class="title title_font"><span class="title-text">Blog</span></div>
                   </a>
                 </div>
@@ -732,7 +739,7 @@
           <div id="left_column" class="column col-xs-12 col-sm-3">
             <div id="recent_article_smart_blog_block_left" class="block blogModule boxPlain">
               <h4 class="title_block sdstitle_block"><a href="#">Recent Posts</a></h4>
-              <div class="block_content sdsbox-content" style="">
+              <div class="block_content sdsbox-content">
                 <ul class="recentArticles">
                   <li>
                     <a class="image" title="Bibendum Auctor" href="#"> <img alt="Bibendum Auctor" src="img/5-home-small.jpg"> </a> <a class="title" title="Bibendum Auctor" href="#">Bibendum Auctor</a> <span class="info">Feb 17, 2016</span></li>
@@ -747,51 +754,45 @@
             </div>
             <div id="best-sellers_block_right" class="block title_center vertical_mode">
               <h4 class="title_block title_font"> <span class="title_text"> <a href="#" title="View a top sellers products"> Top sellers </a> <em class="logo-circle"><i class="circle"></i></em> </span></h4>
-              <div id="field_bestsellers" class="grid carousel-grid owl-carousel block_content owl-theme" style="display: block; opacity: 1;">
-                <div class="owl-wrapper-outer">
-                  <div class="owl-wrapper" style="width: 476px; left: 0px; display: block;">
-                    <div class="owl-item" style="width: 238px;">
-                      <div class="item">
-                        <div class="item-content clearfix">
-                          <div class="left-content">
-                            <a href="#" title=""> <img src="img/dog-and-cat.jpg" height="103" width="103" alt=""> </a>
-                          </div>
-                          <div class="right-content">
-                            <h3 class="sub_title_font product-name"> <a href="#" title="Dog and Cat"> Dog and Cat </a></h3>
-                            <div class="comments_note" itemtype="#" itemscope="">
-                              <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <div class="star star_on"></div>
-                                <meta itemprop="worstRating" content="0">
-                                <meta itemprop="ratingValue" content="5">
-                                <meta itemprop="bestRating" content="5">
-                              </div>
-                            </div>
-                            <div class="content_price"> <span class="price product-price"> $27.00 </span></div>
-                          </div>
-                        </div>
-                        <div class="item-content clearfix">
-                          <div class="left-content">
-                            <a href="#" title=""> <img src="img/cute-cat.jpg" height="103" width="103" alt=""> </a>
-                          </div>
-                          <div class="right-content">
-                            <h3 class="sub_title_font product-name"> <a href="#" title="Cute Cat"> Cute Cat </a></h3>
-                            <div class="content_price"> <span class="price product-price"> $26.00 </span></div>
-                          </div>
-                        </div>
-                        <div class="item-content clearfix">
-                          <div class="left-content">
-                            <a href="#" title=""> <img src="img/dog-beautiful.jpg" height="103" width="103" alt=""> </a>
-                          </div>
-                          <div class="right-content">
-                            <h3 class="sub_title_font product-name"> <a href="#" title="Dog Beautiful"> Dog Beautiful </a></h3>
-                            <div class="content_price"> <span class="price product-price"> $16.51 </span></div>
-                          </div>
+              <div id="field_bestsellers" class="grid carousel-grid owl-carousel block_content">
+                <div class="item">
+                  <div class="item-content clearfix">
+                    <div class="left-content">
+                      <a href="#" title=""> <img src="img/dog-and-cat.jpg" height="103" width="103" alt=""> </a>
+                    </div>
+                    <div class="right-content">
+                      <h3 class="sub_title_font product-name"> <a href="#" title="Dog and Cat"> Dog and Cat </a></h3>
+                      <div class="comments_note" itemtype="#" itemscope="">
+                        <div class="star_content clearfix" itemtype="#" itemscope="" itemprop="aggregateRating">
+                          <div class="star star_on"></div>
+                          <div class="star star_on"></div>
+                          <div class="star star_on"></div>
+                          <div class="star star_on"></div>
+                          <div class="star star_on"></div>
+                          <meta itemprop="worstRating" content="0">
+                          <meta itemprop="ratingValue" content="5">
+                          <meta itemprop="bestRating" content="5">
                         </div>
                       </div>
+                      <div class="content_price"> <span class="price product-price"> $27.00 </span></div>
+                    </div>
+                  </div>
+                  <div class="item-content clearfix">
+                    <div class="left-content">
+                      <a href="#" title=""> <img src="img/cute-cat.jpg" height="103" width="103" alt=""> </a>
+                    </div>
+                    <div class="right-content">
+                      <h3 class="sub_title_font product-name"> <a href="#" title="Cute Cat"> Cute Cat </a></h3>
+                      <div class="content_price"> <span class="price product-price"> $26.00 </span></div>
+                    </div>
+                  </div>
+                  <div class="item-content clearfix">
+                    <div class="left-content">
+                      <a href="#" title=""> <img src="img/dog-beautiful(1).jpg" height="103" width="103" alt=""> </a>
+                    </div>
+                    <div class="right-content">
+                      <h3 class="sub_title_font product-name"> <a href="#" title="Dog Beautiful"> Dog Beautiful </a></h3>
+                      <div class="content_price"> <span class="price product-price"> $16.51 </span></div>
                     </div>
                   </div>
                 </div>
@@ -809,7 +810,7 @@
                     </div>
                     <div class="right_blog_cat">
                       <div class="sdsarticleHeader">
-                        <p class="sdstitle_block title_font"><a title="Bibendum Auctor" href="#">Bibendum Auctor</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (106)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
+                        <p class="sdstitle_block title_font"><a title="Bibendum Auctor" href="#">Bibendum Auctor</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (117)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
                       </div>
                       <div class="sdsarticle-des"> <span itemprop="description" class="clearfix"><div id="lipsum"> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id tincidunt ut sed semper vel Lorem condimentum ornare. Laoreet Vestibulum lacinia massa a commodo habi</div></span></div>
                       <div class="sdsreadMore"></div>
@@ -869,7 +870,7 @@
                     </div>
                     <div class="right_blog_cat">
                       <div class="sdsarticleHeader">
-                        <p class="sdstitle_block title_font"><a title="Vulputate Cursus" href="#">Vulputate Cursus</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (78)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
+                        <p class="sdstitle_block title_font"><a title="Vulputate Cursus" href="#">Vulputate Cursus</a></p> <span> <span itemprop="articleSection"><i class="icon icon-tags"></i><a href="#">Uncategories</a></span> <span class="comment"><i class="icon icon-comments"></i><a title="0 Comments" href="#">0 Comments</a></span> <span class="right_blog_view"><i class="icon icon-eye-open"></i> views (79)</span> <span itemprop="author">Author:&nbsp;Field Themes</span> </span>
                       </div>
                       <div class="sdsarticle-des"> <span itemprop="description" class="clearfix"><div id="lipsum"> At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium. At Nulla id tincidunt ut sed semper vel Lorem condimentum ornare. Laoreet Vestibulum lacinia massa a commodo habi</div></span></div>
                       <div class="sdsreadMore"></div>
@@ -887,60 +888,30 @@
         <div id="fieldbrandslider" class="block title_center horizontal_mode">
           <h4 class="title_block title_font"> <a class="title_text" href="#">Our brands</a> <em class="logo-circle"><i class="circle"></i></em></h4>
           <div class="row">
-            <div id="fieldbrandslider-manufacturers" class="grid carousel-grid owl-carousel owl-theme" style="display: block; opacity: 1;">
-              <div class="owl-wrapper-outer">
-                <div class="owl-wrapper" style="width: 3840px; left: 0px; display: block;">
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 1"> <img class="img-responsive" src="img/2-field_manufacture.jpg" width="210" height="62" alt="Manufacture 1"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 2"> <img class="img-responsive" src="img/3-field_manufacture.jpg" width="210" height="62" alt="Manufacture 2"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 3"> <img class="img-responsive" src="img/4-field_manufacture.jpg" width="210" height="62" alt="Manufacture 3"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 4"> <img class="img-responsive" src="img/5-field_manufacture.jpg" width="210" height="62" alt="Manufacture 4"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 5"> <img class="img-responsive" src="img/6-field_manufacture.jpg" width="210" height="62" alt="Manufacture 5"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 6"> <img class="img-responsive" src="img/7-field_manufacture.jpg" width="210" height="62" alt="Manufacture 6"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 8"> <img class="img-responsive" src="img/8-field_manufacture.jpg" width="210" height="62" alt="Manufacture 8"> </a>
-                    </div>
-                  </div>
-                  <div class="owl-item" style="width: 240px;">
-                    <div class="item">
-                      <a class="img-wrapper" href="#" title="Manufacture 9"> <img class="img-responsive" src="img/9-field_manufacture.jpg" width="210" height="62" alt="Manufacture 9"> </a>
-                    </div>
-                  </div>
-                </div>
+            <div id="fieldbrandslider-manufacturers" class="grid carousel-grid owl-carousel">
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 1"> <img class="img-responsive" src="img/2-field_manufacture.jpg" width="210" height="62" alt="Manufacture 1"> </a>
               </div>
-              <div class="owl-controls clickable">
-                <div class="owl-buttons">
-                  <div class="owl-prev" style="margin-right: 82px;">
-                    <div class="carousel-previous disable-select"><span class="icon-chevron-left"></span></div>
-                  </div>
-                  <div class="owl-next" style="margin-left: 82px;">
-                    <div class="carousel-next disable-select"><span class="icon-chevron-right"></span></div>
-                  </div>
-                </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 2"> <img class="img-responsive" src="img/3-field_manufacture.jpg" width="210" height="62" alt="Manufacture 2"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 3"> <img class="img-responsive" src="img/4-field_manufacture.jpg" width="210" height="62" alt="Manufacture 3"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 4"> <img class="img-responsive" src="img/5-field_manufacture.jpg" width="210" height="62" alt="Manufacture 4"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 5"> <img class="img-responsive" src="img/6-field_manufacture.jpg" width="210" height="62" alt="Manufacture 5"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 6"> <img class="img-responsive" src="img/7-field_manufacture.jpg" width="210" height="62" alt="Manufacture 6"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 8"> <img class="img-responsive" src="img/8-field_manufacture.jpg" width="210" height="62" alt="Manufacture 8"> </a>
+              </div>
+              <div class="item">
+                <a class="img-wrapper" href="#" title="Manufacture 9"> <img class="img-responsive" src="img/9-field_manufacture.jpg" width="210" height="62" alt="Manufacture 9"> </a>
               </div>
             </div>
           </div>
@@ -955,7 +926,7 @@
               <div class="footer-static row-fluid">
                 <div class="footer-block footer-logo col-xs-12 col-sm-6 col-md-3">
                   <h4><a title="Framework 1614" href="#"> <img class="logo img-responsive" alt="Framework 1614" src="img/logof.jpg" height="42" width="185"> </a></h4>
-                  <ul class="toggle-footer bullet" style="">
+                  <ul class="toggle-footer bullet">
                     <li><i class="icon-map-markerr "></i> <em class="em1">Address:</em> <em>1357 Monica - Elysées - Paris</em></li>
                     <li><i class="icon-phonee "></i> <em class="em1">Call us now:</em> <em>0123-456-789</em></li>
                     <li><i class="icon-envelope-altt"></i> <em class="em1">Open time:</em> <em>08:00 am - 05:30 pm / Mon - Sat</em></li>
@@ -963,7 +934,7 @@
                 </div>
                 <section class="footer-block col-xs-12 col-sm-6 col-md-2">
                   <h4><a href="#" title="Manage my customer account" rel="nofollow">My account</a></h4>
-                  <div class="block_content toggle-footer" style="">
+                  <div class="block_content toggle-footer">
                     <ul class="bullet">
                       <li><a href="#" title="My account" rel="nofollow">My account</a></li>
                       <li><a href="#" title="My orders" rel="nofollow">My orders</a></li>
@@ -976,7 +947,7 @@
                 </section>
                 <section class="footer-block col-xs-12 col-sm-6 col-md-2" id="block_various_links_footer">
                   <h4>Information</h4>
-                  <ul class="toggle-footer bullet" style="">
+                  <ul class="toggle-footer bullet">
                     <li class="item"> <a href="#" title="Specials"> Specials </a></li>
                     <li class="item"> <a href="#" title="New products"> New products </a></li>
                     <li class="item"> <a href="#" title="Best sellers"> Best sellers </a></li>
@@ -987,22 +958,22 @@
                 </section>
                 <div class="connect_with footer-block custom_list col-xs-12 col-sm-6 col-md-2">
                   <h4>Connect Us</h4>
-                  <ul class="toggle-footer bullet" style="">
-                    <li class="item"><a href="#"><i class="icon-fb"></i> Facebook </a></li>
-                    <li class="item"><a href="#"><i class="icon-twitter"></i> Twitter </a></li>
-                    <li class="item"><a href="#"><i class="icon-instagram"></i> Instagram </a></li>
-                    <li class="item"><a href="#"><i class="icon-prineres"></i> Prineres </a></li>
+                  <ul class="toggle-footer bullet">
+                    <li class="item"><a href="https://www.facebook.com/"><i class="icon-fb"></i> Facebook </a></li>
+                    <li class="item"><a href="https://www.twitter.com/"><i class="icon-twitter"></i> Twitter </a></li>
+                    <li class="item"><a href="https://www.instagram.com/"><i class="icon-instagram"></i> Instagram </a></li>
+                    <li class="item"><a href="https://www.pinterest.com/"><i class="icon-prineres"></i> Prineres </a></li>
                     <li class="item">
-                      <a href="#"> <i class="icon-youtube"></i> Youtube </a>
+                      <a href="https://www.youtube.com/"> <i class="icon-youtube"></i> Youtube </a>
                     </li>
                     <li class="item">
-                      <a href="#"> <i class="icon-google"></i>Google+ </a>
+                      <a href="https://www.google.com/"> <i class="icon-google"></i>Google+ </a>
                     </li>
                   </ul>
                 </div>
                 <div class="footer-block footer-newsletter col-xs-12 col-sm-12 col-md-3">
                   <h4 class="title_font">Newsletter</h4>
-                  <div class="toggle-footer" style="">
+                  <div class="toggle-footer">
                     <div>
                       <p>Subscribe to our newsletter and keep up with news, promotions, sales and discounts!</p>
                     </div>
@@ -1041,69 +1012,13 @@
       </div>
     </div>
   </div>
-  <div id="back-top" style="display: none;"><a href="#" class="mypresta_scrollup hidden-phone"><i class="icon-chevron-up"></i></a></div>
+  <div id="back-top"><a href="#" class="mypresta_scrollup hidden-phone"><i class="icon-chevron-up"></i></a></div>
 
-  <script type="text/javascript" src="js/script-first.js"></script>
-  <script type="text/javascript" src="js/script-1.js"></script>
-  <script type="text/javascript" src="js/jquery.elevatezoom.min.js"></script>
-  <script type="text/javascript" src="js/script-3.js"></script>
+<script type="text/javascript" src="js/script-first-blog.js"></script>
+<script type="text/javascript" src="js/blog.js"></script>
+<script type="text/javascript" src="js/jquery.elevatezoom.min.js"></script>
+<script type="text/javascript" src="js/script-last-blog.js"></script>
 
-  <div class="colorpicker" id="collorpicker_516">
-    <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
-      <div>
-        <div style="left: 0px; top: 99px;"></div>
-      </div>
-    </div>
-    <div class="colorpicker_hue">
-      <div style="top: 25px;"></div>
-    </div>
-    <div class="colorpicker_new_color" style="background-color: rgb(85, 85, 85);"></div>
-    <div class="colorpicker_current_color" style="background-color: rgb(85, 85, 85);"></div>
-    <div class="colorpicker_hex">
-      <input type="text" maxlength="6" size="6">
-    </div>
-    <div class="colorpicker_rgb_r colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_rgb_g colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_rgb_b colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_h colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_s colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_b colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_submit"></div>
-  </div>
-  <div class="colorpicker" id="collorpicker_884">
-    <div class="colorpicker_color" style="background-color: rgb(255, 0, 255);">
-      <div>
-        <div style="left: 0px; top: 99px;"></div>
-      </div>
-    </div>
-    <div class="colorpicker_hue">
-      <div style="top: 25px;"></div>
-    </div>
-    <div class="colorpicker_new_color" style="background-color: rgb(85, 85, 85);"></div>
-    <div class="colorpicker_current_color" style="background-color: rgb(85, 85, 85);"></div>
-    <div class="colorpicker_hex">
-      <input type="text" maxlength="6" size="6">
-    </div>
-    <div class="colorpicker_rgb_r colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_rgb_g colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_rgb_b colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_h colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_s colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_hsb_b colorpicker_field">
-      <input type="text" maxlength="3" size="3"><span></span></div>
-    <div class="colorpicker_submit"></div>
-  </div>
 </body>
 
 </html>
