@@ -3158,6 +3158,7 @@
     Yc = {},
     Zc = n.ajaxSettings.xhr();
 
+
   function $c() {
     try {
       return new a.XMLHttpRequest
@@ -6950,33 +6951,2365 @@ function get(name) {
     return results[1];
 };;
 $(document).ready(function() {
-  resizeCatimg();
-});
-$(window).resize(function() {
-  resizeCatimg();
-});
-$(document).on('click', '.lnk_more', function(e) {
-  e.preventDefault();
-  $('#category_description_short').hide();
-  $('#category_description_full').show();
-  $(this).hide();
+  if (typeof formatedAddressFieldsValuesList !== 'undefined')
+    updateAddressesDisplay(true);
+  $(document).on('change', 'select[name=id_address_delivery], select[name=id_address_invoice]', function() {
+    updateAddressesDisplay();
+    if (typeof opc !== 'undefined' && opc)
+      updateAddressSelection();
+  });
+  $(document).on('click', 'input[name=same]', function() {
+    updateAddressesDisplay();
+    if (typeof opc !== 'undefined' && opc)
+      updateAddressSelection();
+  });
 });
 
-function resizeCatimg() {
-  var div = $('.content_scene_cat div:first');
-  if (div.css('background-image') == 'none')
+function updateAddressesDisplay(first_view) {
+  updateAddressDisplay('delivery');
+  var txtInvoiceTitle = "";
+  try {
+    var adrs_titles = getAddressesTitles();
+    txtInvoiceTitle = adrs_titles.invoice;
+  } catch (e) {}
+  if ($('#addressesAreEquals:checked').length === 1 && ($('#multishipping_mode_checkbox:checked').length === 0)) {
+    if ($('#multishipping_mode_checkbox:checked').length === 0) {
+      $('#address_invoice_form:visible').hide('fast');
+    }
+    $('ul#address_invoice').html($('ul#address_delivery').html());
+    $('ul#address_invoice li.address_title').html(txtInvoiceTitle);
+  } else {
+    $('#address_invoice_form:hidden').show('fast');
+    if ($('#id_address_invoice').val())
+      updateAddressDisplay('invoice');
+    else {
+      $('ul#address_invoice').html($('ul#address_delivery').html());
+      $('ul#address_invoice li.address_title').html(txtInvoiceTitle);
+    }
+  }
+  if (!first_view) {
+    if (orderProcess === 'order')
+      updateAddresses();
+  }
+  return true;
+}
+
+function updateAddressDisplay(addressType) {
+  if (typeof formatedAddressFieldsValuesList == 'undefined' || formatedAddressFieldsValuesList.length <= 0)
     return;
-  var image = new Image;
-  $(image).load(function() {
-    var width = image.width;
-    var height = image.height;
-    var ratio = parseFloat(height / width);
-    var calc = Math.round(ratio * parseInt(div.outerWidth(false)));
-    div.css('min-height', calc);
-  });
-  if (div.length)
-    image.src = div.css('background-image').replace(/url\("?|"?\)$/ig, '');
+  var idAddress = parseInt($('#id_address_' + addressType + '').val());
+  buildAddressBlock(idAddress, addressType, $('#address_' + addressType));
+  var link = $('ul#address_' + addressType + ' li.address_update a').attr('href');
+  var expression = /id_address=\d+/;
+  if (link) {
+    link = link.replace(expression, 'id_address=' + idAddress);
+    $('ul#address_' + addressType + ' li.address_update a').attr('href', link);
+  }
+}
+
+function updateAddresses() {
+  var idAddress_delivery = parseInt($('#id_address_delivery').val());
+  var idAddress_invoice = $('#addressesAreEquals:checked').length === 1 ? idAddress_delivery : parseInt($('#id_address_invoice').val());
+  if (isNaN(idAddress_delivery) == false && isNaN(idAddress_invoice) == false) {
+    $('.addresses .waitimage').show();
+    $('[name="processAddress"]').prop('disabled', 'disabled');
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: baseUri + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      dataType: "json",
+      data: {
+        processAddress: true,
+        step: 2,
+        ajax: 'true',
+        controller: 'order',
+        'multi-shipping': $('#id_address_delivery:hidden').length,
+        id_address_delivery: idAddress_delivery,
+        id_address_invoice: idAddress_invoice,
+        token: static_token
+      },
+      success: function(jsonData) {
+        if (jsonData.hasError) {
+          var errors = '';
+          for (var error in jsonData.errors)
+            if (error !== 'indexOf')
+              errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+          if (!!$.prototype.fancybox)
+            $.fancybox.open([{
+              type: 'inline',
+              autoScale: true,
+              minHeight: 30,
+              content: '<p class="fancybox-error">' + errors + '</p>'
+            }], {
+              padding: 0
+            });
+          else
+            alert(errors);
+        }
+        $('.addresses .waitimage').hide();
+        $('[name="processAddress"]').prop('disabled', '');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('.addresses .waitimage').hide();
+        $('[name="processAddress"]').prop('disabled', '');
+        if (textStatus !== 'abort') {
+          error = "TECHNICAL ERROR: unable to save adresses \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus;
+          if (!!$.prototype.fancybox)
+            $.fancybox.open([{
+              type: 'inline',
+              autoScale: true,
+              minHeight: 30,
+              content: '<p class="fancybox-error">' + error + '</p>'
+            }], {
+              padding: 0
+            });
+          else
+            alert(error);
+        }
+      }
+    });
+  }
+}
+
+function getAddressesTitles() {
+  if (typeof titleInvoice !== 'undefined' && typeof titleDelivery !== 'undefined')
+    return {
+      'invoice': titleInvoice,
+      'delivery': titleDelivery
+    };
+  else
+    return {
+      'invoice': '',
+      'delivery': ''
+    };
+}
+
+function buildAddressBlock(id_address, address_type, dest_comp) {
+  if (isNaN(id_address))
+    return;
+  var adr_titles_vals = getAddressesTitles();
+  var li_content = formatedAddressFieldsValuesList[id_address]['formated_fields_values'];
+  var ordered_fields_name = ['title'];
+  var reg = new RegExp("[ ]+", "g");
+  ordered_fields_name = ordered_fields_name.concat(formatedAddressFieldsValuesList[id_address]['ordered_fields']);
+  ordered_fields_name = ordered_fields_name.concat(['update']);
+  dest_comp.html('');
+  li_content['title'] = adr_titles_vals[address_type];
+  if (typeof liUpdate !== 'undefined') {
+    var items = liUpdate.split(reg);
+    var regUrl = new RegExp('(https?://[^"]*)', 'gi');
+    liUpdate = liUpdate.replace(regUrl, addressUrlAdd + parseInt(id_address));
+    li_content['update'] = liUpdate;
+  }
+  appendAddressList(dest_comp, li_content, ordered_fields_name);
+}
+
+function appendAddressList(dest_comp, values, fields_name) {
+  for (var item in fields_name) {
+    var name = fields_name[item].replace(/,/g, "");
+    var value = getFieldValue(name, values);
+    if (value != "") {
+      var new_li = document.createElement('li');
+      var reg = new RegExp("[ ]+", "g");
+      var classes = name.split(reg);
+      new_li.className = '';
+      for (clas in classes)
+        new_li.className += 'address_' + classes[clas].toLowerCase().replace(":", "_") + ' ';
+      new_li.className = $.trim(new_li.className);
+      new_li.innerHTML = value;
+      dest_comp.append(new_li);
+    }
+  }
+}
+
+function getFieldValue(field_name, values) {
+  var reg = new RegExp("[ ]+", "g");
+  var items = field_name.split(reg);
+  var vals = new Array();
+  for (var field_item in items) {
+    items[field_item] = items[field_item].replace(/,/g, "");
+    vals.push(values[items[field_item]]);
+  }
+  return vals.join(" ");
 };;
+(function(jQuery) {
+  jQuery.fn.typeWatch = function(o) {
+    var options = jQuery.extend({
+      wait: 750,
+      callback: function() {},
+      highlight: true,
+      captureLength: 2
+    }, o);
+
+    function checkElement(timer, override) {
+      var elTxt = jQuery(timer.el).val();
+      if ((elTxt.length > options.captureLength && elTxt.toUpperCase() != timer.text) || (override && elTxt.length > options.captureLength)) {
+        timer.text = elTxt.toUpperCase();
+        timer.cb(elTxt);
+      }
+    };
+
+    function watchElement(elem) {
+      if (elem.type.toUpperCase() == "TEXT" || elem.nodeName.toUpperCase() == "TEXTAREA") {
+        var timer = {
+          timer: null,
+          text: jQuery(elem).val().toUpperCase(),
+          cb: options.callback,
+          el: elem,
+          wait: options.wait
+        };
+        if (options.highlight) {
+          jQuery(elem).focus(function() {
+            this.select();
+          });
+        }
+        var startWatch = function(evt) {
+          var timerWait = timer.wait;
+          var overrideBool = false;
+          if (evt.keyCode == 13 && this.type.toUpperCase() == "TEXT") {
+            timerWait = 1;
+            overrideBool = true;
+          }
+          var timerCallbackFx = function() {
+            checkElement(timer, overrideBool);
+          }
+          clearTimeout(timer.timer);
+          timer.timer = setTimeout(timerCallbackFx, timerWait);
+        };
+        jQuery(elem).keydown(startWatch);
+      }
+    };
+    return this.each(function(index) {
+      watchElement(this);
+    });
+  };
+})(jQuery);;
+$(document).ready(function() {
+  $('.cart_quantity_up').off('click').on('click', function(e) {
+    e.preventDefault();
+    upQuantity($(this).attr('id').replace('cart_quantity_up_', ''));
+    $('#' + $(this).attr('id').replace('_up_', '_down_')).removeClass('disabled');
+  });
+  $('.cart_quantity_down').off('click').on('click', function(e) {
+    e.preventDefault();
+    downQuantity($(this).attr('id').replace('cart_quantity_down_', ''));
+  });
+  $('.cart_quantity_delete').off('click').on('click', function(e) {
+    e.preventDefault();
+    deleteProductFromSummary($(this).attr('id'));
+  });
+  $('.cart_address_delivery').on('change', function(e) {
+    changeAddressDelivery($(this));
+  });
+  $(document).on('click', '.voucher_name', function(e) {
+    $('#discount_name').val($(this).data('code'));
+  });
+  $('.cart_quantity_input').typeWatch({
+    highlight: true,
+    wait: 600,
+    captureLength: 0,
+    callback: function(val) {
+      updateQty(val, true, this.el);
+    }
+  });
+  cleanSelectAddressDelivery();
+  refreshDeliveryOptions();
+  $('.delivery_option_radio').on('change', function() {
+    refreshDeliveryOptions();
+  });
+  $('#allow_seperated_package').on('click', function() {
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: baseUri + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      dataType: 'json',
+      data: 'controller=cart&ajax=true' + '&summary=true' + '&allowSeperatedPackage=true' + '&value=' + ($(this).prop('checked') ? '1' : '0') + '&token=' + static_token + '&allow_refresh=1',
+      success: function(jsonData) {
+        if (jsonData.hasError) {
+          var errors = '';
+          for (var error in jsonData.errors)
+            if (error !== 'indexOf')
+              errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+          if (!!$.prototype.fancybox)
+            $.fancybox.open([{
+              type: 'inline',
+              autoScale: true,
+              minHeight: 30,
+              content: '<p class="fancybox-error">' + errors + '</p>'
+            }], {
+              padding: 0
+            });
+          else
+            alert(errors);
+          $('input[name=quantity_' + id + ']').val($('input[name=quantity_' + id + '_hidden]').val());
+        } else {
+          if (jsonData.refresh)
+            window.location.href = window.location.href;
+          updateCartSummary(jsonData.summary);
+          if (window.ajaxCart != undefined)
+            ajaxCart.updateCart(jsonData);
+          updateHookShoppingCart(jsonData.HOOK_SHOPPING_CART);
+          updateHookShoppingCartExtra(jsonData.HOOK_SHOPPING_CART_EXTRA);
+          if (typeof(getCarrierListAndUpdate) !== 'undefined')
+            getCarrierListAndUpdate();
+          if (typeof(updatePaymentMethodsDisplay) !== 'undefined')
+            updatePaymentMethodsDisplay();
+        }
+      }
+    });
+  });
+  $('#gift').checkboxChange(function() {
+    $('#gift_div').show('slow');
+  }, function() {
+    $('#gift_div').hide('slow');
+  });
+  $('#enable-multishipping').checkboxChange(function() {
+    $('.standard-checkout').hide(0);
+    $('.multishipping-checkout').show(0);
+  }, function() {
+    $('.standard-checkout').show(0);
+    $('.multishipping-checkout').hide(0);
+  });
+});
+
+function cleanSelectAddressDelivery() {
+  if (window.ajaxCart !== undefined) {
+    $.each($('.cart_address_delivery'), function(it, item) {
+      var options = $(item).find('option');
+      var address_count = 0;
+      var ids = $(item).attr('id').split('_');
+      var id_product = ids[3];
+      var id_product_attribute = ids[4];
+      var id_address_delivery = ids[5];
+      $.each(options, function(i) {
+        if ($(options[i]).val() > 0 && ($('#product_' + id_product + '_' + id_product_attribute + '_0_' + $(options[i]).val()).length == 0 || id_address_delivery == $(options[i]).val()))
+          address_count++;
+      });
+      if (address_count < 2)
+        $($(item).find('option[value=-2]')).remove();
+      else if ($($(item).find('option[value=-2]')).length == 0)
+        $(item).append($('<option value="-2">' + ShipToAnOtherAddress + '</option>'));
+    });
+  }
+}
+
+function changeAddressDelivery(obj) {
+  var ids = obj.attr('id').split('_');
+  var id_product = ids[3];
+  var id_product_attribute = ids[4];
+  var old_id_address_delivery = ids[5];
+  var new_id_address_delivery = obj.val();
+  if (new_id_address_delivery == old_id_address_delivery)
+    return;
+  if (new_id_address_delivery > 0) {
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: baseUri + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      dataType: 'json',
+      data: 'controller=cart&ajax=true&changeAddressDelivery=1&summary=1&id_product=' + id_product + '&id_product_attribute=' + id_product_attribute + '&old_id_address_delivery=' + old_id_address_delivery + '&new_id_address_delivery=' + new_id_address_delivery + '&token=' + static_token + '&allow_refresh=1',
+      success: function(jsonData) {
+        if (typeof(jsonData.hasErrors) != 'undefined' && jsonData.hasErrors) {
+          if (!!$.prototype.fancybox)
+            $.fancybox.open([{
+              type: 'inline',
+              autoScale: true,
+              minHeight: 30,
+              content: '<p class="fancybox-error">' + jsonData.error + '</p>'
+            }], {
+              padding: 0
+            });
+          else
+            alert(jsonData.error);
+          $('#select_address_delivery_' + id_product + '_' + id_product_attribute + '_' + old_id_address_delivery).val(old_id_address_delivery);
+        } else {
+          if ($('#product_' + id_product + '_' + id_product_attribute + '_0_' + new_id_address_delivery).length) {
+            updateCartSummary(jsonData.summary);
+            if (window.ajaxCart != undefined)
+              ajaxCart.updateCart(jsonData);
+            updateCustomizedDatas(jsonData.customizedDatas);
+            updateHookShoppingCart(jsonData.HOOK_SHOPPING_CART);
+            updateHookShoppingCartExtra(jsonData.HOOK_SHOPPING_CART_EXTRA);
+            if (typeof(getCarrierListAndUpdate) !== 'undefined')
+              getCarrierListAndUpdate();
+            $('#product_' + id_product + '_' + id_product_attribute + '_0_' + old_id_address_delivery).remove();
+            $('.product_' + id_product + '_' + id_product_attribute + '_0_' + old_id_address_delivery).remove();
+          }
+          if (window.ajaxCart != undefined)
+            ajaxCart.updateCart(jsonData);
+          updateAddressId(id_product, id_product_attribute, old_id_address_delivery, new_id_address_delivery);
+          cleanSelectAddressDelivery();
+        }
+      }
+    });
+  } else if (new_id_address_delivery == -1)
+    window.location = $($('.address_add a')[0]).attr('href');
+  else if (new_id_address_delivery == -2) {
+    if (old_id_address_delivery == 0) {
+      if (!!$.prototype.fancybox)
+        $.fancybox.open([{
+          type: 'inline',
+          autoScale: true,
+          minHeight: 30,
+          content: '<p class="fancybox-error">' + txtSelectAnAddressFirst + '</p>'
+        }], {
+          padding: 0
+        });
+      else
+        alert(txtSelectAnAddressFirst);
+      return false;
+    }
+    var id_address_delivery = 0;
+    var options = $('#select_address_delivery_' + id_product + '_' + id_product_attribute + '_' + old_id_address_delivery + ' option');
+    $.each(options, function(i) {
+      if ($(options[i]).val() > 0 && $(options[i]).val() !== old_id_address_delivery && $('#product_' + id_product + '_' + id_product_attribute + '_0_' + $(options[i]).val()).length == 0) {
+        id_address_delivery = $(options[i]).val();
+        return false;
+      }
+    });
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: baseUri + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      dataType: 'json',
+      context: obj,
+      data: 'controller=cart' + '&ajax=true&duplicate=true&summary=true' + '&id_product=' + id_product + '&id_product_attribute=' + id_product_attribute + '&id_address_delivery=' + old_id_address_delivery + '&new_id_address_delivery=' + id_address_delivery + '&token=' + static_token + '&allow_refresh=1',
+      success: function(jsonData) {
+        if (jsonData.error && !!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + jsonData.error + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(jsonData.error);
+        var line = $('#product_' + id_product + '_' + id_product_attribute + '_0_' + old_id_address_delivery);
+        var new_line = line.clone();
+        updateAddressId(id_product, id_product_attribute, old_id_address_delivery, id_address_delivery, new_line);
+        line.after(new_line);
+        new_line.find('input[name=quantity_' + id_product + '_' + id_product_attribute + '_0_' + old_id_address_delivery + '_hidden]').val(1);
+        new_line.find('.cart_quantity_input').val(1);
+        $('#select_address_delivery_' + id_product + '_' + id_product_attribute + '_' + old_id_address_delivery).val(old_id_address_delivery);
+        $('#select_address_delivery_' + id_product + '_' + id_product_attribute + '_' + id_address_delivery).val(id_address_delivery);
+        cleanSelectAddressDelivery();
+        updateCartSummary(jsonData.summary);
+        if (window.ajaxCart !== undefined)
+          ajaxCart.updateCart(jsonData);
+      }
+    });
+  }
+  return true;
+}
+
+function updateAddressId(id_product, id_product_attribute, old_id_address_delivery, id_address_delivery, line) {
+  if (typeof(line) == 'undefined' || line.length == 0)
+    line = $('#cart_summary tr[id^=product_' + id_product + '_' + id_product_attribute + '_0_], #cart_summary tr[id^=product_' + id_product + '_' + id_product_attribute + '_nocustom_]');
+  $('.product_customization_for_' + id_product + '_' + id_product_attribute + '_' + old_id_address_delivery).each(function() {
+    $(this).attr('id', $(this).attr('id').replace(/_\d+$/, '_' + id_address_delivery)).removeClass('product_customization_for_' + id_product + '_' + id_product_attribute + '_' + old_id_address_delivery + ' address_' + old_id_address_delivery).addClass('product_customization_for_' + id_product + '_' + id_product_attribute + '_' + id_address_delivery + ' address_' + id_address_delivery);
+    $(this).find('input[name^=quantity_]').each(function() {
+      if (typeof($(this).attr('name')) != 'undefined')
+        $(this).attr('name', $(this).attr('name').replace(/_\d+(_hidden|)$/, '_' + id_address_delivery));
+    });
+    $(this).find('a').each(function() {
+      if (typeof($(this).attr('href')) != 'undefined')
+        $(this).attr('href', $(this).attr('href').replace(/id_address_delivery=\d+/, 'id_address_delivery=' + id_address_delivery));
+    });
+  });
+  line.attr('id', line.attr('id').replace(/_\d+$/, '_' + id_address_delivery)).removeClass('address_' + old_id_address_delivery).addClass('address_' + id_address_delivery).find('span[id^=cart_quantity_custom_], span[id^=total_product_price_], input[name^=quantity_], .cart_quantity_down, .cart_quantity_up, .cart_quantity_delete').each(function() {
+    if (typeof($(this).attr('name')) != 'undefined')
+      $(this).attr('name', $(this).attr('name').replace(/_\d+(_hidden|)$/, '_' + id_address_delivery));
+    if (typeof($(this).attr('id')) != 'undefined')
+      $(this).attr('id', $(this).attr('id').replace(/_\d+$/, '_' + id_address_delivery));
+    if (typeof($(this).attr('href')) != 'undefined')
+      $(this).attr('href', $(this).attr('href').replace(/id_address_delivery=\d+/, 'id_address_delivery=' + id_address_delivery));
+  });
+  line.find('#select_address_delivery_' + id_product + '_' + id_product_attribute + '_' + old_id_address_delivery).attr('id', 'select_address_delivery_' + id_product + '_' + id_product_attribute + '_' + id_address_delivery);
+  if (window.ajaxCart !== undefined) {
+    $('.cart_block_list dd, .cart_block_list dt').each(function() {
+      if (typeof($(this).attr('id')) != 'undefined')
+        $(this).attr('id', $(this).attr('id').replace(/_\d+$/, '_' + id_address_delivery));
+    });
+  }
+}
+
+function updateQty(val, cart, el) {
+  var prefix = "";
+  if (typeof(cart) == 'undefined' || cart)
+    prefix = '#order-detail-content ';
+  else
+    prefix = '#fancybox-content ';
+  var id = $(el).attr('name');
+  var exp = new RegExp("^[0-9]+$");
+  if (exp.test(val) == true) {
+    var hidden = $(prefix + 'input[name=' + id + '_hidden]').val();
+    var input = $(prefix + 'input[name=' + id + ']').val();
+    var QtyToUp = parseInt(input) - parseInt(hidden);
+    if (parseInt(QtyToUp) > 0)
+      upQuantity(id.replace('quantity_', ''), QtyToUp);
+    else if (parseInt(QtyToUp) < 0)
+      downQuantity(id.replace('quantity_', ''), QtyToUp);
+  } else
+    $(prefix + 'input[name=' + id + ']').val($(prefix + 'input[name=' + id + '_hidden]').val());
+  if (typeof(getCarrierListAndUpdate) !== 'undefined')
+    getCarrierListAndUpdate();
+}
+
+function deleteProductFromSummary(id) {
+  var customizationId = 0;
+  var productId = 0;
+  var productAttributeId = 0;
+  var id_address_delivery = 0;
+  var ids = 0;
+  ids = id.split('_');
+  productId = parseInt(ids[0]);
+  if (typeof(ids[1]) !== 'undefined')
+    productAttributeId = parseInt(ids[1]);
+  if (typeof(ids[2]) !== 'undefined' && ids[2] !== 'nocustom')
+    customizationId = parseInt(ids[2]);
+  if (typeof(ids[3]) !== 'undefined')
+    id_address_delivery = parseInt(ids[3]);
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: baseUri + '?rand=' + new Date().getTime(),
+    async: true,
+    cache: false,
+    dataType: 'json',
+    data: 'controller=cart' + '&ajax=true&delete=true&summary=true' + '&id_product=' + productId + '&ipa=' + productAttributeId + '&id_address_delivery=' + id_address_delivery + ((customizationId !== 0) ? '&id_customization=' + customizationId : '') + '&token=' + static_token + '&allow_refresh=1',
+    success: function(jsonData) {
+      if (jsonData.hasError) {
+        var errors = '';
+        for (var error in jsonData.errors)
+          if (error !== 'indexOf')
+            errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + errors + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(errors);
+      } else {
+        if (jsonData.refresh) {
+          location.reload();
+          return;
+        }
+        if (parseInt(jsonData.summary.products.length) == 0) {
+          if (typeof(orderProcess) == 'undefined' || orderProcess !== 'order-opc')
+            document.location.href = document.location.href;
+          else {
+            $('#center_column').children().each(function() {
+              if ($(this).attr('id') !== 'emptyCartWarning' && $(this).attr('class') !== 'breadcrumb' && $(this).attr('id') !== 'cart_title') {
+                $(this).fadeOut('slow', function() {
+                  $(this).remove();
+                });
+              }
+            });
+            $('#summary_products_label').remove();
+            $('#emptyCartWarning').fadeIn('slow');
+          }
+        } else {
+          $('#product_' + id).fadeOut('slow', function() {
+            $(this).remove();
+            cleanSelectAddressDelivery();
+            if (!customizationId)
+              refreshOddRow();
+          });
+          var exist = false;
+          for (i = 0; i < jsonData.summary.products.length; i++) {
+            if (jsonData.summary.products[i].id_product == productId && jsonData.summary.products[i].id_product_attribute == productAttributeId && jsonData.summary.products[i].id_address_delivery == id_address_delivery && (parseInt(jsonData.summary.products[i].customizationQuantityTotal) > 0))
+              exist = true;
+          }
+          if (!exist && customizationId)
+            $('#product_' + productId + '_' + productAttributeId + '_0_' + id_address_delivery).fadeOut('slow', function() {
+              $(this).remove();
+              var line = $('#product_' + productId + '_' + productAttributeId + '_nocustom_' + id_address_delivery);
+              if (line.length > 0) {
+                line.find('input[name^=quantity_], .cart_quantity_down, .cart_quantity_up, .cart_quantity_delete').each(function() {
+                  if (typeof($(this).attr('name')) != 'undefined')
+                    $(this).attr('name', $(this).attr('name').replace(/nocustom/, '0'));
+                  if (typeof($(this).attr('id')) != 'undefined')
+                    $(this).attr('id', $(this).attr('id').replace(/nocustom/, '0'));
+                });
+                line.find('span[id^=total_product_price_]').each(function() {
+                  $(this).attr('id', $(this).attr('id').replace(/_nocustom/, ''));
+                });
+                line.attr('id', line.attr('id').replace(/nocustom/, '0'));
+              }
+              refreshOddRow();
+            });
+        }
+        updateCartSummary(jsonData.summary);
+        if (window.ajaxCart != undefined)
+          ajaxCart.updateCart(jsonData);
+        updateCustomizedDatas(jsonData.customizedDatas);
+        updateHookShoppingCart(jsonData.HOOK_SHOPPING_CART);
+        updateHookShoppingCartExtra(jsonData.HOOK_SHOPPING_CART_EXTRA);
+        if (typeof(getCarrierListAndUpdate) !== 'undefined' && jsonData.summary.products.length > 0)
+          getCarrierListAndUpdate();
+        if (typeof(updatePaymentMethodsDisplay) !== 'undefined')
+          updatePaymentMethodsDisplay();
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (textStatus !== 'abort') {
+        var error = "TECHNICAL ERROR: unable to save update quantity \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus;
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + error + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(error);
+      }
+    }
+  });
+}
+
+function refreshOddRow() {
+  var odd_class = 'odd';
+  var even_class = 'even';
+  $.each($('.cart_item'), function(i, it) {
+    if (i == 0) {
+      if ($(this).hasClass('even')) {
+        odd_class = 'even';
+        even_class = 'odd';
+      }
+      $(this).addClass('first_item');
+    }
+    if (i % 2)
+      $(this).removeClass(odd_class).addClass(even_class);
+    else
+      $(this).removeClass(even_class).addClass(odd_class);
+  });
+  $('.cart_item:last-child, .customization:last-child').addClass('last_item');
+}
+
+function upQuantity(id, qty) {
+  if (typeof(qty) == 'undefined' || !qty)
+    qty = 1;
+  var customizationId = 0;
+  var productId = 0;
+  var productAttributeId = 0;
+  var id_address_delivery = 0;
+  var ids = 0;
+  ids = id.split('_');
+  productId = parseInt(ids[0]);
+  if (typeof(ids[1]) !== 'undefined')
+    productAttributeId = parseInt(ids[1]);
+  if (typeof(ids[2]) !== 'undefined' && ids[2] !== 'nocustom')
+    customizationId = parseInt(ids[2]);
+  if (typeof(ids[3]) !== 'undefined')
+    id_address_delivery = parseInt(ids[3]);
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: baseUri + '?rand=' + new Date().getTime(),
+    async: true,
+    cache: false,
+    dataType: 'json',
+    data: 'controller=cart' + '&ajax=true' + '&add=true' + '&getproductprice=true' + '&summary=true' + '&id_product=' + productId + '&ipa=' + productAttributeId + '&id_address_delivery=' + id_address_delivery + ((customizationId !== 0) ? '&id_customization=' + customizationId : '') + '&qty=' + qty + '&token=' + static_token + '&allow_refresh=1',
+    success: function(jsonData) {
+      if (jsonData.hasError) {
+        var errors = '';
+        for (var error in jsonData.errors)
+          if (error !== 'indexOf')
+            errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + errors + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(errors);
+        $('input[name=quantity_' + id + ']').val($('input[name=quantity_' + id + '_hidden]').val());
+      } else {
+        if (jsonData.refresh)
+          window.location.href = window.location.href;
+        updateCartSummary(jsonData.summary);
+        if (window.ajaxCart != undefined)
+          ajaxCart.updateCart(jsonData);
+        if (customizationId !== 0)
+          updateCustomizedDatas(jsonData.customizedDatas);
+        updateHookShoppingCart(jsonData.HOOK_SHOPPING_CART);
+        updateHookShoppingCartExtra(jsonData.HOOK_SHOPPING_CART_EXTRA);
+        if (typeof(getCarrierListAndUpdate) !== 'undefined')
+          getCarrierListAndUpdate();
+        if (typeof(updatePaymentMethodsDisplay) !== 'undefined')
+          updatePaymentMethodsDisplay();
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (textStatus !== 'abort') {
+        error = "TECHNICAL ERROR: unable to save update quantity \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus;
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + error + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(error);
+      }
+    }
+  });
+}
+
+function downQuantity(id, qty) {
+  var val = $('input[name=quantity_' + id + ']').val();
+  var newVal = val;
+  if (typeof(qty) == 'undefined' || !qty) {
+    qty = 1;
+    newVal = val - 1;
+  } else if (qty < 0)
+    qty = -qty;
+  var customizationId = 0;
+  var productId = 0;
+  var productAttributeId = 0;
+  var id_address_delivery = 0;
+  var ids = 0;
+  ids = id.split('_');
+  productId = parseInt(ids[0]);
+  if (typeof(ids[1]) !== 'undefined')
+    productAttributeId = parseInt(ids[1]);
+  if (typeof(ids[2]) !== 'undefined' && ids[2] !== 'nocustom')
+    customizationId = parseInt(ids[2]);
+  if (typeof(ids[3]) !== 'undefined')
+    id_address_delivery = parseInt(ids[3]);
+  if (newVal > 0 || $('#product_' + id + '_gift').length) {
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: baseUri + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      dataType: 'json',
+      data: 'controller=cart' + '&ajax=true' + '&add=true' + '&getproductprice=true' + '&summary=true' + '&id_product=' + productId + '&ipa=' + productAttributeId + '&id_address_delivery=' + id_address_delivery + '&op=down' + ((customizationId !== 0) ? '&id_customization=' + customizationId : '') + '&qty=' + qty + '&token=' + static_token + '&allow_refresh=1',
+      success: function(jsonData) {
+        if (jsonData.hasError) {
+          var errors = '';
+          for (var error in jsonData.errors)
+            if (error !== 'indexOf')
+              errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+          if (!!$.prototype.fancybox)
+            $.fancybox.open([{
+              type: 'inline',
+              autoScale: true,
+              minHeight: 30,
+              content: '<p class="fancybox-error">' + errors + '</p>'
+            }], {
+              padding: 0
+            });
+          else
+            alert(errors);
+          $('input[name=quantity_' + id + ']').val($('input[name=quantity_' + id + '_hidden]').val());
+        } else {
+          if (jsonData.refresh)
+            window.location.href = window.location.href;
+          updateCartSummary(jsonData.summary);
+          if (window.ajaxCart !== undefined)
+            ajaxCart.updateCart(jsonData);
+          if (customizationId !== 0)
+            updateCustomizedDatas(jsonData.customizedDatas);
+          updateHookShoppingCart(jsonData.HOOK_SHOPPING_CART);
+          updateHookShoppingCartExtra(jsonData.HOOK_SHOPPING_CART_EXTRA);
+          if (newVal == 0)
+            $('#product_' + id).hide();
+          if (typeof(getCarrierListAndUpdate) !== 'undefined')
+            getCarrierListAndUpdate();
+          if (typeof(updatePaymentMethodsDisplay) !== 'undefined')
+            updatePaymentMethodsDisplay();
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        if (textStatus !== 'abort')
+          alert("TECHNICAL ERROR: unable to save update quantity \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus);
+      }
+    });
+  } else {
+    deleteProductFromSummary(id);
+  }
+}
+
+function updateCartSummary(json) {
+  var i;
+  var nbrProducts = 0;
+  var product_list = new Array();
+  if (typeof json == 'undefined')
+    return;
+  $('div.alert-danger').fadeOut();
+  for (i = 0; i < json.products.length; i++)
+    product_list[json.products[i].id_product + '_' + json.products[i].id_product_attribute + '_' + json.products[i].id_address_delivery] = json.products[i];
+  if (!$('.multishipping-cart:visible').length) {
+    for (i = 0; i < json.gift_products.length; i++)
+      if (typeof(product_list[json.gift_products[i].id_product + '_' + json.gift_products[i].id_product_attribute + '_' + json.gift_products[i].id_address_delivery]) !== 'undefined')
+        product_list[json.gift_products[i].id_product + '_' + json.gift_products[i].id_product_attribute + '_' + json.gift_products[i].id_address_delivery].quantity -= json.gift_products[i].cart_quantity;
+  } else
+    for (i = 0; i < json.gift_products.length; i++)
+      if (typeof(product_list[json.gift_products[i].id_product + '_' + json.gift_products[i].id_product_attribute + '_' + json.gift_products[i].id_address_delivery]) == 'undefined')
+        product_list[json.gift_products[i].id_product + '_' + json.gift_products[i].id_product_attribute + '_' + json.gift_products[i].id_address_delivery] = json.gift_products[i]; for (i in product_list) {
+    var reduction = product_list[i].reduction_applies;
+    var reduction_type = product_list[i].reduction_type;
+    var reduction_symbol = '';
+    var initial_price_text = '';
+    var initial_price = '';
+    if (typeof(product_list[i].price_without_quantity_discount) !== 'undefined')
+      initial_price = formatCurrency(product_list[i].price_without_quantity_discount, currencyFormat, currencySign, currencyBlank);
+    var current_price = '';
+    var product_total = '';
+    var product_customization_total = '';
+    if (priceDisplayMethod !== 0) {
+      current_price = formatCurrency(product_list[i].price, currencyFormat, currencySign, currencyBlank);
+      product_total = product_list[i].total;
+      product_customization_total = product_list[i].total_customization;
+    } else {
+      current_price = formatCurrency(product_list[i].price_wt, currencyFormat, currencySign, currencyBlank);
+      product_total = product_list[i].total_wt;
+      product_customization_total = product_list[i].total_customization_wt;
+    }
+    var current_price_class = 'price';
+    var price_reduction = '';
+    if (reduction && typeof(initial_price) !== 'undefined') {
+      if (reduction_type == 'amount')
+        price_reduction = product_list[i].reduction_formatted;
+      else {
+        var display_price = 0;
+        if (priceDisplayMethod !== 0)
+          display_price = product_list[i].price;
+        else
+          display_price = product_list[i].price_wt;
+        price_reduction = ps_round((product_list[i].price_without_quantity_discount - display_price) / product_list[i].price_without_quantity_discount * -100);
+        reduction_symbol = '%';
+      }
+      if (initial_price !== '' && product_list[i].price_without_quantity_discount > product_list[i].price) {
+        initial_price_text = '<li class="price-percent-reduction small">&nbsp;' + price_reduction + reduction_symbol + '&nbsp;</li><li class="old-price">' + initial_price + '</li>';
+        current_price_class += ' special-price';
+      }
+    }
+    var key_for_blockcart = product_list[i].id_product + '_' + product_list[i].id_product_attribute + '_' + product_list[i].id_address_delivery;
+    var key_for_blockcart_nocustom = product_list[i].id_product + '_' + product_list[i].id_product_attribute + '_' + ((product_list[i].id_customization && product_list[i].quantity_without_customization != product_list[i].quantity) ? 'nocustom' : '0') + '_' + product_list[i].id_address_delivery;
+    $('#product_price_' + key_for_blockcart).html('<li class="' + current_price_class + '">' + current_price + '</li>' + initial_price_text);
+    if (typeof(product_list[i].customizationQuantityTotal) !== 'undefined' && product_list[i].customizationQuantityTotal > 0)
+      $('#total_product_price_' + key_for_blockcart).html(formatCurrency(product_customization_total, currencyFormat, currencySign, currencyBlank));
+    else
+      $('#total_product_price_' + key_for_blockcart).html(formatCurrency(product_total, currencyFormat, currencySign, currencyBlank));
+    if (product_list[i].quantity_without_customization != product_list[i].quantity)
+      $('#total_product_price_' + key_for_blockcart_nocustom).html(formatCurrency(product_total, currencyFormat, currencySign, currencyBlank));
+    $('input[name=quantity_' + key_for_blockcart_nocustom + ']').val(product_list[i].id_customization ? product_list[i].quantity_without_customization : product_list[i].cart_quantity);
+    $('input[name=quantity_' + key_for_blockcart_nocustom + '_hidden]').val(product_list[i].id_customization ? product_list[i].quantity_without_customization : product_list[i].cart_quantity);
+    if (typeof(product_list[i].customizationQuantityTotal) !== 'undefined' && product_list[i].customizationQuantityTotal > 0)
+      $('#cart_quantity_custom_' + key_for_blockcart).html(product_list[i].customizationQuantityTotal);
+    nbrProducts += parseInt(product_list[i].quantity);
+  }
+  var discount_count = 0;
+  for (var e in json.discounts) {
+    discount_count++;
+    break;
+  }
+  if (!discount_count) {
+    $('.cart_discount').each(function() {
+      $(this).remove();
+    });
+    $('.cart_total_voucher').remove();
+  } else {
+    if ($('.cart_discount').length == 0) {
+      location.reload();
+      return;
+    }
+    if (priceDisplayMethod !== 0)
+      $('#total_discount').html('-' + formatCurrency(json.total_discounts_tax_exc, currencyFormat, currencySign, currencyBlank));
+    else
+      $('#total_discount').html('-' + formatCurrency(json.total_discounts, currencyFormat, currencySign, currencyBlank));
+    $('.cart_discount').each(function() {
+      var idElmt = $(this).attr('id').replace('cart_discount_', '');
+      var toDelete = true;
+      for (var i in json.discounts)
+        if (json.discounts[i].id_discount == idElmt) {
+          if (json.discounts[i].value_real !== '!') {
+            if (priceDisplayMethod !== 0)
+              $('#cart_discount_' + idElmt + ' td.cart_discount_price span.price-discount').html(formatCurrency(json.discounts[i].value_tax_exc * -1, currencyFormat, currencySign, currencyBlank));
+            else
+              $('#cart_discount_' + idElmt + ' td.cart_discount_price span.price-discount').html(formatCurrency(json.discounts[i].value_real * -1, currencyFormat, currencySign, currencyBlank));
+          }
+          toDelete = false;
+        }
+      if (toDelete)
+        $('#cart_discount_' + idElmt + ', #cart_total_voucher').fadeTo('fast', 0, function() {
+          $(this).remove();
+        });
+    });
+  }
+  if (typeof(orderProcess) !== 'undefined' && orderProcess == 'order-opc' && !json.is_virtual_cart)
+    $('.ajax_cart_shipping_cost').parent().find('.unvisible').show();
+  if (json.total_shipping > 0) {
+    if (priceDisplayMethod !== 0) {
+      $('.cart_block_shipping_cost').html(formatCurrency(json.total_shipping_tax_exc, currencyFormat, currencySign, currencyBlank));
+      $('.cart_block_wrapping_cost').html(formatCurrency(json.total_wrapping_tax_exc, currencyFormat, currencySign, currencyBlank));
+      $('.cart_block_total').html(formatCurrency(json.total_price_without_tax, currencyFormat, currencySign, currencyBlank));
+    } else {
+      $('.cart_block_shipping_cost').html(formatCurrency(json.total_shipping, currencyFormat, currencySign, currencyBlank));
+      $('.cart_block_wrapping_cost').html(formatCurrency(json.total_wrapping, currencyFormat, currencySign, currencyBlank));
+      $('.cart_block_total').html(formatCurrency(json.total_price, currencyFormat, currencySign, currencyBlank));
+    }
+  } else {
+    if (parseFloat(json.total_shipping) > 0)
+      $('.ajax_cart_shipping_cost').text(jsonData.shippingCost);
+    else if (json.carrier.id == null && typeof(toBeDetermined) !== 'undefined' && !json.free_ship)
+      $('.ajax_cart_shipping_cost').html(toBeDetermined);
+    else if (typeof(freeShippingTranslation) != 'undefined')
+      $('.ajax_cart_shipping_cost').html(freeShippingTranslation);
+  }
+  $('.cart_block_tax_cost').html(formatCurrency(json.total_tax, currencyFormat, currencySign, currencyBlank));
+  $('.ajax_cart_quantity').html(nbrProducts);
+  $('#summary_products_quantity').html(nbrProducts + ' ' + (nbrProducts > 1 ? txtProducts : txtProduct));
+  if (priceDisplayMethod !== 0)
+    $('#total_product').html(formatCurrency(json.total_products, currencyFormat, currencySign, currencyBlank));
+  else
+    $('#total_product').html(formatCurrency(json.total_products_wt, currencyFormat, currencySign, currencyBlank));
+  $('#total_price').html(formatCurrency(json.total_price, currencyFormat, currencySign, currencyBlank));
+  $('#total_price_without_tax').html(formatCurrency(json.total_price_without_tax, currencyFormat, currencySign, currencyBlank));
+  $('#total_tax').html(formatCurrency(json.total_tax, currencyFormat, currencySign, currencyBlank));
+  $('.cart_total_delivery').show();
+  if (json.total_shipping > 0) {
+    if (priceDisplayMethod !== 0)
+      $('#total_shipping').html(formatCurrency(json.total_shipping_tax_exc, currencyFormat, currencySign, currencyBlank));
+    else
+      $('#total_shipping').html(formatCurrency(json.total_shipping, currencyFormat, currencySign, currencyBlank));
+  } else {
+    if (json.carrier.id != null || json.free_ship) {
+      $('#total_shipping').html(freeShippingTranslation);
+      if (json.is_virtual_cart)
+        $('.cart_total_delivery').hide();
+    }
+    if (!hasDeliveryAddress)
+      $('.cart_total_delivery').hide();
+  }
+  if (json.total_wrapping > 0) {
+    $('#total_wrapping').html(formatCurrency(json.total_wrapping, currencyFormat, currencySign, currencyBlank));
+    $('#total_wrapping').parent().show();
+  } else {
+    $('#total_wrapping').html(formatCurrency(json.total_wrapping, currencyFormat, currencySign, currencyBlank));
+    $('#total_wrapping').parent().hide();
+  }
+}
+
+function updateCustomizedDatas(json) {
+  for (var i in json)
+    for (var j in json[i])
+      for (var k in json[i][j])
+        for (var l in json[i][j][k]) {
+          var quantity = json[i][j][k][l]['quantity'];
+          $('input[name=quantity_' + i + '_' + j + '_' + l + '_' + k + '_hidden]').val(quantity);
+          $('input[name=quantity_' + i + '_' + j + '_' + l + '_' + k + ']').val(quantity);
+        }
+}
+
+function updateHookShoppingCart(html) {
+  $('#HOOK_SHOPPING_CART').html(html);
+  if (typeof initCrossSellingbxSlider !== 'undefined')
+    initCrossSellingbxSlider();
+}
+
+function updateHookShoppingCartExtra(html) {
+  $('#HOOK_SHOPPING_CART_EXTRA').html(html);
+}
+
+function refreshDeliveryOptions() {
+  $.each($('.delivery_option_radio'), function() {
+    if ($(this).prop('checked')) {
+      if ($(this).parent().find('.delivery_option_carrier.not-displayable').length == 0)
+        $(this).parent().find('.delivery_option_carrier').show();
+      var carrier_id_list = $(this).val().split(',');
+      carrier_id_list.pop();
+      var it = this;
+      $(carrier_id_list).each(function() {
+        $(it).closest('.delivery_options').find('input[value="' + this.toString() + '"]').change();
+      });
+    } else
+      $(this).parent().find('.delivery_option_carrier').hide();
+  });
+}
+
+function updateExtraCarrier(id_delivery_option, id_address) {
+  var url = "";
+  if (typeof(orderOpcUrl) !== 'undefined')
+    url = orderOpcUrl;
+  else
+    url = orderUrl;
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: url + '?rand=' + new Date().getTime(),
+    async: true,
+    cache: false,
+    dataType: "json",
+    data: 'ajax=true' + '&method=updateExtraCarrier' + '&id_address=' + id_address + '&id_delivery_option=' + id_delivery_option + '&token=' + static_token + '&allow_refresh=1',
+    success: function(jsonData) {
+      $('#HOOK_EXTRACARRIER_' + id_address).html(jsonData['content']);
+    }
+  });
+};;
+$(document).ready(function() {
+  if ((typeof isLogged == 'undefined' || !isLogged) || (typeof isGuest !== 'undefined' && isGuest)) {
+    if (guestCheckoutEnabled && !isLogged && !isGuest) {
+      $('#opc_account_choice').show();
+      $('#opc_account_form, #opc_invoice_address').hide();
+      $(document).on('click', '#opc_createAccount', function(e) {
+        e.preventDefault();
+        $('.is_customer_param').show();
+        $('#opc_account_form').slideDown('slow');
+        $('#is_new_customer').val('1');
+        $('#opc_account_choice, #opc_invoice_address').hide();
+        if (typeof bindUniform !== 'undefined')
+          bindUniform();
+      });
+      $(document).on('click', '#opc_guestCheckout', function(e) {
+        e.preventDefault();
+        $('.is_customer_param').hide();
+        $('#opc_account_form').slideDown('slow');
+        $('#is_new_customer').val('0');
+        $('#opc_account_choice, #opc_invoice_address').hide();
+        $('#new_account_title').html(txtInstantCheckout);
+        $('#submitAccount').attr({
+          id: 'submitGuestAccount',
+          name: 'submitGuestAccount'
+        });
+        if (typeof bindUniform !== 'undefined')
+          bindUniform();
+      });
+    } else if (isGuest) {
+      $('.is_customer_param').hide();
+      $('#opc_account_form').show('slow');
+      $('#is_new_customer').val('0');
+      $('#opc_account_choice, #opc_invoice_address').hide();
+      $('#new_account_title').html(txtInstantCheckout);
+    } else {
+      $('#opc_account_choice').hide();
+      $('#is_new_customer').val('1');
+      $('.is_customer_param, #opc_account_form').show();
+      $('#opc_invoice_address').hide();
+    }
+    $(document).on('click', '#openLoginFormBlock', function(e) {
+      e.preventDefault();
+      $('#openNewAccountBlock').show();
+      $(this).hide();
+      $('#login_form_content').slideDown('slow');
+      $('#new_account_form').slideUp('slow');
+    });
+    $(document).on('click', '#SubmitLogin', function(e) {
+      e.preventDefault();
+      var that = $(this);
+      $.ajax({
+        type: 'POST',
+        headers: {
+          "cache-control": "no-cache"
+        },
+        url: authenticationUrl + '?rand=' + new Date().getTime(),
+        async: false,
+        cache: false,
+        dataType: "json",
+        data: 'SubmitLogin=true&ajax=true&email=' + encodeURIComponent($('#login_email').val()) + '&passwd=' + encodeURIComponent($('#login_passwd').val()) + '&token=' + static_token,
+        success: function(jsonData) {
+          if (jsonData.hasError) {
+            var errors = '<b>' + txtThereis + ' ' + jsonData.errors.length + ' ' + txtErrors + ':</b><ol>';
+            for (var error in jsonData.errors)
+              if (error !== 'indexOf')
+                errors += '<li>' + jsonData.errors[error] + '</li>';
+            errors += '</ol>';
+            $('#opc_login_errors').html(errors).slideDown('slow');
+          } else {
+            static_token = jsonData.token;
+            updateNewAccountToAddressBlock(that.attr('data-adv-api'));
+          }
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          if (textStatus !== 'abort') {
+            error = "TECHNICAL ERROR: unable to send login informations \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus;
+            if (!!$.prototype.fancybox)
+              $.fancybox.open([{
+                type: 'inline',
+                autoScale: true,
+                minHeight: 30,
+                content: '<p class="fancybox-error">' + error + '</p>'
+              }], {
+                padding: 0
+              });
+            else
+              alert(error);
+          }
+        }
+      });
+    });
+    $(document).on('click', '#submitAccount, #submitGuestAccount', function(e) {
+      e.preventDefault();
+      $('#opc_new_account-overlay, #opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeIn('slow')
+      var callingFile = '';
+      var advApiParam = '';
+      var params = '';
+      if ($(this).attr('data-adv-api')) {
+        advApiParam = '&isAdvApi=1';
+      }
+      if (parseInt($('#opc_id_customer').val()) == 0) {
+        callingFile = authenticationUrl;
+        params = 'submitAccount=true&';
+      } else {
+        callingFile = orderOpcUrl;
+        params = 'method=editCustomer&';
+      }
+      $('#opc_account_form input:visible, #opc_account_form input[type=hidden]').each(function() {
+        if ($(this).is('input[type=checkbox]')) {
+          if ($(this).is(':checked'))
+            params += encodeURIComponent($(this).attr('name')) + '=1&';
+        } else if ($(this).is('input[type=radio]')) {
+          if ($(this).is(':checked'))
+            params += encodeURIComponent($(this).attr('name')) + '=' + encodeURIComponent($(this).val()) + '&';
+        } else
+          params += encodeURIComponent($(this).attr('name')) + '=' + encodeURIComponent($(this).val()) + '&';
+      });
+      $('#opc_account_form select:visible').each(function() {
+        params += encodeURIComponent($(this).attr('name')) + '=' + encodeURIComponent($(this).val()) + '&';
+      });
+      params += 'customer_lastname=' + encodeURIComponent($('#customer_lastname').val()) + '&';
+      params += 'customer_firstname=' + encodeURIComponent($('#customer_firstname').val()) + '&';
+      params += 'alias=' + encodeURIComponent($('#alias').val()) + '&';
+      params += 'other=' + encodeURIComponent($('#other').val()) + '&';
+      params += 'is_new_customer=' + encodeURIComponent($('#is_new_customer').val()) + '&';
+      params = params.substr(0, params.length - 1);
+      $.ajax({
+        type: 'POST',
+        headers: {
+          "cache-control": "no-cache"
+        },
+        url: callingFile + '?rand=' + new Date().getTime() + advApiParam,
+        async: false,
+        cache: false,
+        dataType: "json",
+        data: 'ajax=true&' + params + '&token=' + static_token,
+        success: function(jsonData) {
+          if (jsonData.hasError) {
+            var tmp = '';
+            var i = 0;
+            for (var error in jsonData.errors)
+              if (error !== 'indexOf') {
+                i = i + 1;
+                tmp += '<li>' + jsonData.errors[error] + '</li>';
+              }
+            tmp += '</ol>';
+            var errors = '<b>' + txtThereis + ' ' + i + ' ' + txtErrors + ':</b><ol>' + tmp;
+            $('#opc_account_errors').slideUp('fast', function() {
+              $(this).html(errors).slideDown('slow', function() {
+                $.scrollTo('#opc_account_errors', 800);
+              });
+            });
+          } else {
+            $('#opc_account_errors').slideUp('slow', function() {
+              $(this).html('');
+            });
+          }
+          isGuest = parseInt($('#is_new_customer').val()) == 1 ? 0 : 1;
+          if (jsonData.id_address_delivery !== undefined && jsonData.id_address_delivery > 0)
+            $('#opc_id_address_delivery').val(jsonData.id_address_delivery);
+          if (jsonData.id_address_invoice !== undefined && jsonData.id_address_invoice > 0)
+            $('#opc_id_address_invoice').val(jsonData.id_address_invoice);
+          if (jsonData.id_customer !== undefined && jsonData.id_customer !== 0 && jsonData.isSaved) {
+            static_token = jsonData.token;
+            if ($('#opc_id_customer').val() !== '0')
+              if (!saveAddress('delivery'))
+                return false;
+            $('#opc_id_customer').val(jsonData.id_customer);
+            if ($('#invoice_address:checked').length !== 0) {
+              if (!saveAddress('invoice'))
+                return false;
+            }
+            $('#opc_id_customer').val(jsonData.id_customer);
+            if (isGuest) {
+              isLogged = 1;
+              $('#opc_account_saved').fadeIn('slow');
+              $('#submitAccount').hide();
+              updateAddressSelection(advApiParam);
+            } else
+              updateNewAccountToAddressBlock(advApiParam);
+          }
+          $('#opc_new_account-overlay, #opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeIn('slow');
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          if (textStatus !== 'abort') {
+            error = "TECHNICAL ERROR: unable to save account \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus;
+            if (!!$.prototype.fancybox)
+              $.fancybox.open([{
+                type: 'inline',
+                autoScale: true,
+                minHeight: 30,
+                content: '<p class="fancybox-error">' + error + '</p>'
+              }], {
+                padding: 0
+              });
+            else
+              alert(error);
+          }
+          $('#opc_new_account-overlay, #opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeIn('slow')
+        }
+      });
+    });
+  }
+  bindInputs();
+  $('#opc_account_form input,select,textarea').change(function() {
+    if ($(this).is(':visible')) {
+      $('#opc_account_saved').fadeOut('slow');
+      $('#submitAccount').show();
+    }
+  });
+  $('#multishipping_mode_checkbox').attr('checked', false);
+  if (typeof(multishipping_mode) !== 'undefined' && multishipping_mode) {
+    $('#multishipping_mode_checkbox').click();
+    $('.addressesAreEquals').hide().find('input').attr('checked', false);
+  }
+  if (typeof(open_multishipping_fancybox) !== 'undefined' && open_multishipping_fancybox)
+    $('#link_multishipping_form').click();
+});
+
+function updateCarrierList(json) {
+  var html = json.carrier_block;
+  $('#carrier_area').replaceWith(html);
+  bindInputs();
+  $('#HOOK_BEFORECARRIER').html(json.HOOK_BEFORECARRIER);
+}
+
+function updatePaymentMethods(json) {
+  $('#HOOK_TOP_PAYMENT').html(json.HOOK_TOP_PAYMENT);
+  $('#opc_payment_methods-content #HOOK_PAYMENT').html(json.HOOK_PAYMENT);
+}
+
+function updatePaymentMethodsDisplay() {
+  var checked = '';
+  if ($('#cgv:checked').length !== 0)
+    checked = 1;
+  else
+    checked = 0;
+  $('#opc_payment_methods-overlay').fadeIn('slow', function() {
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: orderOpcUrl + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      dataType: "json",
+      data: 'ajax=true&method=updateTOSStatusAndGetPayments&checked=' + checked + '&token=' + static_token,
+      success: function(json) {
+        updatePaymentMethods(json);
+        if (typeof bindUniform !== 'undefined')
+          bindUniform();
+      }
+    });
+    $(this).fadeOut('slow');
+  });
+}
+
+function updateAddressSelection(is_adv_api) {
+  var idAddress_delivery = ($('#opc_id_address_delivery').length == 1 ? $('#opc_id_address_delivery').val() : $('#id_address_delivery').val());
+  var idAddress_invoice = ($('#opc_id_address_invoice').length == 1 ? $('#opc_id_address_invoice').val() : ($('#addressesAreEquals:checked').length == 1 ? idAddress_delivery : ($('#id_address_invoice').length == 1 ? $('#id_address_invoice').val() : idAddress_delivery)));
+  $('#opc_account-overlay').fadeIn('slow');
+  $('#opc_delivery_methods-overlay').fadeIn('slow');
+  $('#opc_payment_methods-overlay').fadeIn('slow');
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: orderOpcUrl + '?rand=' + new Date().getTime(),
+    async: true,
+    cache: false,
+    dataType: "json",
+    data: 'allow_refresh=1&ajax=true&method=updateAddressesSelected&id_address_delivery=' + idAddress_delivery + '&id_address_invoice=' + idAddress_invoice + '&token=' + static_token +
+      (is_adv_api ? '&isAdvApi=1' : ''),
+    success: function(jsonData) {
+      if (jsonData.hasError) {
+        var errors = '';
+        for (var error in jsonData.errors)
+          if (error !== 'indexOf')
+            errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + errors + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(errors);
+      } else {
+        if (jsonData.refresh) {
+          location.reload();
+          return;
+        }
+        $('#cart_summary .address_' + deliveryAddress).each(function() {
+          $(this).removeClass('address_' + deliveryAddress).addClass('address_' + idAddress_delivery);
+          $(this).attr('id', $(this).attr('id').replace(/_\d+$/, '_' + idAddress_delivery));
+          if ($(this).find('.cart_unit ul').length > 0 && $(this).find('.cart_unit ul').attr('id').length > 0)
+            $(this).find('.cart_unit ul').attr('id', $(this).find('.cart_unit ul').attr('id').replace(/_\d+$/, '_' + idAddress_delivery));
+          if ($(this).find('.cart_total span').length > 0 && $(this).find('.cart_total span').attr('id').length > 0)
+            $(this).find('.cart_total span').attr('id', $(this).find('.cart_total span').attr('id').replace(/_\d+$/, '_' + idAddress_delivery));
+          if ($(this).find('.cart_quantity_input').length > 0 && $(this).find('.cart_quantity_input').attr('name').length > 0) {
+            var name = $(this).find('.cart_quantity_input').attr('name') + '_hidden';
+            $(this).find('.cart_quantity_input').attr('name', $(this).find('.cart_quantity_input').attr('name').replace(/_\d+$/, '_' + idAddress_delivery));
+            if ($(this).find('[name="' + name + '"]').length > 0)
+              $(this).find('[name="' + name + '"]').attr('name', name.replace(/_\d+_hidden$/, '_' + idAddress_delivery + '_hidden'));
+          }
+          if ($(this).find('.cart_quantity_delete').length > 0 && $(this).find('.cart_quantity_delete').attr('id').length > 0) {
+            $(this).find('.cart_quantity_delete').attr('id', $(this).find('.cart_quantity_delete').attr('id').replace(/_\d+$/, '_' + idAddress_delivery)).attr('href', $(this).find('.cart_quantity_delete').attr('href').replace(/id_address_delivery=\d+&/, 'id_address_delivery=' + idAddress_delivery + '&'));
+          }
+          if ($(this).find('.cart_quantity_down').length > 0 && $(this).find('.cart_quantity_down').attr('id').length > 0) {
+            $(this).find('.cart_quantity_down').attr('id', $(this).find('.cart_quantity_down').attr('id').replace(/_\d+$/, '_' + idAddress_delivery)).attr('href', $(this).find('.cart_quantity_down').attr('href').replace(/id_address_delivery=\d+&/, 'id_address_delivery=' + idAddress_delivery + '&'));
+          }
+          if ($(this).find('.cart_quantity_up').length > 0 && $(this).find('.cart_quantity_up').attr('id').length > 0) {
+            $(this).find('.cart_quantity_up').attr('id', $(this).find('.cart_quantity_up').attr('id').replace(/_\d+$/, '_' + idAddress_delivery)).attr('href', $(this).find('.cart_quantity_up').attr('href').replace(/id_address_delivery=\d+&/, 'id_address_delivery=' + idAddress_delivery + '&'));
+          }
+        });
+        deliveryAddress = idAddress_delivery;
+        if (window.ajaxCart !== undefined) {
+          $('.cart_block_list dd, .cart_block_list dt').each(function() {
+            if (typeof($(this).attr('id')) != 'undefined')
+              $(this).attr('id', $(this).attr('id').replace(/_\d+$/, '_' + idAddress_delivery));
+          });
+        }
+        updateCarrierList(jsonData.carrier_data);
+        updatePaymentMethods(jsonData);
+        updateCartSummary(jsonData.summary);
+        updateHookShoppingCart(jsonData.HOOK_SHOPPING_CART);
+        updateHookShoppingCartExtra(jsonData.HOOK_SHOPPING_CART_EXTRA);
+        if ($('#gift-price').length == 1)
+          $('#gift-price').html(jsonData.gift_price);
+        $('#opc_account-overlay, #opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (textStatus !== 'abort') {
+        error = "TECHNICAL ERROR: unable to save adresses \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus;
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + error + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(error);
+      }
+      $('#opc_account-overlay, #opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+    }
+  });
+}
+
+function getCarrierListAndUpdate() {
+  $('#opc_delivery_methods-overlay').fadeIn('slow');
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: orderOpcUrl + '?rand=' + new Date().getTime(),
+    async: true,
+    cache: false,
+    dataType: "json",
+    data: 'ajax=true&method=getCarrierList&token=' + static_token,
+    success: function(jsonData) {
+      if (jsonData.hasError) {
+        var errors = '';
+        for (var error in jsonData.errors)
+          if (error !== 'indexOf')
+            errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+        if (!!$.prototype.fancybox) {
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + errors + '</p>'
+          }], {
+            padding: 0
+          });
+        } else {
+          if (!!$.prototype.fancybox)
+            $.fancybox.open([{
+              type: 'inline',
+              autoScale: true,
+              minHeight: 30,
+              content: '<p class="fancybox-error">' + errors + '</p>'
+            }], {
+              padding: 0
+            });
+          else
+            alert(errors);
+        }
+      } else
+        updateCarrierList(jsonData);
+      $('#opc_delivery_methods-overlay').fadeOut('slow');
+    }
+  });
+}
+
+function updateCarrierSelectionAndGift() {
+  var recyclablePackage = 0;
+  var gift = 0;
+  var giftMessage = '';
+  var delivery_option_radio = $('.delivery_option_radio');
+  var delivery_option_params = '&';
+  $.each(delivery_option_radio, function(i) {
+    if ($(this).prop('checked'))
+      delivery_option_params += $(delivery_option_radio[i]).attr('name') + '=' + $(delivery_option_radio[i]).val() + '&';
+  });
+  if (delivery_option_params == '&')
+    delivery_option_params = '&delivery_option=&';
+  if ($('input#recyclable:checked').length)
+    recyclablePackage = 1;
+  if ($('input#gift:checked').length) {
+    gift = 1;
+    giftMessage = encodeURIComponent($('#gift_message').val());
+  }
+  $('#opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: orderOpcUrl + '?rand=' + new Date().getTime(),
+    async: true,
+    cache: false,
+    dataType: "json",
+    data: 'ajax=true&method=updateCarrierAndGetPayments' + delivery_option_params + 'recyclable=' + recyclablePackage + '&gift=' + gift + '&gift_message=' + giftMessage + '&token=' + static_token,
+    success: function(jsonData) {
+      if (jsonData.hasError) {
+        var errors = '';
+        for (var error in jsonData.errors)
+          if (error !== 'indexOf')
+            errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + errors + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(errors);
+      } else {
+        updateCartSummary(jsonData.summary);
+        updatePaymentMethods(jsonData);
+        updateHookShoppingCart(jsonData.summary.HOOK_SHOPPING_CART);
+        updateHookShoppingCartExtra(jsonData.summary.HOOK_SHOPPING_CART_EXTRA);
+        updateCarrierList(jsonData.carrier_data);
+        $('#opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+        refreshDeliveryOptions();
+        if (typeof bindUniform !== 'undefined')
+          bindUniform();
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (textStatus !== 'abort')
+        alert("TECHNICAL ERROR: unable to save carrier \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus);
+      $('#opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+    }
+  });
+}
+
+function confirmFreeOrder() {
+  if ($('#opc_new_account-overlay').length !== 0)
+    $('#opc_new_account-overlay').fadeIn('slow');
+  else
+    $('#opc_account-overlay').fadeIn('slow');
+  $('#opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+  $('#confirmOrder').prop('disabled', 'disabled');
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: orderOpcUrl + '?rand=' + new Date().getTime(),
+    async: true,
+    cache: false,
+    dataType: "html",
+    data: 'ajax=true&method=makeFreeOrder&token=' + static_token,
+    success: function(html) {
+      $('#confirmOrder').prop('disabled', false);
+      var array_split = html.split(':');
+      if (array_split[0] == 'freeorder') {
+        if (isGuest)
+          document.location.href = guestTrackingUrl + '?id_order=' + encodeURIComponent(array_split[1]) + '&email=' + encodeURIComponent(array_split[2]);
+        else
+          document.location.href = historyUrl;
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (textStatus !== 'abort') {
+        error = "TECHNICAL ERROR: unable to confirm the order \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus;
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + error + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(error);
+      }
+    }
+  });
+}
+
+function saveAddress(type) {
+  if (type !== 'delivery' && type !== 'invoice')
+    return false;
+  var params = 'firstname=' + encodeURIComponent($('#firstname' + (type == 'invoice' ? '_invoice' : '')).val()) + '&lastname=' + encodeURIComponent($('#lastname' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#company' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'company=' + encodeURIComponent($('#company' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#vat_number' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'vat_number=' + encodeURIComponent($('#vat_number' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#dni' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'dni=' + encodeURIComponent($('#dni' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#address1' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'address1=' + encodeURIComponent($('#address1' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#address2' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'address2=' + encodeURIComponent($('#address2' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#postcode' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'postcode=' + encodeURIComponent($('#postcode' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#city' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'city=' + encodeURIComponent($('#city' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#id_country' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'id_country=' + parseInt($('#id_country' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#id_state' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'id_state=' + encodeURIComponent($('#id_state' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#other' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'other=' + encodeURIComponent($('#other' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#phone' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'phone=' + encodeURIComponent($('#phone' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#phone_mobile' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'phone_mobile=' + encodeURIComponent($('#phone_mobile' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if ($('#alias' + (type == 'invoice' ? '_invoice' : '')).length)
+    params += 'alias=' + encodeURIComponent($('#alias' + (type == 'invoice' ? '_invoice' : '')).val()) + '&';
+  if (type == 'delivery' && $('#opc_id_address_delivery').val() != undefined && parseInt($('#opc_id_address_delivery').val()) > 0)
+    params += 'opc_id_address_delivery=' + parseInt($('#opc_id_address_delivery').val()) + '&';
+  if (type == 'invoice' && $('#opc_id_address_invoice').val() != undefined && parseInt($('#opc_id_address_invoice').val()) > 0)
+    params += 'opc_id_address_invoice=' + parseInt($('#opc_id_address_invoice').val()) + '&';
+  params = params.substr(0, params.length - 1);
+  var result = false;
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: addressUrl + '?rand=' + new Date().getTime(),
+    async: false,
+    cache: false,
+    dataType: "json",
+    data: 'ajax=true&submitAddress=true&type=' + type + '&' + params + '&token=' + static_token,
+    success: function(jsonData) {
+      if (jsonData.hasError) {
+        var tmp = '';
+        var i = 0;
+        for (var error in jsonData.errors)
+          if (error !== 'indexOf') {
+            i = i + 1;
+            tmp += '<li>' + jsonData.errors[error] + '</li>';
+          }
+        tmp += '</ol>';
+        var errors = '<b>' + txtThereis + ' ' + i + ' ' + txtErrors + ':</b><ol>' + tmp;
+        $('#opc_account_errors').slideUp('fast', function() {
+          $(this).html(errors).slideDown('slow', function() {
+            $.scrollTo('#opc_account_errors', 800);
+          });
+        });
+        $('#opc_account-overlay, #opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+        result = false;
+      } else {
+        $('input#opc_id_address_delivery').val(jsonData.id_address_delivery);
+        $('input#opc_id_address_invoice').val(jsonData.id_address_invoice);
+        result = true;
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (textStatus !== 'abort') {
+        error = "TECHNICAL ERROR: unable to save adresses \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus;
+        if (!!$.prototype.fancybox)
+          $.fancybox.open([{
+            type: 'inline',
+            autoScale: true,
+            minHeight: 30,
+            content: '<p class="fancybox-error">' + error + '</p>'
+          }], {
+            padding: 0
+          });
+        else
+          alert(error);
+      }
+      $('#opc_account-overlay, #opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+    }
+  });
+  return result;
+}
+
+function updateNewAccountToAddressBlock(is_adv_api) {
+  $('#opc_account-overlay, #opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+  $.ajax({
+    type: 'POST',
+    headers: {
+      "cache-control": "no-cache"
+    },
+    url: orderOpcUrl + '?rand=' + new Date().getTime(),
+    async: true,
+    cache: false,
+    dataType: "json",
+    data: 'ajax=true&method=getAddressBlockAndCarriersAndPayments&token=' + static_token +
+      (is_adv_api ? '&isAdvApi=1' : ''),
+    success: function(json) {
+      if (json.hasError) {
+        var errors = '';
+        for (var error in json.errors)
+          if (error !== 'indexOf')
+            errors += $('<div />').html(json.errors[error]).text() + "\n";
+        alert(errors);
+      } else {
+        isLogged = 1;
+        if (json.no_address == 1)
+          document.location.href = addressUrl;
+        $('#opc_new_account').fadeOut('fast', function() {
+          if (typeof json.formatedAddressFieldsValuesList !== 'undefined' && json.formatedAddressFieldsValuesList)
+            formatedAddressFieldsValuesList = json.formatedAddressFieldsValuesList;
+          if (typeof json.order_opc_adress !== 'undefined' && json.order_opc_adress)
+            $('#opc_new_account').html(json.order_opc_adress);
+          if (json.block_user_info !== '' && $('#header_user').length == 1) {
+            var elt = $(json.block_user_info).find('#header_user_info').html();
+            $('#header_user_info').fadeOut('normal', function() {
+              $(this).html(elt).fadeIn();
+            });
+          }
+          if (json.block_user_info_nav !== '' && $('.header_user_info').length == 1) {
+            $('.header_user_info').fadeOut('normal', function() {
+              $(this).html(json.block_user_info_nav).fadeIn();
+            });
+          }
+          $(this).fadeIn('fast', function() {
+            if ($('#gift-price').length == 1)
+              $('#gift-price').html(json.gift_price);
+            $.each(json.summary.products, function() {
+              updateAddressId(this.id_product, this.id_product_attribute, '0', this.id_address_delivery);
+            });
+            updateAddressesDisplay(true);
+            if (typeof is_adv_api === 'undefined' || !is_adv_api) {
+              updateCarrierList(json.carrier_data);
+              updateCarrierSelectionAndGift();
+              updatePaymentMethods(json);
+            }
+            $('#opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+          });
+        });
+      }
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown) {
+      if (textStatus !== 'abort')
+        alert("TECHNICAL ERROR: unable to send login informations \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus);
+      $('#opc_delivery_methods-overlay, #opc_payment_methods-overlay').fadeOut('slow');
+    }
+  });
+}
+
+function bindInputs() {
+  $('#message').blur(function() {
+    $('#opc_delivery_methods-overlay').fadeIn('slow');
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: orderOpcUrl + '?rand=' + new Date().getTime(),
+      async: false,
+      cache: false,
+      dataType: "json",
+      data: 'ajax=true&method=updateMessage&message=' + encodeURIComponent($('#message').val()) + '&token=' + static_token,
+      success: function(jsonData) {
+        if (jsonData.hasError) {
+          var errors = '';
+          for (var error in jsonData.errors)
+            if (error !== 'indexOf')
+              errors += $('<div />').html(jsonData.errors[error]).text() + "\n";
+          alert(errors);
+        } else
+          $('#opc_delivery_methods-overlay').fadeOut('slow');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        if (textStatus !== 'abort')
+          alert("TECHNICAL ERROR: unable to save message \n\nDetails:\nError thrown: " + XMLHttpRequest + "\n" + 'Text status: ' + textStatus);
+        $('#opc_delivery_methods-overlay').fadeOut('slow');
+      }
+    });
+    if (typeof bindUniform !== 'undefined')
+      bindUniform();
+  });
+  $('#recyclable').on('click', function(e) {
+    updateCarrierSelectionAndGift();
+  });
+  $('#gift').off('click').on('click', function(e) {
+    if ($('#gift').is(':checked'))
+      $('#gift_div').show();
+    else
+      $('#gift_div').hide();
+    updateCarrierSelectionAndGift();
+  });
+  if ($('#gift').is(':checked'))
+    $('#gift_div').show();
+  else
+    $('#gift_div').hide();
+  $('#gift_message').on('change', function() {
+    updateCarrierSelectionAndGift();
+  });
+  $('#cgv').on('click', function(e) {
+    updatePaymentMethodsDisplay();
+  });
+}
+
+function multishippingMode(it) {
+  if ($(it).prop('checked')) {
+    $('#address_delivery, .address_delivery').hide();
+    $('#address_delivery, .address_delivery').parent().hide();
+    $('#address_invoice').removeClass('alternate_item').addClass('item');
+    $('#multishipping_mode_box').addClass('on');
+    $('.addressesAreEquals').hide();
+    $('#address_invoice_form').show();
+    $(document).on('click', '#link_multishipping_form', function(e) {
+      e.preventDefault();
+    });
+    $('.address_add a').attr('href', addressMultishippingUrl);
+    $(document).on('click', '#link_multishipping_form', function(e) {
+      if (!!$.prototype.fancybox)
+        $.fancybox({
+          'openEffect': 'elastic',
+          'closeEffect': 'elastic',
+          'type': 'ajax',
+          'href': this.href,
+          'beforeClose': function() {
+            $.ajax({
+              type: 'POST',
+              headers: {
+                "cache-control": "no-cache"
+              },
+              url: orderOpcUrl + '?rand=' + new Date().getTime(),
+              data: 'ajax=true&method=cartReload',
+              dataType: 'html',
+              cache: false,
+              success: function(data) {
+                $('#cart_summary').replaceWith($(data).find('#cart_summary'));
+                $('.cart_quantity_input').typeWatch({
+                  highlight: true,
+                  wait: 600,
+                  captureLength: 0,
+                  callback: function(val) {
+                    updateQty(val, true, this.el);
+                  }
+                });
+              }
+            });
+            updateCarrierSelectionAndGift();
+          },
+          'beforeLoad': function() {
+            $.each($('#cart_summary *'), function(it, el) {
+              $(el).attr('id', '');
+            });
+          },
+          'afterLoad': function() {
+            $('.fancybox-inner .cart_quantity_input').typeWatch({
+              highlight: true,
+              wait: 600,
+              captureLength: 0,
+              callback: function(val) {
+                updateQty(val, false, this.el);
+              }
+            });
+            cleanSelectAddressDelivery();
+            $('.fancybox-outer').append($('<div class="multishipping_close_container"><a id="multishipping-close" class="btn btn-default button button-small" href="#"><span>' + CloseTxt + '</span></a></div>'));
+            $(document).on('click', '#multishipping-close', function(e) {
+              var newTotalQty = 0;
+              $('.fancybox-inner .cart_quantity_input').each(function() {
+                newTotalQty += parseInt($(this).val());
+              });
+              if (newTotalQty !== totalQty) {
+                if (!confirm(QtyChanged)) {
+                  return false;
+                }
+              }
+              $.fancybox.close();
+              return false;
+            });
+            totalQty = 0;
+            $('.fancybox-inner .cart_quantity_input').each(function() {
+              totalQty += parseInt($(this).val());
+            });
+          }
+        });
+    });
+  } else {
+    $('#address_delivery, .address_delivery').show();
+    $('#address_invoice').removeClass('item').addClass('alternate_item');
+    $('#multishipping_mode_box').removeClass('on');
+    $('.addressesAreEquals').show();
+    if ($('.addressesAreEquals').find('input:checked').length)
+      $('#address_invoice_form').hide();
+    else
+      $('#address_invoice_form').show();
+    $('.address_add a').attr('href', addressUrl);
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: orderOpcUrl + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      data: 'ajax=true&method=noMultiAddressDelivery'
+    });
+    $.ajax({
+      type: 'POST',
+      headers: {
+        "cache-control": "no-cache"
+      },
+      url: orderOpcUrl + '?rand=' + new Date().getTime(),
+      async: true,
+      cache: false,
+      data: 'ajax=true&method=cartReload',
+      dataType: 'html',
+      success: function(data) {
+        $('#cart_summary').replaceWith($(data).find('#cart_summary'));
+      }
+    });
+  }
+  if (typeof bindUniform !== 'undefined')
+    bindUniform();
+};;
+(function(k) {
+  'use strict';
+  k(['jquery'], function($) {
+    var j = $.scrollTo = function(a, b, c) {
+      return $(window).scrollTo(a, b, c)
+    };
+    j.defaults = {
+      axis: 'xy',
+      duration: 0,
+      limit: !0
+    };
+    j.window = function(a) {
+      return $(window)._scrollable()
+    };
+    $.fn._scrollable = function() {
+      return this.map(function() {
+        var a = this,
+          isWin = !a.nodeName || $.inArray(a.nodeName.toLowerCase(), ['iframe', '#document', 'html', 'body']) != -1;
+        if (!isWin) return a;
+        var b = (a.contentWindow || a).document || a.ownerDocument || a;
+        return /webkit/i.test(navigator.userAgent) || b.compatMode == 'BackCompat' ? b.body : b.documentElement
+      })
+    };
+    $.fn.scrollTo = function(f, g, h) {
+      if (typeof g == 'object') {
+        h = g;
+        g = 0
+      }
+      if (typeof h == 'function') h = {
+        onAfter: h
+      };
+      if (f == 'max') f = 9e9;
+      h = $.extend({}, j.defaults, h);
+      g = g || h.duration;
+      h.queue = h.queue && h.axis.length > 1;
+      if (h.queue) g /= 2;
+      h.offset = both(h.offset);
+      h.over = both(h.over);
+      return this._scrollable().each(function() {
+        if (f == null) return;
+        var d = this,
+          $elem = $(d),
+          targ = f,
+          toff, attr = {},
+          win = $elem.is('html,body');
+        switch (typeof targ) {
+          case 'number':
+          case 'string':
+            if (/^([+-]=?)?\d+(\.\d+)?(px|%)?$/.test(targ)) {
+              targ = both(targ);
+              break
+            }
+            targ = win ? $(targ) : $(targ, this);
+            if (!targ.length) return;
+          case 'object':
+            if (targ.is || targ.style) toff = (targ = $(targ)).offset()
+        }
+        var e = $.isFunction(h.offset) && h.offset(d, targ) || h.offset;
+        $.each(h.axis.split(''), function(i, a) {
+          var b = a == 'x' ? 'Left' : 'Top',
+            pos = b.toLowerCase(),
+            key = 'scroll' + b,
+            old = d[key],
+            max = j.max(d, a);
+          if (toff) {
+            attr[key] = toff[pos] + (win ? 0 : old - $elem.offset()[pos]);
+            if (h.margin) {
+              attr[key] -= parseInt(targ.css('margin' + b)) || 0;
+              attr[key] -= parseInt(targ.css('border' + b + 'Width')) || 0
+            }
+            attr[key] += e[pos] || 0;
+            if (h.over[pos]) attr[key] += targ[a == 'x' ? 'width' : 'height']() * h.over[pos]
+          } else {
+            var c = targ[pos];
+            attr[key] = c.slice && c.slice(-1) == '%' ? parseFloat(c) / 100 * max : c
+          }
+          if (h.limit && /^\d+$/.test(attr[key])) attr[key] = attr[key] <= 0 ? 0 : Math.min(attr[key], max);
+          if (!i && h.queue) {
+            if (old != attr[key]) animate(h.onAfterFirst);
+            delete attr[key]
+          }
+        });
+        animate(h.onAfter);
+
+        function animate(a) {
+          $elem.animate(attr, g, h.easing, a && function() {
+            a.call(this, targ, h)
+          })
+        }
+      }).end()
+    };
+    j.max = function(a, b) {
+      var c = b == 'x' ? 'Width' : 'Height',
+        scroll = 'scroll' + c;
+      if (!$(a).is('html,body')) return a[scroll] - $(a)[c.toLowerCase()]();
+      var d = 'client' + c,
+        html = a.ownerDocument.documentElement,
+        body = a.ownerDocument.body;
+      return Math.max(html[scroll], body[scroll]) - Math.min(html[d], body[d])
+    };
+
+    function both(a) {
+      return $.isFunction(a) || $.isPlainObject(a) ? a : {
+        top: a,
+        left: a
+      }
+    }
+    return j
+  })
+}(typeof define === 'function' && define.amd ? define : function(a, b) {
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = b(require('jquery'))
+  } else {
+    b(jQuery)
+  }
+}));;
+$(document).ready(function() {
+  vat_number();
+  vat_number_ajax();
+  $(document).on('input', '#company, #company_invoice', function() {
+    vat_number();
+  });
+});
+
+function vat_number() {
+  if ($('#company').length && ($('#company').val() != ''))
+    $('#vat_number, #vat_number_block').show();
+  else
+    $('#vat_number, #vat_number_block').hide();
+  if ($('#company_invoice').length && ($('#company_invoice').val() != ''))
+    $('#vat_number_block_invoice').show();
+  else
+    $('#vat_number_block_invoice').hide();
+}
+
+function vat_number_ajax() {
+  $(document).on('change', '#id_country', function() {
+    if ($('#company').length && !$('#company').val())
+      return;
+    if (typeof vatnumber_ajax_call !== 'undefined' && vatnumber_ajax_call)
+      $.ajax({
+        type: 'POST',
+        headers: {
+          "cache-control": "no-cache"
+        },
+        url: baseDir + 'modules/vatnumber/ajax.php?id_country=' + parseInt($(this).val()) + '&rand=' + new Date().getTime(),
+        success: function(isApplicable) {
+          if (isApplicable == "1") {
+            $('#vat_area').show();
+            $('#vat_number').show();
+          } else
+            $('#vat_area').hide();
+        }
+      });
+  });
+  $(document).on('change', '#id_country_invoice', function() {
+    if ($('#company_invoice').length && !$('#company_invoice').val())
+      return;
+    if (typeof vatnumber_ajax_call !== 'undefined' && vatnumber_ajax_call)
+      $.ajax({
+        type: 'POST',
+        headers: {
+          "cache-control": "no-cache"
+        },
+        url: baseDir + 'modules/vatnumber/ajax.php?id_country=' + parseInt($(this).val()) + '&rand=' + new Date().getTime(),
+        success: function(isApplicable) {
+          if (isApplicable == "1") {
+            $('#vat_area_invoice').show();
+            $('#vat_number_invoice').show();
+          } else
+            $('#vat_area_invoice').hide();
+        }
+      });
+  });
+};;
+var countriesNeedIDNumber = [];
+var countriesNeedZipCode = [];
+var states = [];
+$(document).ready(function() {
+  setCountries();
+  bindStateInputAndUpdate();
+  if (typeof bindUniform !== 'undefined')
+    bindUniform();
+  bindZipcode();
+  bindCheckbox();
+  $(document).on('click', '#invoice_address', function(e) {
+    bindCheckbox();
+  });
+});
+
+function setCountries() {
+  if (typeof countries !== 'undefined' && countries) {
+    var countriesPS = [];
+    for (var i in countries) {
+      var id_country = countries[i]['id_country'];
+      if (typeof countries[i]['states'] !== 'undefined' && parseInt(countries[i]['contains_states'])) {
+        countriesPS[id_country] = [];
+        for (var j in countries[i]['states'])
+          countriesPS[parseInt(id_country)].push({
+            'id': parseInt(countries[i]['states'][j]['id_state']),
+            'name': countries[i]['states'][j]['name']
+          });
+      }
+      if (typeof countries[i]['need_identification_number'] !== 'undefined' && parseInt(countries[i]['need_identification_number']) > 0)
+        countriesNeedIDNumber.push(parseInt(countries[i]['id_country']));
+      if (typeof countries[i]['need_zip_code'] !== 'undefined' && parseInt(countries[i]['need_zip_code']) > 0)
+        countriesNeedZipCode[parseInt(countries[i]['id_country'])] = countries[i]['zip_code_format'];
+    }
+  }
+  states = countriesPS;
+}
+
+function bindCheckbox() {
+  if ($('#invoice_address:checked').length > 0) {
+    $('#opc_invoice_address').slideDown('slow');
+    if ($('#company_invoice').val() == '')
+      $('#vat_number_block_invoice').hide();
+    if (typeof bindUniform !== 'undefined')
+      bindUniform();
+  } else
+    $('#opc_invoice_address').slideUp('slow');
+}
+
+function bindZipcode() {
+  $(document).on('keyup', 'input[name^=postcode]', function(e) {
+    var char = String.fromCharCode(e.keyCode);
+    if (/[a-zA-Z]/.test(char))
+      $.trim($(this).val($(this).val().toUpperCase()));
+  });
+}
+
+function bindStateInputAndUpdate() {
+  $('.id_state, .dni, .postcode').css({
+    'display': 'none'
+  });
+  updateState();
+  updateNeedIDNumber();
+  updateZipCode();
+  $(document).on('change', '#id_country', function(e) {
+    updateState();
+    updateNeedIDNumber();
+    updateZipCode();
+    if (typeof validate_field !== 'undefined')
+      validate_field('#postcode');
+  });
+  if ($('#id_country_invoice').length !== 0) {
+    $(document).on('change', '#id_country_invoice', function(e) {
+      updateState('invoice');
+      updateNeedIDNumber('invoice');
+      updateZipCode('invoice');
+      if (typeof validate_field !== 'undefined')
+        validate_field('#postcode_invoice');
+    });
+    updateState('invoice');
+    updateNeedIDNumber('invoice');
+    updateZipCode('invoice');
+  }
+  if (typeof idSelectedState !== 'undefined' && idSelectedState)
+    $('.id_state option[value=' + idSelectedState + ']').prop('selected', true);
+  if (typeof idSelectedStateInvoice !== 'undefined' && idSelectedStateInvoice)
+    $('.id_state_invoice option[value=' + idSelectedStateInvoice + ']').prop('selected', true);
+}
+
+function updateState(suffix) {
+  $('#id_state' + (typeof suffix !== 'undefined' ? '_' + suffix : '') + ' option:not(:first-child)').remove();
+  if (typeof countries !== 'undefined')
+    var state_list = states[parseInt($('#id_country' + (typeof suffix !== 'undefined' ? '_' + suffix : '')).val())];
+  if (typeof state_list !== 'undefined') {
+    $(state_list).each(function(key, item) {
+      $('#id_state' + (typeof suffix !== 'undefined' ? '_' + suffix : '')).append('<option value="' + parseInt(item.id) + '">' + item.name + '</option>');
+    });
+    $('.id_state' + (typeof suffix !== 'undefined' ? '_' + suffix : '') + ':hidden').fadeIn('slow');
+    $('#id_state, #id_state_invoice').uniform();
+  } else
+    $('.id_state' + (typeof suffix !== 'undefined' ? '_' + suffix : '')).fadeOut('fast');
+}
+
+function updateNeedIDNumber(suffix) {
+  var id_country = parseInt($('#id_country' + (typeof suffix !== 'undefined' ? '_' + suffix : '')).val());
+  if (in_array(id_country, countriesNeedIDNumber)) {
+    $('.dni' + (typeof suffix !== 'undefined' ? '_' + suffix : '') + ':hidden').fadeIn('slow');
+    $('#dni').uniform();
+  } else
+    $('.dni' + (typeof suffix !== 'undefined' ? '_' + suffix : '')).fadeOut('fast');
+}
+
+function updateZipCode(suffix) {
+  var id_country = parseInt($('#id_country' + (typeof suffix !== 'undefined' ? '_' + suffix : '')).val());
+  if (typeof countriesNeedZipCode[id_country] !== 'undefined') {
+    $('.postcode' + (typeof suffix !== 'undefined' ? '_' + suffix : '') + ':hidden').fadeIn('slow');
+    $('#postcode').uniform();
+  } else
+    $('.postcode' + (typeof suffix !== 'undefined' ? '_' + suffix : '')).fadeOut('fast');
+};;
+$(document).ready(function() {
+  if (!!$.prototype.fancybox)
+    $("a.iframe").fancybox({
+      'type': 'iframe',
+      'width': 600,
+      'height': 600
+    });
+  if (typeof cart_gift != 'undefined' && cart_gift && $('input#gift').is(':checked'))
+    $('p#gift_div').show();
+  $(document).on('change', 'input.delivery_option_radio', function() {
+    var key = $(this).data('key');
+    var id_address = parseInt($(this).data('id_address'));
+    if (orderProcess == 'order' && key && id_address)
+      updateExtraCarrier(key, id_address);
+    else if (orderProcess == 'order-opc' && typeof updateCarrierSelectionAndGift !== 'undefined')
+      updateCarrierSelectionAndGift();
+  });
+  $(document).on('submit', 'form[name=carrier_area]', function() {
+    return acceptCGV();
+  });
+});
+
+function acceptCGV() {
+  if (typeof msg_order_carrier != 'undefined' && $('#cgv').length && !$('input#cgv:checked').length) {
+    if (!!$.prototype.fancybox)
+      $.fancybox.open([{
+        type: 'inline',
+        autoScale: true,
+        minHeight: 30,
+        content: '<p class="fancybox-error">' + msg_order_carrier + '</p>'
+      }], {
+        padding: 0
+      });
+    else
+      alert(msg_order_carrier);
+  } else
+    return true;
+  return false;
+};;
+var unicode_hack = (function() {
+  var unicodeCategories = {
+    Pi: '[\u00ab\u2018\u201b\u201c\u201f\u2039\u2e02\u2e04\u2e09\u2e0c\u2e1c]',
+    Sk: '[\u005e\u0060\u00a8\u00af\u00b4\u00b8\u02c2-\u02c5\u02d2-\u02df\u02e5-\u02ed\u02ef-\u02ff\u0374\u0375\u0384\u0385\u1fbd\u1fbf-\u1fc1\u1fcd-\u1fcf\u1fdd-\u1fdf\u1fed-\u1fef\u1ffd\u1ffe\u309b\u309c\ua700-\ua716\ua720\ua721\uff3e\uff40\uffe3]',
+    Sm: '[\u002b\u003c-\u003e\u007c\u007e\u00ac\u00b1\u00d7\u00f7\u03f6\u2044\u2052\u207a-\u207c\u208a-\u208c\u2140-\u2144\u214b\u2190-\u2194\u219a\u219b\u21a0\u21a3\u21a6\u21ae\u21ce\u21cf\u21d2\u21d4\u21f4-\u22ff\u2308-\u230b\u2320\u2321\u237c\u239b-\u23b3\u23dc-\u23e1\u25b7\u25c1\u25f8-\u25ff\u266f\u27c0-\u27c4\u27c7-\u27ca\u27d0-\u27e5\u27f0-\u27ff\u2900-\u2982\u2999-\u29d7\u29dc-\u29fb\u29fe-\u2aff\ufb29\ufe62\ufe64-\ufe66\uff0b\uff1c-\uff1e\uff5c\uff5e\uffe2\uffe9-\uffec]',
+    So: '[\u00a6\u00a7\u00a9\u00ae\u00b0\u00b6\u0482\u060e\u060f\u06e9\u06fd\u06fe\u07f6\u09fa\u0b70\u0bf3-\u0bf8\u0bfa\u0cf1\u0cf2\u0f01-\u0f03\u0f13-\u0f17\u0f1a-\u0f1f\u0f34\u0f36\u0f38\u0fbe-\u0fc5\u0fc7-\u0fcc\u0fcf\u1360\u1390-\u1399\u1940\u19e0-\u19ff\u1b61-\u1b6a\u1b74-\u1b7c\u2100\u2101\u2103-\u2106\u2108\u2109\u2114\u2116-\u2118\u211e-\u2123\u2125\u2127\u2129\u212e\u213a\u213b\u214a\u214c\u214d\u2195-\u2199\u219c-\u219f\u21a1\u21a2\u21a4\u21a5\u21a7-\u21ad\u21af-\u21cd\u21d0\u21d1\u21d3\u21d5-\u21f3\u2300-\u2307\u230c-\u231f\u2322-\u2328\u232b-\u237b\u237d-\u239a\u23b4-\u23db\u23e2-\u23e7\u2400-\u2426\u2440-\u244a\u249c-\u24e9\u2500-\u25b6\u25b8-\u25c0\u25c2-\u25f7\u2600-\u266e\u2670-\u269c\u26a0-\u26b2\u2701-\u2704\u2706-\u2709\u270c-\u2727\u2729-\u274b\u274d\u274f-\u2752\u2756\u2758-\u275e\u2761-\u2767\u2794\u2798-\u27af\u27b1-\u27be\u2800-\u28ff\u2b00-\u2b1a\u2b20-\u2b23\u2ce5-\u2cea\u2e80-\u2e99\u2e9b-\u2ef3\u2f00-\u2fd5\u2ff0-\u2ffb\u3004\u3012\u3013\u3020\u3036\u3037\u303e\u303f\u3190\u3191\u3196-\u319f\u31c0-\u31cf\u3200-\u321e\u322a-\u3243\u3250\u3260-\u327f\u328a-\u32b0\u32c0-\u32fe\u3300-\u33ff\u4dc0-\u4dff\ua490-\ua4c6\ua828-\ua82b\ufdfd\uffe4\uffe8\uffed\uffee\ufffc\ufffd]',
+    Po: '[\u0021-\u0023\u0025-\u0027\u002a\u002c\u002e\u002f\u003a\u003b\u003f\u0040\u005c\u00a1\u00b7\u00bf\u037e\u0387\u055a-\u055f\u0589\u05be\u05c0\u05c3\u05c6\u05f3\u05f4\u060c\u060d\u061b\u061e\u061f\u066a-\u066d\u06d4\u0700-\u070d\u07f7-\u07f9\u0964\u0965\u0970\u0df4\u0e4f\u0e5a\u0e5b\u0f04-\u0f12\u0f85\u0fd0\u0fd1\u104a-\u104f\u10fb\u1361-\u1368\u166d\u166e\u16eb-\u16ed\u1735\u1736\u17d4-\u17d6\u17d8-\u17da\u1800-\u1805\u1807-\u180a\u1944\u1945\u19de\u19df\u1a1e\u1a1f\u1b5a-\u1b60\u2016\u2017\u2020-\u2027\u2030-\u2038\u203b-\u203e\u2041-\u2043\u2047-\u2051\u2053\u2055-\u205e\u2cf9-\u2cfc\u2cfe\u2cff\u2e00\u2e01\u2e06-\u2e08\u2e0b\u2e0e-\u2e16\u3001-\u3003\u303d\u30fb\ua874-\ua877\ufe10-\ufe16\ufe19\ufe30\ufe45\ufe46\ufe49-\ufe4c\ufe50-\ufe52\ufe54-\ufe57\ufe5f-\ufe61\ufe68\ufe6a\ufe6b\uff01-\uff03\uff05-\uff07\uff0a\uff0c\uff0e\uff0f\uff1a\uff1b\uff1f\uff20\uff3c\uff61\uff64\uff65]',
+    Mn: '[\u0300-\u036f\u0483-\u0486\u0591-\u05bd\u05bf\u05c1\u05c2\u05c4\u05c5\u05c7\u0610-\u0615\u064b-\u065e\u0670\u06d6-\u06dc\u06df-\u06e4\u06e7\u06e8\u06ea-\u06ed\u0711\u0730-\u074a\u07a6-\u07b0\u07eb-\u07f3\u0901\u0902\u093c\u0941-\u0948\u094d\u0951-\u0954\u0962\u0963\u0981\u09bc\u09c1-\u09c4\u09cd\u09e2\u09e3\u0a01\u0a02\u0a3c\u0a41\u0a42\u0a47\u0a48\u0a4b-\u0a4d\u0a70\u0a71\u0a81\u0a82\u0abc\u0ac1-\u0ac5\u0ac7\u0ac8\u0acd\u0ae2\u0ae3\u0b01\u0b3c\u0b3f\u0b41-\u0b43\u0b4d\u0b56\u0b82\u0bc0\u0bcd\u0c3e-\u0c40\u0c46-\u0c48\u0c4a-\u0c4d\u0c55\u0c56\u0cbc\u0cbf\u0cc6\u0ccc\u0ccd\u0ce2\u0ce3\u0d41-\u0d43\u0d4d\u0dca\u0dd2-\u0dd4\u0dd6\u0e31\u0e34-\u0e3a\u0e47-\u0e4e\u0eb1\u0eb4-\u0eb9\u0ebb\u0ebc\u0ec8-\u0ecd\u0f18\u0f19\u0f35\u0f37\u0f39\u0f71-\u0f7e\u0f80-\u0f84\u0f86\u0f87\u0f90-\u0f97\u0f99-\u0fbc\u0fc6\u102d-\u1030\u1032\u1036\u1037\u1039\u1058\u1059\u135f\u1712-\u1714\u1732-\u1734\u1752\u1753\u1772\u1773\u17b7-\u17bd\u17c6\u17c9-\u17d3\u17dd\u180b-\u180d\u18a9\u1920-\u1922\u1927\u1928\u1932\u1939-\u193b\u1a17\u1a18\u1b00-\u1b03\u1b34\u1b36-\u1b3a\u1b3c\u1b42\u1b6b-\u1b73\u1dc0-\u1dca\u1dfe\u1dff\u20d0-\u20dc\u20e1\u20e5-\u20ef\u302a-\u302f\u3099\u309a\ua806\ua80b\ua825\ua826\ufb1e\ufe00-\ufe0f\ufe20-\ufe23]',
+    Ps: '[\u0028\u005b\u007b\u0f3a\u0f3c\u169b\u201a\u201e\u2045\u207d\u208d\u2329\u2768\u276a\u276c\u276e\u2770\u2772\u2774\u27c5\u27e6\u27e8\u27ea\u2983\u2985\u2987\u2989\u298b\u298d\u298f\u2991\u2993\u2995\u2997\u29d8\u29da\u29fc\u3008\u300a\u300c\u300e\u3010\u3014\u3016\u3018\u301a\u301d\ufd3e\ufe17\ufe35\ufe37\ufe39\ufe3b\ufe3d\ufe3f\ufe41\ufe43\ufe47\ufe59\ufe5b\ufe5d\uff08\uff3b\uff5b\uff5f\uff62]',
+    Cc: '[\u0000-\u001f\u007f-\u009f]',
+    Cf: '[\u00ad\u0600-\u0603\u06dd\u070f\u17b4\u17b5\u200b-\u200f\u202a-\u202e\u2060-\u2063\u206a-\u206f\ufeff\ufff9-\ufffb]',
+    Ll: '[\u0061-\u007a\u00aa\u00b5\u00ba\u00df-\u00f6\u00f8-\u00ff\u0101\u0103\u0105\u0107\u0109\u010b\u010d\u010f\u0111\u0113\u0115\u0117\u0119\u011b\u011d\u011f\u0121\u0123\u0125\u0127\u0129\u012b\u012d\u012f\u0131\u0133\u0135\u0137\u0138\u013a\u013c\u013e\u0140\u0142\u0144\u0146\u0148\u0149\u014b\u014d\u014f\u0151\u0153\u0155\u0157\u0159\u015b\u015d\u015f\u0161\u0163\u0165\u0167\u0169\u016b\u016d\u016f\u0171\u0173\u0175\u0177\u017a\u017c\u017e-\u0180\u0183\u0185\u0188\u018c\u018d\u0192\u0195\u0199-\u019b\u019e\u01a1\u01a3\u01a5\u01a8\u01aa\u01ab\u01ad\u01b0\u01b4\u01b6\u01b9\u01ba\u01bd-\u01bf\u01c6\u01c9\u01cc\u01ce\u01d0\u01d2\u01d4\u01d6\u01d8\u01da\u01dc\u01dd\u01df\u01e1\u01e3\u01e5\u01e7\u01e9\u01eb\u01ed\u01ef\u01f0\u01f3\u01f5\u01f9\u01fb\u01fd\u01ff\u0201\u0203\u0205\u0207\u0209\u020b\u020d\u020f\u0211\u0213\u0215\u0217\u0219\u021b\u021d\u021f\u0221\u0223\u0225\u0227\u0229\u022b\u022d\u022f\u0231\u0233-\u0239\u023c\u023f\u0240\u0242\u0247\u0249\u024b\u024d\u024f-\u0293\u0295-\u02af\u037b-\u037d\u0390\u03ac-\u03ce\u03d0\u03d1\u03d5-\u03d7\u03d9\u03db\u03dd\u03df\u03e1\u03e3\u03e5\u03e7\u03e9\u03eb\u03ed\u03ef-\u03f3\u03f5\u03f8\u03fb\u03fc\u0430-\u045f\u0461\u0463\u0465\u0467\u0469\u046b\u046d\u046f\u0471\u0473\u0475\u0477\u0479\u047b\u047d\u047f\u0481\u048b\u048d\u048f\u0491\u0493\u0495\u0497\u0499\u049b\u049d\u049f\u04a1\u04a3\u04a5\u04a7\u04a9\u04ab\u04ad\u04af\u04b1\u04b3\u04b5\u04b7\u04b9\u04bb\u04bd\u04bf\u04c2\u04c4\u04c6\u04c8\u04ca\u04cc\u04ce\u04cf\u04d1\u04d3\u04d5\u04d7\u04d9\u04db\u04dd\u04df\u04e1\u04e3\u04e5\u04e7\u04e9\u04eb\u04ed\u04ef\u04f1\u04f3\u04f5\u04f7\u04f9\u04fb\u04fd\u04ff\u0501\u0503\u0505\u0507\u0509\u050b\u050d\u050f\u0511\u0513\u0561-\u0587\u1d00-\u1d2b\u1d62-\u1d77\u1d79-\u1d9a\u1e01\u1e03\u1e05\u1e07\u1e09\u1e0b\u1e0d\u1e0f\u1e11\u1e13\u1e15\u1e17\u1e19\u1e1b\u1e1d\u1e1f\u1e21\u1e23\u1e25\u1e27\u1e29\u1e2b\u1e2d\u1e2f\u1e31\u1e33\u1e35\u1e37\u1e39\u1e3b\u1e3d\u1e3f\u1e41\u1e43\u1e45\u1e47\u1e49\u1e4b\u1e4d\u1e4f\u1e51\u1e53\u1e55\u1e57\u1e59\u1e5b\u1e5d\u1e5f\u1e61\u1e63\u1e65\u1e67\u1e69\u1e6b\u1e6d\u1e6f\u1e71\u1e73\u1e75\u1e77\u1e79\u1e7b\u1e7d\u1e7f\u1e81\u1e83\u1e85\u1e87\u1e89\u1e8b\u1e8d\u1e8f\u1e91\u1e93\u1e95-\u1e9b\u1ea1\u1ea3\u1ea5\u1ea7\u1ea9\u1eab\u1ead\u1eaf\u1eb1\u1eb3\u1eb5\u1eb7\u1eb9\u1ebb\u1ebd\u1ebf\u1ec1\u1ec3\u1ec5\u1ec7\u1ec9\u1ecb\u1ecd\u1ecf\u1ed1\u1ed3\u1ed5\u1ed7\u1ed9\u1edb\u1edd\u1edf\u1ee1\u1ee3\u1ee5\u1ee7\u1ee9\u1eeb\u1eed\u1eef\u1ef1\u1ef3\u1ef5\u1ef7\u1ef9\u1f00-\u1f07\u1f10-\u1f15\u1f20-\u1f27\u1f30-\u1f37\u1f40-\u1f45\u1f50-\u1f57\u1f60-\u1f67\u1f70-\u1f7d\u1f80-\u1f87\u1f90-\u1f97\u1fa0-\u1fa7\u1fb0-\u1fb4\u1fb6\u1fb7\u1fbe\u1fc2-\u1fc4\u1fc6\u1fc7\u1fd0-\u1fd3\u1fd6\u1fd7\u1fe0-\u1fe7\u1ff2-\u1ff4\u1ff6\u1ff7\u2071\u207f\u210a\u210e\u210f\u2113\u212f\u2134\u2139\u213c\u213d\u2146-\u2149\u214e\u2184\u2c30-\u2c5e\u2c61\u2c65\u2c66\u2c68\u2c6a\u2c6c\u2c74\u2c76\u2c77\u2c81\u2c83\u2c85\u2c87\u2c89\u2c8b\u2c8d\u2c8f\u2c91\u2c93\u2c95\u2c97\u2c99\u2c9b\u2c9d\u2c9f\u2ca1\u2ca3\u2ca5\u2ca7\u2ca9\u2cab\u2cad\u2caf\u2cb1\u2cb3\u2cb5\u2cb7\u2cb9\u2cbb\u2cbd\u2cbf\u2cc1\u2cc3\u2cc5\u2cc7\u2cc9\u2ccb\u2ccd\u2ccf\u2cd1\u2cd3\u2cd5\u2cd7\u2cd9\u2cdb\u2cdd\u2cdf\u2ce1\u2ce3\u2ce4\u2d00-\u2d25\ufb00-\ufb06\ufb13-\ufb17\uff41-\uff5a]',
+    Lm: '[\u02b0-\u02c1\u02c6-\u02d1\u02e0-\u02e4\u02ee\u037a\u0559\u0640\u06e5\u06e6\u07f4\u07f5\u07fa\u0e46\u0ec6\u10fc\u17d7\u1843\u1d2c-\u1d61\u1d78\u1d9b-\u1dbf\u2090-\u2094\u2d6f\u3005\u3031-\u3035\u303b\u309d\u309e\u30fc-\u30fe\ua015\ua717-\ua71a\uff70\uff9e\uff9f]',
+    Lo: '[\u01bb\u01c0-\u01c3\u0294\u05d0-\u05ea\u05f0-\u05f2\u0621-\u063a\u0641-\u064a\u066e\u066f\u0671-\u06d3\u06d5\u06ee\u06ef\u06fa-\u06fc\u06ff\u0710\u0712-\u072f\u074d-\u076d\u0780-\u07a5\u07b1\u07ca-\u07ea\u0904-\u0939\u093d\u0950\u0958-\u0961\u097b-\u097f\u0985-\u098c\u098f\u0990\u0993-\u09a8\u09aa-\u09b0\u09b2\u09b6-\u09b9\u09bd\u09ce\u09dc\u09dd\u09df-\u09e1\u09f0\u09f1\u0a05-\u0a0a\u0a0f\u0a10\u0a13-\u0a28\u0a2a-\u0a30\u0a32\u0a33\u0a35\u0a36\u0a38\u0a39\u0a59-\u0a5c\u0a5e\u0a72-\u0a74\u0a85-\u0a8d\u0a8f-\u0a91\u0a93-\u0aa8\u0aaa-\u0ab0\u0ab2\u0ab3\u0ab5-\u0ab9\u0abd\u0ad0\u0ae0\u0ae1\u0b05-\u0b0c\u0b0f\u0b10\u0b13-\u0b28\u0b2a-\u0b30\u0b32\u0b33\u0b35-\u0b39\u0b3d\u0b5c\u0b5d\u0b5f-\u0b61\u0b71\u0b83\u0b85-\u0b8a\u0b8e-\u0b90\u0b92-\u0b95\u0b99\u0b9a\u0b9c\u0b9e\u0b9f\u0ba3\u0ba4\u0ba8-\u0baa\u0bae-\u0bb9\u0c05-\u0c0c\u0c0e-\u0c10\u0c12-\u0c28\u0c2a-\u0c33\u0c35-\u0c39\u0c60\u0c61\u0c85-\u0c8c\u0c8e-\u0c90\u0c92-\u0ca8\u0caa-\u0cb3\u0cb5-\u0cb9\u0cbd\u0cde\u0ce0\u0ce1\u0d05-\u0d0c\u0d0e-\u0d10\u0d12-\u0d28\u0d2a-\u0d39\u0d60\u0d61\u0d85-\u0d96\u0d9a-\u0db1\u0db3-\u0dbb\u0dbd\u0dc0-\u0dc6\u0e01-\u0e30\u0e32\u0e33\u0e40-\u0e45\u0e81\u0e82\u0e84\u0e87\u0e88\u0e8a\u0e8d\u0e94-\u0e97\u0e99-\u0e9f\u0ea1-\u0ea3\u0ea5\u0ea7\u0eaa\u0eab\u0ead-\u0eb0\u0eb2\u0eb3\u0ebd\u0ec0-\u0ec4\u0edc\u0edd\u0f00\u0f40-\u0f47\u0f49-\u0f6a\u0f88-\u0f8b\u1000-\u1021\u1023-\u1027\u1029\u102a\u1050-\u1055\u10d0-\u10fa\u1100-\u1159\u115f-\u11a2\u11a8-\u11f9\u1200-\u1248\u124a-\u124d\u1250-\u1256\u1258\u125a-\u125d\u1260-\u1288\u128a-\u128d\u1290-\u12b0\u12b2-\u12b5\u12b8-\u12be\u12c0\u12c2-\u12c5\u12c8-\u12d6\u12d8-\u1310\u1312-\u1315\u1318-\u135a\u1380-\u138f\u13a0-\u13f4\u1401-\u166c\u166f-\u1676\u1681-\u169a\u16a0-\u16ea\u1700-\u170c\u170e-\u1711\u1720-\u1731\u1740-\u1751\u1760-\u176c\u176e-\u1770\u1780-\u17b3\u17dc\u1820-\u1842\u1844-\u1877\u1880-\u18a8\u1900-\u191c\u1950-\u196d\u1970-\u1974\u1980-\u19a9\u19c1-\u19c7\u1a00-\u1a16\u1b05-\u1b33\u1b45-\u1b4b\u2135-\u2138\u2d30-\u2d65\u2d80-\u2d96\u2da0-\u2da6\u2da8-\u2dae\u2db0-\u2db6\u2db8-\u2dbe\u2dc0-\u2dc6\u2dc8-\u2dce\u2dd0-\u2dd6\u2dd8-\u2dde\u3006\u303c\u3041-\u3096\u309f\u30a1-\u30fa\u30ff\u3105-\u312c\u3131-\u318e\u31a0-\u31b7\u31f0-\u31ff\u3400\u4db5\u4e00\u9fbb\ua000-\ua014\ua016-\ua48c\ua800\ua801\ua803-\ua805\ua807-\ua80a\ua80c-\ua822\ua840-\ua873\uac00\ud7a3\uf900-\ufa2d\ufa30-\ufa6a\ufa70-\ufad9\ufb1d\ufb1f-\ufb28\ufb2a-\ufb36\ufb38-\ufb3c\ufb3e\ufb40\ufb41\ufb43\ufb44\ufb46-\ufbb1\ufbd3-\ufd3d\ufd50-\ufd8f\ufd92-\ufdc7\ufdf0-\ufdfb\ufe70-\ufe74\ufe76-\ufefc\uff66-\uff6f\uff71-\uff9d\uffa0-\uffbe\uffc2-\uffc7\uffca-\uffcf\uffd2-\uffd7\uffda-\uffdc]',
+    Co: '[\ue000\uf8ff]',
+    Nd: '[\u0030-\u0039\u0660-\u0669\u06f0-\u06f9\u07c0-\u07c9\u0966-\u096f\u09e6-\u09ef\u0a66-\u0a6f\u0ae6-\u0aef\u0b66-\u0b6f\u0be6-\u0bef\u0c66-\u0c6f\u0ce6-\u0cef\u0d66-\u0d6f\u0e50-\u0e59\u0ed0-\u0ed9\u0f20-\u0f29\u1040-\u1049\u17e0-\u17e9\u1810-\u1819\u1946-\u194f\u19d0-\u19d9\u1b50-\u1b59\uff10-\uff19]',
+    Lt: '[\u01c5\u01c8\u01cb\u01f2\u1f88-\u1f8f\u1f98-\u1f9f\u1fa8-\u1faf\u1fbc\u1fcc\u1ffc]',
+    Lu: '[\u0041-\u005a\u00c0-\u00d6\u00d8-\u00de\u0100\u0102\u0104\u0106\u0108\u010a\u010c\u010e\u0110\u0112\u0114\u0116\u0118\u011a\u011c\u011e\u0120\u0122\u0124\u0126\u0128\u012a\u012c\u012e\u0130\u0132\u0134\u0136\u0139\u013b\u013d\u013f\u0141\u0143\u0145\u0147\u014a\u014c\u014e\u0150\u0152\u0154\u0156\u0158\u015a\u015c\u015e\u0160\u0162\u0164\u0166\u0168\u016a\u016c\u016e\u0170\u0172\u0174\u0176\u0178\u0179\u017b\u017d\u0181\u0182\u0184\u0186\u0187\u0189-\u018b\u018e-\u0191\u0193\u0194\u0196-\u0198\u019c\u019d\u019f\u01a0\u01a2\u01a4\u01a6\u01a7\u01a9\u01ac\u01ae\u01af\u01b1-\u01b3\u01b5\u01b7\u01b8\u01bc\u01c4\u01c7\u01ca\u01cd\u01cf\u01d1\u01d3\u01d5\u01d7\u01d9\u01db\u01de\u01e0\u01e2\u01e4\u01e6\u01e8\u01ea\u01ec\u01ee\u01f1\u01f4\u01f6-\u01f8\u01fa\u01fc\u01fe\u0200\u0202\u0204\u0206\u0208\u020a\u020c\u020e\u0210\u0212\u0214\u0216\u0218\u021a\u021c\u021e\u0220\u0222\u0224\u0226\u0228\u022a\u022c\u022e\u0230\u0232\u023a\u023b\u023d\u023e\u0241\u0243-\u0246\u0248\u024a\u024c\u024e\u0386\u0388-\u038a\u038c\u038e\u038f\u0391-\u03a1\u03a3-\u03ab\u03d2-\u03d4\u03d8\u03da\u03dc\u03de\u03e0\u03e2\u03e4\u03e6\u03e8\u03ea\u03ec\u03ee\u03f4\u03f7\u03f9\u03fa\u03fd-\u042f\u0460\u0462\u0464\u0466\u0468\u046a\u046c\u046e\u0470\u0472\u0474\u0476\u0478\u047a\u047c\u047e\u0480\u048a\u048c\u048e\u0490\u0492\u0494\u0496\u0498\u049a\u049c\u049e\u04a0\u04a2\u04a4\u04a6\u04a8\u04aa\u04ac\u04ae\u04b0\u04b2\u04b4\u04b6\u04b8\u04ba\u04bc\u04be\u04c0\u04c1\u04c3\u04c5\u04c7\u04c9\u04cb\u04cd\u04d0\u04d2\u04d4\u04d6\u04d8\u04da\u04dc\u04de\u04e0\u04e2\u04e4\u04e6\u04e8\u04ea\u04ec\u04ee\u04f0\u04f2\u04f4\u04f6\u04f8\u04fa\u04fc\u04fe\u0500\u0502\u0504\u0506\u0508\u050a\u050c\u050e\u0510\u0512\u0531-\u0556\u10a0-\u10c5\u1e00\u1e02\u1e04\u1e06\u1e08\u1e0a\u1e0c\u1e0e\u1e10\u1e12\u1e14\u1e16\u1e18\u1e1a\u1e1c\u1e1e\u1e20\u1e22\u1e24\u1e26\u1e28\u1e2a\u1e2c\u1e2e\u1e30\u1e32\u1e34\u1e36\u1e38\u1e3a\u1e3c\u1e3e\u1e40\u1e42\u1e44\u1e46\u1e48\u1e4a\u1e4c\u1e4e\u1e50\u1e52\u1e54\u1e56\u1e58\u1e5a\u1e5c\u1e5e\u1e60\u1e62\u1e64\u1e66\u1e68\u1e6a\u1e6c\u1e6e\u1e70\u1e72\u1e74\u1e76\u1e78\u1e7a\u1e7c\u1e7e\u1e80\u1e82\u1e84\u1e86\u1e88\u1e8a\u1e8c\u1e8e\u1e90\u1e92\u1e94\u1ea0\u1ea2\u1ea4\u1ea6\u1ea8\u1eaa\u1eac\u1eae\u1eb0\u1eb2\u1eb4\u1eb6\u1eb8\u1eba\u1ebc\u1ebe\u1ec0\u1ec2\u1ec4\u1ec6\u1ec8\u1eca\u1ecc\u1ece\u1ed0\u1ed2\u1ed4\u1ed6\u1ed8\u1eda\u1edc\u1ede\u1ee0\u1ee2\u1ee4\u1ee6\u1ee8\u1eea\u1eec\u1eee\u1ef0\u1ef2\u1ef4\u1ef6\u1ef8\u1f08-\u1f0f\u1f18-\u1f1d\u1f28-\u1f2f\u1f38-\u1f3f\u1f48-\u1f4d\u1f59\u1f5b\u1f5d\u1f5f\u1f68-\u1f6f\u1fb8-\u1fbb\u1fc8-\u1fcb\u1fd8-\u1fdb\u1fe8-\u1fec\u1ff8-\u1ffb\u2102\u2107\u210b-\u210d\u2110-\u2112\u2115\u2119-\u211d\u2124\u2126\u2128\u212a-\u212d\u2130-\u2133\u213e\u213f\u2145\u2183\u2c00-\u2c2e\u2c60\u2c62-\u2c64\u2c67\u2c69\u2c6b\u2c75\u2c80\u2c82\u2c84\u2c86\u2c88\u2c8a\u2c8c\u2c8e\u2c90\u2c92\u2c94\u2c96\u2c98\u2c9a\u2c9c\u2c9e\u2ca0\u2ca2\u2ca4\u2ca6\u2ca8\u2caa\u2cac\u2cae\u2cb0\u2cb2\u2cb4\u2cb6\u2cb8\u2cba\u2cbc\u2cbe\u2cc0\u2cc2\u2cc4\u2cc6\u2cc8\u2cca\u2ccc\u2cce\u2cd0\u2cd2\u2cd4\u2cd6\u2cd8\u2cda\u2cdc\u2cde\u2ce0\u2ce2\uff21-\uff3a]',
+    Cs: '[\ud800\udb7f\udb80\udbff\udc00\udfff]',
+    Zl: '[\u2028]',
+    Nl: '[\u16ee-\u16f0\u2160-\u2182\u3007\u3021-\u3029\u3038-\u303a]',
+    Zp: '[\u2029]',
+    No: '[\u00b2\u00b3\u00b9\u00bc-\u00be\u09f4-\u09f9\u0bf0-\u0bf2\u0f2a-\u0f33\u1369-\u137c\u17f0-\u17f9\u2070\u2074-\u2079\u2080-\u2089\u2153-\u215f\u2460-\u249b\u24ea-\u24ff\u2776-\u2793\u2cfd\u3192-\u3195\u3220-\u3229\u3251-\u325f\u3280-\u3289\u32b1-\u32bf]',
+    Zs: '[\u0020\u00a0\u1680\u180e\u2000-\u200a\u202f\u205f\u3000]',
+    Sc: '[\u0024\u00a2-\u00a5\u060b\u09f2\u09f3\u0af1\u0bf9\u0e3f\u17db\u20a0-\u20b5\ufdfc\ufe69\uff04\uffe0\uffe1\uffe5\uffe6]',
+    Pc: '[\u005f\u203f\u2040\u2054\ufe33\ufe34\ufe4d-\ufe4f\uff3f]',
+    Pd: '[\u002d\u058a\u1806\u2010-\u2015\u2e17\u301c\u3030\u30a0\ufe31\ufe32\ufe58\ufe63\uff0d]',
+    Pe: '[\u0029\u005d\u007d\u0f3b\u0f3d\u169c\u2046\u207e\u208e\u232a\u2769\u276b\u276d\u276f\u2771\u2773\u2775\u27c6\u27e7\u27e9\u27eb\u2984\u2986\u2988\u298a\u298c\u298e\u2990\u2992\u2994\u2996\u2998\u29d9\u29db\u29fd\u3009\u300b\u300d\u300f\u3011\u3015\u3017\u3019\u301b\u301e\u301f\ufd3f\ufe18\ufe36\ufe38\ufe3a\ufe3c\ufe3e\ufe40\ufe42\ufe44\ufe48\ufe5a\ufe5c\ufe5e\uff09\uff3d\uff5d\uff60\uff63]',
+    Pf: '[\u00bb\u2019\u201d\u203a\u2e03\u2e05\u2e0a\u2e0d\u2e1d]',
+    Me: '[\u0488\u0489\u06de\u20dd-\u20e0\u20e2-\u20e4]',
+    Mc: '[\u0903\u093e-\u0940\u0949-\u094c\u0982\u0983\u09be-\u09c0\u09c7\u09c8\u09cb\u09cc\u09d7\u0a03\u0a3e-\u0a40\u0a83\u0abe-\u0ac0\u0ac9\u0acb\u0acc\u0b02\u0b03\u0b3e\u0b40\u0b47\u0b48\u0b4b\u0b4c\u0b57\u0bbe\u0bbf\u0bc1\u0bc2\u0bc6-\u0bc8\u0bca-\u0bcc\u0bd7\u0c01-\u0c03\u0c41-\u0c44\u0c82\u0c83\u0cbe\u0cc0-\u0cc4\u0cc7\u0cc8\u0cca\u0ccb\u0cd5\u0cd6\u0d02\u0d03\u0d3e-\u0d40\u0d46-\u0d48\u0d4a-\u0d4c\u0d57\u0d82\u0d83\u0dcf-\u0dd1\u0dd8-\u0ddf\u0df2\u0df3\u0f3e\u0f3f\u0f7f\u102c\u1031\u1038\u1056\u1057\u17b6\u17be-\u17c5\u17c7\u17c8\u1923-\u1926\u1929-\u192b\u1930\u1931\u1933-\u1938\u19b0-\u19c0\u19c8\u19c9\u1a19-\u1a1b\u1b04\u1b35\u1b3b\u1b3d-\u1b41\u1b43\u1b44\ua802\ua823\ua824\ua827]'
+  };
+  var firstLetters = {};
+  for (var p in unicodeCategories) {
+    if (firstLetters[p[0]])
+      firstLetters[p[0]] = unicodeCategories[p].substring(0, unicodeCategories[p].length - 1) + firstLetters[p[0]].substring(1);
+    else
+      firstLetters[p[0]] = unicodeCategories[p];
+  }
+  for (var p in firstLetters)
+    unicodeCategories[p] = firstLetters[p];
+  return function(regexpString, classes) {
+    var modifiers = "";
+    if (regexpString instanceof RegExp) {
+      modifiers = (regexpString.global ? "g" : "") +
+        (regexpString.ignoreCase ? "i" : "") +
+        (regexpString.multiline ? "m" : "");
+      regexpString = regexpString.source;
+    }
+    regexpString = regexpString.replace(/\\p\{(..?)\}/g, function(match, group) {
+      var unicode_categorie = unicodeCategories[group];
+      if (!classes)
+        unicode_category = unicode_categorie.replace(/\[(.*?)\]/g, "$1")
+      return unicode_category || match;
+    });
+    return new RegExp(regexpString, modifiers);
+  };
+})();
+
+function validate_isName(s) {
+  var reg = /^[^0-9!<>,;?=+()@#"°{}_$%:]+$/;
+  return reg.test(s);
+}
+
+function validate_isGenericName(s) {
+  var reg = /^[^<>={}]+$/;
+  return reg.test(s);
+}
+
+function validate_isAddress(s) {
+  var reg = /^[^!<>?=+@{}_$%]+$/;
+  return reg.test(s);
+}
+
+function validate_isPostCode(s, pattern, iso_code) {
+  if (typeof iso_code === 'undefined' || iso_code == '')
+    iso_code = '[A-Z]{2}';
+  if (typeof(pattern) == 'undefined' || pattern.length == 0)
+    pattern = '[a-zA-Z 0-9-]+';
+  else {
+    var replacements = {
+      ' ': '(?:\ |)',
+      '-': '(?:-|)',
+      'N': '[0-9]',
+      'L': '[a-zA-Z]',
+      'C': iso_code
+    };
+    for (var new_value in replacements)
+      pattern = pattern.split(new_value).join(replacements[new_value]);
+  }
+  var reg = new RegExp('^' + pattern + '$');
+  return reg.test(s);
+}
+
+function validate_isCityName(s) {
+  var reg = /^[^!<>;?=+@#"°{}_$%]+$/;
+  return reg.test(s);
+}
+
+function validate_isMessage(s) {
+  var reg = /^[^<>{}]+$/;
+  return reg.test(s);
+}
+
+function validate_isPhoneNumber(s) {
+  var reg = /^[+0-9. ()-]+$/;
+  return reg.test(s);
+}
+
+function validate_isDniLite(s) {
+  var reg = /^[0-9a-z-.]{1,16}$/i;
+  return reg.test(s);
+}
+
+function validate_isEmail(s) {
+  var reg = unicode_hack(/^[a-z\p{L}0-9!#$%&'*+\/=?^`{}|~_-]+[.a-z\p{L}0-9!#$%&'*+\/=?^`{}|~_-]*@[a-z\p{L}0-9]+[._a-z\p{L}0-9-]*\.[a-z\p{L}0-9]+$/i, false);
+  return reg.test(s);
+}
+
+function validate_isPasswd(s) {
+  return (s.length >= 5 && s.length < 255);
+}
+
+function validate_field(that) {
+  if ($(that).hasClass('is_required') || $(that).val().length) {
+    if ($(that).attr('data-validate') == 'isPostCode') {
+      var selector = '#id_country';
+      if ($(that).attr('name') == 'postcode_invoice')
+        selector += '_invoice';
+      var id_country = $(selector + ' option:selected').val();
+      if (typeof(countriesNeedZipCode[id_country]) != 'undefined' && typeof(countries[id_country]) != 'undefined')
+        var result = window['validate_' + $(that).attr('data-validate')]($(that).val(), countriesNeedZipCode[id_country], countries[id_country]['iso_code']);
+    } else if ($(that).attr('data-validate'))
+      var result = window['validate_' + $(that).attr('data-validate')]($(that).val());
+    if (result)
+      $(that).parent().removeClass('form-error').addClass('form-ok');
+    else
+      $(that).parent().addClass('form-error').removeClass('form-ok');
+  }
+}
+$(document).on('focusout', 'input.validate, textarea.validate', function() {
+  validate_field(this);
+});;
 $(document).ready(function() {
   ajaxCart.overrideButtonsInThePage();
   $(document).on('click', '.block_cart_collapse', function(e) {
@@ -7637,122 +9970,6 @@ function crossselling_serialScroll() {
       pager: false
     });
 };;
-(function(k) {
-  'use strict';
-  k(['jquery'], function($) {
-    var j = $.scrollTo = function(a, b, c) {
-      return $(window).scrollTo(a, b, c)
-    };
-    j.defaults = {
-      axis: 'xy',
-      duration: 0,
-      limit: !0
-    };
-    j.window = function(a) {
-      return $(window)._scrollable()
-    };
-    $.fn._scrollable = function() {
-      return this.map(function() {
-        var a = this,
-          isWin = !a.nodeName || $.inArray(a.nodeName.toLowerCase(), ['iframe', '#document', 'html', 'body']) != -1;
-        if (!isWin) return a;
-        var b = (a.contentWindow || a).document || a.ownerDocument || a;
-        return /webkit/i.test(navigator.userAgent) || b.compatMode == 'BackCompat' ? b.body : b.documentElement
-      })
-    };
-    $.fn.scrollTo = function(f, g, h) {
-      if (typeof g == 'object') {
-        h = g;
-        g = 0
-      }
-      if (typeof h == 'function') h = {
-        onAfter: h
-      };
-      if (f == 'max') f = 9e9;
-      h = $.extend({}, j.defaults, h);
-      g = g || h.duration;
-      h.queue = h.queue && h.axis.length > 1;
-      if (h.queue) g /= 2;
-      h.offset = both(h.offset);
-      h.over = both(h.over);
-      return this._scrollable().each(function() {
-        if (f == null) return;
-        var d = this,
-          $elem = $(d),
-          targ = f,
-          toff, attr = {},
-          win = $elem.is('html,body');
-        switch (typeof targ) {
-          case 'number':
-          case 'string':
-            if (/^([+-]=?)?\d+(\.\d+)?(px|%)?$/.test(targ)) {
-              targ = both(targ);
-              break
-            }
-            targ = win ? $(targ) : $(targ, this);
-            if (!targ.length) return;
-          case 'object':
-            if (targ.is || targ.style) toff = (targ = $(targ)).offset()
-        }
-        var e = $.isFunction(h.offset) && h.offset(d, targ) || h.offset;
-        $.each(h.axis.split(''), function(i, a) {
-          var b = a == 'x' ? 'Left' : 'Top',
-            pos = b.toLowerCase(),
-            key = 'scroll' + b,
-            old = d[key],
-            max = j.max(d, a);
-          if (toff) {
-            attr[key] = toff[pos] + (win ? 0 : old - $elem.offset()[pos]);
-            if (h.margin) {
-              attr[key] -= parseInt(targ.css('margin' + b)) || 0;
-              attr[key] -= parseInt(targ.css('border' + b + 'Width')) || 0
-            }
-            attr[key] += e[pos] || 0;
-            if (h.over[pos]) attr[key] += targ[a == 'x' ? 'width' : 'height']() * h.over[pos]
-          } else {
-            var c = targ[pos];
-            attr[key] = c.slice && c.slice(-1) == '%' ? parseFloat(c) / 100 * max : c
-          }
-          if (h.limit && /^\d+$/.test(attr[key])) attr[key] = attr[key] <= 0 ? 0 : Math.min(attr[key], max);
-          if (!i && h.queue) {
-            if (old != attr[key]) animate(h.onAfterFirst);
-            delete attr[key]
-          }
-        });
-        animate(h.onAfter);
-
-        function animate(a) {
-          $elem.animate(attr, g, h.easing, a && function() {
-            a.call(this, targ, h)
-          })
-        }
-      }).end()
-    };
-    j.max = function(a, b) {
-      var c = b == 'x' ? 'Width' : 'Height',
-        scroll = 'scroll' + c;
-      if (!$(a).is('html,body')) return a[scroll] - $(a)[c.toLowerCase()]();
-      var d = 'client' + c,
-        html = a.ownerDocument.documentElement,
-        body = a.ownerDocument.body;
-      return Math.max(html[scroll], body[scroll]) - Math.min(html[d], body[d])
-    };
-
-    function both(a) {
-      return $.isFunction(a) || $.isPlainObject(a) ? a : {
-        top: a,
-        left: a
-      }
-    }
-    return j
-  })
-}(typeof define === 'function' && define.amd ? define : function(a, b) {
-  if (typeof module !== 'undefined' && module.exports) {
-    module.exports = b(require('jquery'))
-  } else {
-    b(jQuery)
-  }
-}));;
 (function(a) {
   var b = a.serialScroll = function(c) {
     return a(window).serialScroll(c)
@@ -8381,1174 +10598,6 @@ function toggleBranch(jQueryElement, noAnimation) {
   else
     openBranch(jQueryElement, noAnimation);
 };;
-var ajaxQueries = new Array();
-var ajaxLoaderOn = 0;
-var sliderList = new Array();
-var slidersInit = false;
-$(document).ready(function() {
-  cancelFilter();
-  openCloseFilter();
-  $(document).on('click', '#layered_form input[type=button], #layered_form label.layered_color', function(e) {
-    if (!$('input[name=' + $(this).attr('name') + '][type=hidden]').length)
-      $('<input />').attr('type', 'hidden').attr('name', $(this).attr('name')).val($(this).data('rel')).appendTo('#layered_form');
-    else
-      $('input[name=' + $(this).attr('name') + '][type=hidden]').remove();
-    reloadContent(true);
-  });
-  $(document).on('click', '#layered_form input[type=checkbox], #layered_form input[type=radio]', function() {
-    reloadContent(true);
-  });
-  $('body').on('change', '#layered_form .select', function() {
-    reloadContent(true);
-  });
-  $(document).on('keyup', '#layered_form input.layered_input_range', function(e) {
-    if ($(this).attr('timeout_id'))
-      window.clearTimeout($(this).attr('timeout_id'));
-    var reference = this;
-    $(this).attr('timeout_id', window.setTimeout(function(it) {
-      if (!$(it).attr('id'))
-        it = reference;
-      var filter = $(it).attr('id').replace(/^layered_(.+)_range_.*$/, '$1');
-      var value_min = parseInt($('#layered_' + filter + '_range_min').val());
-      if (isNaN(value_min))
-        value_min = 0;
-      $('#layered_' + filter + '_range_min').val(value_min);
-      var value_max = parseInt($('#layered_' + filter + '_range_max').val());
-      if (isNaN(value_max))
-        value_max = 0;
-      $('#layered_' + filter + '_range_max').val(value_max);
-      if (value_max < value_min) {
-        $('#layered_' + filter + '_range_max').val($(it).val());
-        $('#layered_' + filter + '_range_min').val($(it).val());
-      }
-      reloadContent();
-    }, 500, this));
-  });
-  $(document).on('click', '#layered_block_left .radio', function(e) {
-    var name = $(this).attr('name');
-    $.each($(this).parent().parent().find('input[type=button]'), function(it, item) {
-      if ($(item).hasClass('on') && $(item).attr('name') != name)
-        $(item).click();
-    });
-    return true;
-  });
-  $(document).on('click', '#layered_block_left label:not(.layered_color) a', function(e) {
-    e.preventDefault();
-    var disable = $(this).parent().parent().find('input').attr('disabled');
-    if (disable == '' || typeof(disable) == 'undefined' || disable == false) {
-      $(this).parent().parent().find('input').click();
-    }
-  });
-  layered_hidden_list = {};
-  $('.hide-action').on('click', function(e) {
-    if (typeof(layered_hidden_list[$(this).parent().find('ul').attr('id')]) == 'undefined' || layered_hidden_list[$(this).parent().find('ul').attr('id')] == false)
-      layered_hidden_list[$(this).parent().find('ul').attr('id')] = true;
-    else
-      layered_hidden_list[$(this).parent().find('ul').attr('id')] = false;
-    hideFilterValueAction(this);
-  });
-  $('.hide-action').each(function() {
-    hideFilterValueAction(this);
-  });
-  $(document).off('change', '.selectProductSort').on('change', '.selectProductSort', function(e) {
-    $('.selectProductSort').val($(this).val());
-    if ($('#layered_form').length > 0)
-      reloadContent('forceSlide');
-  });
-  $(document).off('change', 'select[name="n"]').on('change', 'select[name="n"]', function(e) {
-    $('select[name=n]').val($(this).val());
-    reloadContent('forceSlide');
-  });
-  paginationButton(false);
-  initLayered();
-});
-
-function initFilters() {
-  if (typeof filters !== 'undefined') {
-    for (key in filters) {
-      if (filters.hasOwnProperty(key))
-        var filter = filters[key];
-      if (typeof filter.slider !== 'undefined' && parseInt(filter.filter_type) == 0) {
-        var filterRange = parseInt(filter.max) - parseInt(filter.min);
-        var step = filterRange / 100;
-        if (step > 1)
-          step = parseInt(step);
-        addSlider(filter.type, {
-          range: true,
-          step: step,
-          min: parseInt(filter.min),
-          max: parseInt(filter.max),
-          values: [filter.values[0], filter.values[1]],
-          slide: function(event, ui) {
-            stopAjaxQuery();
-            if (parseInt($(event.target).data('format')) < 5) {
-              from = formatCurrency(ui.values[0], parseInt($(event.target).data('format')), $(event.target).data('unit'));
-              to = formatCurrency(ui.values[1], parseInt($(event.target).data('format')), $(event.target).data('unit'));
-            } else {
-              from = ui.values[0] + $(event.target).data('unit');
-              to = ui.values[1] + $(event.target).data('unit');
-            }
-            $('#layered_' + $(event.target).data('type') + '_range').html(from + ' - ' + to);
-          },
-          stop: function() {
-            reloadContent(true);
-          }
-        }, filter.unit, parseInt(filter.format));
-      } else if (typeof filter.slider !== 'undefined' && parseInt(filter.filter_type) == 1) {
-        $('#layered_' + filter.type + '_range_min').attr('limitValue', filter.min);
-        $('#layered_' + filter.type + '_range_max').attr('limitValue', filter.max);
-      }
-      $('.layered_' + filter.type).show();
-    }
-    initUniform();
-  }
-}
-
-function initUniform() {
-  if (!!$.prototype.uniform)
-    $("#layered_form input[type='checkbox'], #layered_form input[type='radio'], select.form-control").uniform();
-}
-
-function hideFilterValueAction(it) {
-  if (typeof(layered_hidden_list[$(it).parent().find('ul').attr('id')]) == 'undefined' || layered_hidden_list[$(it).parent().find('ul').attr('id')] == false) {
-    $(it).parent().find('.hiddable').hide();
-    $(it).parent().find('.hide-action.less').hide();
-    $(it).parent().find('.hide-action.more').show();
-  } else {
-    $(it).parent().find('.hiddable').show();
-    $(it).parent().find('.hide-action.less').show();
-    $(it).parent().find('.hide-action.more').hide();
-  }
-}
-
-function addSlider(type, data, unit, format) {
-  sliderList.push({
-    type: type,
-    data: data,
-    unit: unit,
-    format: format
-  });
-}
-
-function initSliders() {
-  $(sliderList).each(function(i, slider) {
-    $('#layered_' + slider['type'] + '_slider').slider(slider['data']);
-    var from = '';
-    var to = '';
-    switch (slider['format']) {
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-        from = formatCurrency($('#layered_' + slider['type'] + '_slider').slider('values', 0), slider['format'], slider['unit']);
-        to = formatCurrency($('#layered_' + slider['type'] + '_slider').slider('values', 1), slider['format'], slider['unit']);
-        break;
-      case 5:
-        from = $('#layered_' + slider['type'] + '_slider').slider('values', 0) + slider['unit']
-        to = $('#layered_' + slider['type'] + '_slider').slider('values', 1) + slider['unit'];
-        break;
-    }
-    $('#layered_' + slider['type'] + '_range').html(from + ' - ' + to);
-  });
-}
-
-function initLayered() {
-  initFilters();
-  initSliders();
-  initLocationChange();
-  updateProductUrl();
-  if (window.location.href.split('#').length == 2 && window.location.href.split('#')[1] != '') {
-    var params = window.location.href.split('#')[1];
-    reloadContent('&selected_filters=' + params);
-  }
-}
-
-function paginationButton(nbProductsIn, nbProductOut) {
-  if (typeof(current_friendly_url) === 'undefined')
-    current_friendly_url = '#';
-  $('div.pagination a').not(':hidden').each(function() {
-    if ($(this).attr('href').search(/(\?|&)p=/) == -1)
-      var page = 1;
-    else
-      var page = parseInt($(this).attr('href').replace(/^.*(\?|&)p=(\d+).*$/, '$2'));
-    var location = window.location.href.replace(/#.*$/, '');
-    $(this).attr('href', location + current_friendly_url.replace(/\/page-(\d+)/, '') + '/page-' + page);
-  });
-  $('div.pagination li').not('.current, .disabled').each(function() {
-    var nbPage = 0;
-    if ($(this).hasClass('pagination_next'))
-      nbPage = parseInt($('div.pagination li.current').children().children().html()) + 1;
-    else if ($(this).hasClass('pagination_previous'))
-      nbPage = parseInt($('div.pagination li.current').children().children().html()) - 1;
-    $(this).children().children().on('click', function(e) {
-      e.preventDefault();
-      if (nbPage == 0)
-        p = parseInt($(this).html()) + parseInt(nbPage);
-      else
-        p = nbPage;
-      p = '&p=' + p;
-      reloadContent(p);
-      nbPage = 0;
-    });
-  });
-  if (nbProductsIn != false) {
-    if (isNaN(nbProductsIn) == 0) {
-      var productCountRow = $('.product-count').html();
-      var nbPage = parseInt($('div.pagination li.current').children().children().html());
-      var nb_products = nbProductsIn;
-      if ($('#nb_item option:selected').length == 0)
-        var nbPerPage = nb_products;
-      else
-        var nbPerPage = parseInt($('#nb_item option:selected').val());
-      isNaN(nbPage) ? nbPage = 1 : nbPage = nbPage;
-      nbPerPage * nbPage < nb_products ? productShowing = nbPerPage * nbPage : productShowing = (nbPerPage * nbPage - nb_products - nbPerPage * nbPage) * -1;
-      nbPage == 1 ? productShowingStart = 1 : productShowingStart = nbPerPage * nbPage - nbPerPage + 1;
-      productCountRow = $.trim(productCountRow);
-      productCountRow = productCountRow.split(' ');
-      var backStart = new Array;
-      for (row in productCountRow)
-        if (parseInt(productCountRow[row]) + 0 == parseInt(productCountRow[row]))
-          backStart.push(row);
-      if (typeof backStart[0] !== 'undefined')
-        productCountRow[backStart[0]] = productShowingStart;
-      if (typeof backStart[1] !== 'undefined')
-        productCountRow[backStart[1]] = (nbProductOut != 'undefined') && (nbProductOut > productShowing) ? nbProductOut : productShowing;
-      if (typeof backStart[2] !== 'undefined')
-        productCountRow[backStart[2]] = nb_products;
-      if (typeof backStart[1] !== 'undefined' && typeof backStart[2] !== 'undefined' && productCountRow[backStart[1]] > productCountRow[backStart[2]])
-        productCountRow[backStart[1]] = productCountRow[backStart[2]];
-      productCountRow = productCountRow.join(' ');
-      $('.product-count').html(productCountRow);
-      $('.product-count').show();
-    } else
-      $('.product-count').hide();
-  }
-}
-
-function cancelFilter() {
-  $(document).on('click', '#enabled_filters a', function(e) {
-    if ($(this).data('rel').search(/_slider$/) > 0) {
-      if ($('#' + $(this).data('rel')).length) {
-        $('#' + $(this).data('rel')).slider('values', 0, $('#' + $(this).data('rel')).slider('option', 'min'));
-        $('#' + $(this).data('rel')).slider('values', 1, $('#' + $(this).data('rel')).slider('option', 'max'));
-        $('#' + $(this).data('rel')).slider('option', 'slide')(0, {
-          values: [$('#' + $(this).data('rel')).slider('option', 'min'), $('#' + $(this).data('rel')).slider('option', 'max')]
-        });
-      } else if ($('#' + $(this).data('rel').replace(/_slider$/, '_range_min')).length) {
-        $('#' + $(this).data('rel').replace(/_slider$/, '_range_min')).val($('#' + $(this).data('rel').replace(/_slider$/, '_range_min')).attr('limitValue'));
-        $('#' + $(this).data('rel').replace(/_slider$/, '_range_max')).val($('#' + $(this).data('rel').replace(/_slider$/, '_range_max')).attr('limitValue'));
-      }
-    } else {
-      if ($('option#' + $(this).data('rel')).length)
-        $('#' + $(this).data('rel')).parent().val('');
-      else {
-        $('#' + $(this).data('rel')).attr('checked', false);
-        $('.' + $(this).data('rel')).attr('checked', false);
-        $('#layered_form input[type=hidden][name=' + $(this).data('rel') + ']').remove();
-      }
-    }
-    reloadContent(true);
-    e.preventDefault();
-  });
-}
-
-function openCloseFilter() {
-  $(document).on('click', '#layered_form span.layered_close a', function(e) {
-    if ($(this).html() == '&lt;') {
-      $('#' + $(this).data('rel')).show();
-      $(this).html('v');
-      $(this).parent().removeClass('closed');
-    } else {
-      $('#' + $(this).data('rel')).hide();
-      $(this).html('&lt;');
-      $(this).parent().addClass('closed');
-    }
-    e.preventDefault();
-  });
-}
-
-function stopAjaxQuery() {
-  if (typeof(ajaxQueries) == 'undefined')
-    ajaxQueries = new Array();
-  for (i = 0; i < ajaxQueries.length; i++)
-    ajaxQueries[i].abort();
-  ajaxQueries = new Array();
-}
-
-function reloadContent(params_plus) {
-  stopAjaxQuery();
-  if (!ajaxLoaderOn) {
-    $('.product_list').prepend($('#layered_ajax_loader').html());
-    $('.product_list').css('opacity', '0.7');
-    ajaxLoaderOn = 1;
-  }
-  data = $('#layered_form').serialize();
-  $('.layered_slider').each(function() {
-    var sliderStart = $(this).slider('values', 0);
-    var sliderStop = $(this).slider('values', 1);
-    if (typeof(sliderStart) == 'number' && typeof(sliderStop) == 'number')
-      data += '&' + $(this).attr('id') + '=' + sliderStart + '_' + sliderStop;
-  });
-  $(['price', 'weight']).each(function(it, sliderType) {
-    if ($('#layered_' + sliderType + '_range_min').length)
-      data += '&layered_' + sliderType + '_slider=' + $('#layered_' + sliderType + '_range_min').val() + '_' + $('#layered_' + sliderType + '_range_max').val();
-  });
-  $('#layered_form .select option').each(function() {
-    if ($(this).attr('id') && $(this).parent().val() == $(this).val())
-      data += '&' + $(this).attr('id') + '=' + $(this).val();
-  });
-  if ($('.selectProductSort').length && $('.selectProductSort').val()) {
-    if ($('.selectProductSort').val().search(/orderby=/) > 0) {
-      var splitData = [$('.selectProductSort').val().match(/orderby=(\w*)/)[1], $('.selectProductSort').val().match(/orderway=(\w*)/)[1]];
-    } else {
-      var splitData = $('.selectProductSort').val().split(':');
-    }
-    data += '&orderby=' + splitData[0] + '&orderway=' + splitData[1];
-  }
-  if ($('select[name=n]:first').length) {
-    if (params_plus)
-      data += '&n=' + $('select[name=n]:first').val();
-    else
-      data += '&n=' + $('div.pagination form.showall').find('input[name=n]').val();
-  }
-  var slideUp = true;
-  if (typeof params_plus === undefined || !(typeof params_plus === 'string')) {
-    params_plus = '';
-    slideUp = false;
-  }
-  var n = '';
-  if (params_plus) {
-    $('div.pagination select[name=n]').children().each(function(it, option) {
-      if (option.selected)
-        n = '&n=' + option.value;
-    });
-  }
-  ajaxQuery = $.ajax({
-    type: 'GET',
-    url: baseDir + 'modules/blocklayered/blocklayered-ajax.php',
-    data: data + params_plus + n,
-    dataType: 'json',
-    cache: false,
-    success: function(result) {
-      if (typeof(result) === 'undefined')
-        return;
-      if (result.meta_description != '')
-        $('meta[name="description"]').attr('content', result.meta_description);
-      if (result.meta_keywords != '')
-        $('meta[name="keywords"]').attr('content', result.meta_keywords);
-      if (result.meta_title != '')
-        $('title').html(result.meta_title);
-      if (result.heading != '')
-        $('h1.page-heading .cat-name').html(result.heading);
-      $('#layered_block_left').replaceWith(utf8_decode(result.filtersBlock));
-      $('.category-product-count, .heading-counter').html(result.categoryCount);
-      if (result.nbRenderedProducts == result.nbAskedProducts)
-        $('div.clearfix.selector1').hide();
-      if (result.productList)
-        $('.product_list').replaceWith(utf8_decode(result.productList));
-      else
-        $('.product_list').html('');
-      $('.product_list').css('opacity', '1');
-      if ($.browser.msie)
-        $('.product_list').css('filter', '');
-      if (result.pagination.search(/[^\s]/) >= 0) {
-        var pagination = $('<div/>').html(result.pagination)
-        var pagination_bottom = $('<div/>').html(result.pagination_bottom);
-        if ($('<div/>').html(pagination).find('#pagination').length) {
-          $('#pagination').show();
-          $('#pagination').replaceWith(pagination.find('#pagination'));
-        } else
-          $('#pagination').hide();
-        if ($('<div/>').html(pagination_bottom).find('#pagination_bottom').length) {
-          $('#pagination_bottom').show();
-          $('#pagination_bottom').replaceWith(pagination_bottom.find('#pagination_bottom'));
-        } else
-          $('#pagination_bottom').hide();
-      } else {
-        $('#pagination').hide();
-        $('#pagination_bottom').hide();
-      }
-      paginationButton(result.nbRenderedProducts, result.nbAskedProducts);
-      ajaxLoaderOn = 0;
-      $('div.pagination form').on('submit', function(e) {
-        e.preventDefault();
-        val = $('div.pagination select[name=n]').val();
-        $('div.pagination select[name=n]').children().each(function(it, option) {
-          if (option.value == val)
-            $(option).attr('selected', true);
-          else
-            $(option).removeAttr('selected');
-        });
-        reloadContent();
-      });
-      if (typeof(ajaxCart) != "undefined")
-        ajaxCart.overrideButtonsInThePage();
-      if (typeof(reloadProductComparison) == 'function')
-        reloadProductComparison();
-      filters = result.filters;
-      initFilters();
-      initSliders();
-      current_friendly_url = result.current_friendly_url;
-      if (typeof(current_friendly_url) === 'undefined')
-        current_friendly_url = '#';
-      $(['price', 'weight']).each(function(it, sliderType) {
-        if ($('#layered_' + sliderType + '_slider').length) {
-          if (typeof($('#layered_' + sliderType + '_slider').slider('values', 0)) != 'object') {
-            if ($('#layered_' + sliderType + '_slider').slider('values', 0) != $('#layered_' + sliderType + '_slider').slider('option', 'min') || $('#layered_' + sliderType + '_slider').slider('values', 1) != $('#layered_' + sliderType + '_slider').slider('option', 'max'))
-              current_friendly_url += '/' + blocklayeredSliderName[sliderType] + '-' + $('#layered_' + sliderType + '_slider').slider('values', 0) + '-' + $('#layered_' + sliderType + '_slider').slider('values', 1)
-          }
-        } else if ($('#layered_' + sliderType + '_range_min').length)
-          current_friendly_url += '/' + blocklayeredSliderName[sliderType] + '-' + $('#layered_' + sliderType + '_range_min').val() + '-' + $('#layered_' + sliderType + '_range_max').val();
-      });
-      window.location.href = current_friendly_url;
-      if (current_friendly_url != '#/show-all')
-        $('div.clearfix.selector1').show();
-      lockLocationChecking = true;
-      if (slideUp)
-        $.scrollTo('.product_list', 400);
-      updateProductUrl();
-      $('.hide-action').each(function() {
-        hideFilterValueAction(this);
-      });
-      if (display instanceof Function) {
-        var view = $.totalStorage('display');
-        if (view && view != 'grid')
-          display(view);
-      }
-    }
-  });
-  ajaxQueries.push(ajaxQuery);
-}
-
-function initLocationChange(func, time) {
-  if (!time)
-    time = 500;
-  var current_friendly_url = getUrlParams();
-  setInterval(function() {
-    if (getUrlParams() != current_friendly_url && !lockLocationChecking) {
-      if (current_friendly_url.replace(/^#(\/)?/, '') == getUrlParams().replace(/^#(\/)?/, ''))
-        return;
-      lockLocationChecking = true;
-      reloadContent('&selected_filters=' + getUrlParams().replace(/^#/, ''));
-    } else {
-      lockLocationChecking = false;
-      current_friendly_url = getUrlParams();
-    }
-  }, time);
-}
-
-function getUrlParams() {
-  if (typeof(current_friendly_url) === 'undefined')
-    current_friendly_url = '#';
-  var params = current_friendly_url;
-  if (window.location.href.split('#').length == 2 && window.location.href.split('#')[1] != '')
-    params = '#' + window.location.href.split('#')[1];
-  return params;
-}
-
-function updateProductUrl() {
-  if (typeof(param_product_url) != 'undefined' && param_product_url != '' && param_product_url != '#') {
-    $.each($('ul.product_list li.ajax_block_product .product_img_link,' + 'ul.product_list li.ajax_block_product h5 a,' + 'ul.product_list li.ajax_block_product .product_desc a,' + 'ul.product_list li.ajax_block_product .lnk_view'), function() {
-      $(this).attr('href', $(this).attr('href') + param_product_url);
-    });
-  }
-}
-
-function utf8_decode(utfstr) {
-  var res = '';
-  for (var i = 0; i < utfstr.length;) {
-    var c = utfstr.charCodeAt(i);
-    if (c < 128) {
-      res += String.fromCharCode(c);
-      i++;
-    } else if ((c > 191) && (c < 224)) {
-      var c1 = utfstr.charCodeAt(i + 1);
-      res += String.fromCharCode(((c & 31) << 6) | (c1 & 63));
-      i += 2;
-    } else {
-      var c1 = utfstr.charCodeAt(i + 1);
-      var c2 = utfstr.charCodeAt(i + 2);
-      res += String.fromCharCode(((c & 15) << 12) | ((c1 & 63) << 6) | (c2 & 63));
-      i += 3;
-    }
-  }
-  return res;
-};
-/*! jQuery UI - v1.10.3 - 2013-05-03
- * http://jqueryui.com
- * Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
-(function(e, t) {
-  function i(t, i) {
-    var a, n, r, o = t.nodeName.toLowerCase();
-    return "area" === o ? (a = t.parentNode, n = a.name, t.href && n && "map" === a.nodeName.toLowerCase() ? (r = e("img[usemap=#" + n + "]")[0], !!r && s(r)) : !1) : (/input|select|textarea|button|object/.test(o) ? !t.disabled : "a" === o ? t.href || i : i) && s(t)
-  }
-
-  function s(t) {
-    return e.expr.filters.visible(t) && !e(t).parents().addBack().filter(function() {
-      return "hidden" === e.css(this, "visibility")
-    }).length
-  }
-  var a = 0,
-    n = /^ui-id-\d+$/;
-  e.ui = e.ui || {}, e.extend(e.ui, {
-    version: "1.10.3",
-    keyCode: {
-      BACKSPACE: 8,
-      COMMA: 188,
-      DELETE: 46,
-      DOWN: 40,
-      END: 35,
-      ENTER: 13,
-      ESCAPE: 27,
-      HOME: 36,
-      LEFT: 37,
-      NUMPAD_ADD: 107,
-      NUMPAD_DECIMAL: 110,
-      NUMPAD_DIVIDE: 111,
-      NUMPAD_ENTER: 108,
-      NUMPAD_MULTIPLY: 106,
-      NUMPAD_SUBTRACT: 109,
-      PAGE_DOWN: 34,
-      PAGE_UP: 33,
-      PERIOD: 190,
-      RIGHT: 39,
-      SPACE: 32,
-      TAB: 9,
-      UP: 38
-    }
-  }), e.fn.extend({
-    focus: function(t) {
-      return function(i, s) {
-        return "number" == typeof i ? this.each(function() {
-          var t = this;
-          setTimeout(function() {
-            e(t).focus(), s && s.call(t)
-          }, i)
-        }) : t.apply(this, arguments)
-      }
-    }(e.fn.focus),
-    scrollParent: function() {
-      var t;
-      return t = e.ui.ie && /(static|relative)/.test(this.css("position")) || /absolute/.test(this.css("position")) ? this.parents().filter(function() {
-        return /(relative|absolute|fixed)/.test(e.css(this, "position")) && /(auto|scroll)/.test(e.css(this, "overflow") + e.css(this, "overflow-y") + e.css(this, "overflow-x"))
-      }).eq(0) : this.parents().filter(function() {
-        return /(auto|scroll)/.test(e.css(this, "overflow") + e.css(this, "overflow-y") + e.css(this, "overflow-x"))
-      }).eq(0), /fixed/.test(this.css("position")) || !t.length ? e(document) : t
-    },
-    zIndex: function(i) {
-      if (i !== t) return this.css("zIndex", i);
-      if (this.length)
-        for (var s, a, n = e(this[0]); n.length && n[0] !== document;) {
-          if (s = n.css("position"), ("absolute" === s || "relative" === s || "fixed" === s) && (a = parseInt(n.css("zIndex"), 10), !isNaN(a) && 0 !== a)) return a;
-          n = n.parent()
-        }
-      return 0
-    },
-    uniqueId: function() {
-      return this.each(function() {
-        this.id || (this.id = "ui-id-" + ++a)
-      })
-    },
-    removeUniqueId: function() {
-      return this.each(function() {
-        n.test(this.id) && e(this).removeAttr("id")
-      })
-    }
-  }), e.extend(e.expr[":"], {
-    data: e.expr.createPseudo ? e.expr.createPseudo(function(t) {
-      return function(i) {
-        return !!e.data(i, t)
-      }
-    }) : function(t, i, s) {
-      return !!e.data(t, s[3])
-    },
-    focusable: function(t) {
-      return i(t, !isNaN(e.attr(t, "tabindex")))
-    },
-    tabbable: function(t) {
-      var s = e.attr(t, "tabindex"),
-        a = isNaN(s);
-      return (a || s >= 0) && i(t, !a)
-    }
-  }), e("<a>").outerWidth(1).jquery || e.each(["Width", "Height"], function(i, s) {
-    function a(t, i, s, a) {
-      return e.each(n, function() {
-        i -= parseFloat(e.css(t, "padding" + this)) || 0, s && (i -= parseFloat(e.css(t, "border" + this + "Width")) || 0), a && (i -= parseFloat(e.css(t, "margin" + this)) || 0)
-      }), i
-    }
-    var n = "Width" === s ? ["Left", "Right"] : ["Top", "Bottom"],
-      r = s.toLowerCase(),
-      o = {
-        innerWidth: e.fn.innerWidth,
-        innerHeight: e.fn.innerHeight,
-        outerWidth: e.fn.outerWidth,
-        outerHeight: e.fn.outerHeight
-      };
-    e.fn["inner" + s] = function(i) {
-      return i === t ? o["inner" + s].call(this) : this.each(function() {
-        e(this).css(r, a(this, i) + "px")
-      })
-    }, e.fn["outer" + s] = function(t, i) {
-      return "number" != typeof t ? o["outer" + s].call(this, t) : this.each(function() {
-        e(this).css(r, a(this, t, !0, i) + "px")
-      })
-    }
-  }), e.fn.addBack || (e.fn.addBack = function(e) {
-    return this.add(null == e ? this.prevObject : this.prevObject.filter(e))
-  }), e("<a>").data("a-b", "a").removeData("a-b").data("a-b") && (e.fn.removeData = function(t) {
-    return function(i) {
-      return arguments.length ? t.call(this, e.camelCase(i)) : t.call(this)
-    }
-  }(e.fn.removeData)), e.ui.ie = !!/msie [\w.]+/.exec(navigator.userAgent.toLowerCase()), e.support.selectstart = "onselectstart" in document.createElement("div"), e.fn.extend({
-    disableSelection: function() {
-      return this.bind((e.support.selectstart ? "selectstart" : "mousedown") + ".ui-disableSelection", function(e) {
-        e.preventDefault()
-      })
-    },
-    enableSelection: function() {
-      return this.unbind(".ui-disableSelection")
-    }
-  }), e.extend(e.ui, {
-    plugin: {
-      add: function(t, i, s) {
-        var a, n = e.ui[t].prototype;
-        for (a in s) n.plugins[a] = n.plugins[a] || [], n.plugins[a].push([i, s[a]])
-      },
-      call: function(e, t, i) {
-        var s, a = e.plugins[t];
-        if (a && e.element[0].parentNode && 11 !== e.element[0].parentNode.nodeType)
-          for (s = 0; a.length > s; s++) e.options[a[s][0]] && a[s][1].apply(e.element, i)
-      }
-    },
-    hasScroll: function(t, i) {
-      if ("hidden" === e(t).css("overflow")) return !1;
-      var s = i && "left" === i ? "scrollLeft" : "scrollTop",
-        a = !1;
-      return t[s] > 0 ? !0 : (t[s] = 1, a = t[s] > 0, t[s] = 0, a)
-    }
-  })
-})(jQuery);
-/*! jQuery UI - v1.10.3 - 2013-05-03
- * http://jqueryui.com
- * Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
-(function(e, t) {
-  var i = 0,
-    s = Array.prototype.slice,
-    n = e.cleanData;
-  e.cleanData = function(t) {
-    for (var i, s = 0; null != (i = t[s]); s++) try {
-      e(i).triggerHandler("remove")
-    } catch (a) {}
-    n(t)
-  }, e.widget = function(i, s, n) {
-    var a, r, o, h, l = {},
-      u = i.split(".")[0];
-    i = i.split(".")[1], a = u + "-" + i, n || (n = s, s = e.Widget), e.expr[":"][a.toLowerCase()] = function(t) {
-      return !!e.data(t, a)
-    }, e[u] = e[u] || {}, r = e[u][i], o = e[u][i] = function(e, i) {
-      return this._createWidget ? (arguments.length && this._createWidget(e, i), t) : new o(e, i)
-    }, e.extend(o, r, {
-      version: n.version,
-      _proto: e.extend({}, n),
-      _childConstructors: []
-    }), h = new s, h.options = e.widget.extend({}, h.options), e.each(n, function(i, n) {
-      return e.isFunction(n) ? (l[i] = function() {
-        var e = function() {
-            return s.prototype[i].apply(this, arguments)
-          },
-          t = function(e) {
-            return s.prototype[i].apply(this, e)
-          };
-        return function() {
-          var i, s = this._super,
-            a = this._superApply;
-          return this._super = e, this._superApply = t, i = n.apply(this, arguments), this._super = s, this._superApply = a, i
-        }
-      }(), t) : (l[i] = n, t)
-    }), o.prototype = e.widget.extend(h, {
-      widgetEventPrefix: r ? h.widgetEventPrefix : i
-    }, l, {
-      constructor: o,
-      namespace: u,
-      widgetName: i,
-      widgetFullName: a
-    }), r ? (e.each(r._childConstructors, function(t, i) {
-      var s = i.prototype;
-      e.widget(s.namespace + "." + s.widgetName, o, i._proto)
-    }), delete r._childConstructors) : s._childConstructors.push(o), e.widget.bridge(i, o)
-  }, e.widget.extend = function(i) {
-    for (var n, a, r = s.call(arguments, 1), o = 0, h = r.length; h > o; o++)
-      for (n in r[o]) a = r[o][n], r[o].hasOwnProperty(n) && a !== t && (i[n] = e.isPlainObject(a) ? e.isPlainObject(i[n]) ? e.widget.extend({}, i[n], a) : e.widget.extend({}, a) : a);
-    return i
-  }, e.widget.bridge = function(i, n) {
-    var a = n.prototype.widgetFullName || i;
-    e.fn[i] = function(r) {
-      var o = "string" == typeof r,
-        h = s.call(arguments, 1),
-        l = this;
-      return r = !o && h.length ? e.widget.extend.apply(null, [r].concat(h)) : r, o ? this.each(function() {
-        var s, n = e.data(this, a);
-        return n ? e.isFunction(n[r]) && "_" !== r.charAt(0) ? (s = n[r].apply(n, h), s !== n && s !== t ? (l = s && s.jquery ? l.pushStack(s.get()) : s, !1) : t) : e.error("no such method '" + r + "' for " + i + " widget instance") : e.error("cannot call methods on " + i + " prior to initialization; " + "attempted to call method '" + r + "'")
-      }) : this.each(function() {
-        var t = e.data(this, a);
-        t ? t.option(r || {})._init() : e.data(this, a, new n(r, this))
-      }), l
-    }
-  }, e.Widget = function() {}, e.Widget._childConstructors = [], e.Widget.prototype = {
-    widgetName: "widget",
-    widgetEventPrefix: "",
-    defaultElement: "<div>",
-    options: {
-      disabled: !1,
-      create: null
-    },
-    _createWidget: function(t, s) {
-      s = e(s || this.defaultElement || this)[0], this.element = e(s), this.uuid = i++, this.eventNamespace = "." + this.widgetName + this.uuid, this.options = e.widget.extend({}, this.options, this._getCreateOptions(), t), this.bindings = e(), this.hoverable = e(), this.focusable = e(), s !== this && (e.data(s, this.widgetFullName, this), this._on(!0, this.element, {
-        remove: function(e) {
-          e.target === s && this.destroy()
-        }
-      }), this.document = e(s.style ? s.ownerDocument : s.document || s), this.window = e(this.document[0].defaultView || this.document[0].parentWindow)), this._create(), this._trigger("create", null, this._getCreateEventData()), this._init()
-    },
-    _getCreateOptions: e.noop,
-    _getCreateEventData: e.noop,
-    _create: e.noop,
-    _init: e.noop,
-    destroy: function() {
-      this._destroy(), this.element.unbind(this.eventNamespace).removeData(this.widgetName).removeData(this.widgetFullName).removeData(e.camelCase(this.widgetFullName)), this.widget().unbind(this.eventNamespace).removeAttr("aria-disabled").removeClass(this.widgetFullName + "-disabled " + "ui-state-disabled"), this.bindings.unbind(this.eventNamespace), this.hoverable.removeClass("ui-state-hover"), this.focusable.removeClass("ui-state-focus")
-    },
-    _destroy: e.noop,
-    widget: function() {
-      return this.element
-    },
-    option: function(i, s) {
-      var n, a, r, o = i;
-      if (0 === arguments.length) return e.widget.extend({}, this.options);
-      if ("string" == typeof i)
-        if (o = {}, n = i.split("."), i = n.shift(), n.length) {
-          for (a = o[i] = e.widget.extend({}, this.options[i]), r = 0; n.length - 1 > r; r++) a[n[r]] = a[n[r]] || {}, a = a[n[r]];
-          if (i = n.pop(), s === t) return a[i] === t ? null : a[i];
-          a[i] = s
-        } else {
-          if (s === t) return this.options[i] === t ? null : this.options[i];
-          o[i] = s
-        }
-      return this._setOptions(o), this
-    },
-    _setOptions: function(e) {
-      var t;
-      for (t in e) this._setOption(t, e[t]);
-      return this
-    },
-    _setOption: function(e, t) {
-      return this.options[e] = t, "disabled" === e && (this.widget().toggleClass(this.widgetFullName + "-disabled ui-state-disabled", !!t).attr("aria-disabled", t), this.hoverable.removeClass("ui-state-hover"), this.focusable.removeClass("ui-state-focus")), this
-    },
-    enable: function() {
-      return this._setOption("disabled", !1)
-    },
-    disable: function() {
-      return this._setOption("disabled", !0)
-    },
-    _on: function(i, s, n) {
-      var a, r = this;
-      "boolean" != typeof i && (n = s, s = i, i = !1), n ? (s = a = e(s), this.bindings = this.bindings.add(s)) : (n = s, s = this.element, a = this.widget()), e.each(n, function(n, o) {
-        function h() {
-          return i || r.options.disabled !== !0 && !e(this).hasClass("ui-state-disabled") ? ("string" == typeof o ? r[o] : o).apply(r, arguments) : t
-        }
-        "string" != typeof o && (h.guid = o.guid = o.guid || h.guid || e.guid++);
-        var l = n.match(/^(\w+)\s*(.*)$/),
-          u = l[1] + r.eventNamespace,
-          c = l[2];
-        c ? a.delegate(c, u, h) : s.bind(u, h)
-      })
-    },
-    _off: function(e, t) {
-      t = (t || "").split(" ").join(this.eventNamespace + " ") + this.eventNamespace, e.unbind(t).undelegate(t)
-    },
-    _delay: function(e, t) {
-      function i() {
-        return ("string" == typeof e ? s[e] : e).apply(s, arguments)
-      }
-      var s = this;
-      return setTimeout(i, t || 0)
-    },
-    _hoverable: function(t) {
-      this.hoverable = this.hoverable.add(t), this._on(t, {
-        mouseenter: function(t) {
-          e(t.currentTarget).addClass("ui-state-hover")
-        },
-        mouseleave: function(t) {
-          e(t.currentTarget).removeClass("ui-state-hover")
-        }
-      })
-    },
-    _focusable: function(t) {
-      this.focusable = this.focusable.add(t), this._on(t, {
-        focusin: function(t) {
-          e(t.currentTarget).addClass("ui-state-focus")
-        },
-        focusout: function(t) {
-          e(t.currentTarget).removeClass("ui-state-focus")
-        }
-      })
-    },
-    _trigger: function(t, i, s) {
-      var n, a, r = this.options[t];
-      if (s = s || {}, i = e.Event(i), i.type = (t === this.widgetEventPrefix ? t : this.widgetEventPrefix + t).toLowerCase(), i.target = this.element[0], a = i.originalEvent)
-        for (n in a) n in i || (i[n] = a[n]);
-      return this.element.trigger(i, s), !(e.isFunction(r) && r.apply(this.element[0], [i].concat(s)) === !1 || i.isDefaultPrevented())
-    }
-  }, e.each({
-    show: "fadeIn",
-    hide: "fadeOut"
-  }, function(t, i) {
-    e.Widget.prototype["_" + t] = function(s, n, a) {
-      "string" == typeof n && (n = {
-        effect: n
-      });
-      var r, o = n ? n === !0 || "number" == typeof n ? i : n.effect || i : t;
-      n = n || {}, "number" == typeof n && (n = {
-        duration: n
-      }), r = !e.isEmptyObject(n), n.complete = a, n.delay && s.delay(n.delay), r && e.effects && e.effects.effect[o] ? s[t](n) : o !== t && s[o] ? s[o](n.duration, n.easing, a) : s.queue(function(i) {
-        e(this)[t](), a && a.call(s[0]), i()
-      })
-    }
-  })
-})(jQuery);
-/*! jQuery UI - v1.10.3 - 2013-05-03
- * http://jqueryui.com
- * Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
-(function(e) {
-  var t = !1;
-  e(document).mouseup(function() {
-    t = !1
-  }), e.widget("ui.mouse", {
-    version: "1.10.3",
-    options: {
-      cancel: "input,textarea,button,select,option",
-      distance: 1,
-      delay: 0
-    },
-    _mouseInit: function() {
-      var t = this;
-      this.element.bind("mousedown." + this.widgetName, function(e) {
-        return t._mouseDown(e)
-      }).bind("click." + this.widgetName, function(i) {
-        return !0 === e.data(i.target, t.widgetName + ".preventClickEvent") ? (e.removeData(i.target, t.widgetName + ".preventClickEvent"), i.stopImmediatePropagation(), !1) : undefined
-      }), this.started = !1
-    },
-    _mouseDestroy: function() {
-      this.element.unbind("." + this.widgetName), this._mouseMoveDelegate && e(document).unbind("mousemove." + this.widgetName, this._mouseMoveDelegate).unbind("mouseup." + this.widgetName, this._mouseUpDelegate)
-    },
-    _mouseDown: function(i) {
-      if (!t) {
-        this._mouseStarted && this._mouseUp(i), this._mouseDownEvent = i;
-        var s = this,
-          n = 1 === i.which,
-          a = "string" == typeof this.options.cancel && i.target.nodeName ? e(i.target).closest(this.options.cancel).length : !1;
-        return n && !a && this._mouseCapture(i) ? (this.mouseDelayMet = !this.options.delay, this.mouseDelayMet || (this._mouseDelayTimer = setTimeout(function() {
-          s.mouseDelayMet = !0
-        }, this.options.delay)), this._mouseDistanceMet(i) && this._mouseDelayMet(i) && (this._mouseStarted = this._mouseStart(i) !== !1, !this._mouseStarted) ? (i.preventDefault(), !0) : (!0 === e.data(i.target, this.widgetName + ".preventClickEvent") && e.removeData(i.target, this.widgetName + ".preventClickEvent"), this._mouseMoveDelegate = function(e) {
-          return s._mouseMove(e)
-        }, this._mouseUpDelegate = function(e) {
-          return s._mouseUp(e)
-        }, e(document).bind("mousemove." + this.widgetName, this._mouseMoveDelegate).bind("mouseup." + this.widgetName, this._mouseUpDelegate), i.preventDefault(), t = !0, !0)) : !0
-      }
-    },
-    _mouseMove: function(t) {
-      return e.ui.ie && (!document.documentMode || 9 > document.documentMode) && !t.button ? this._mouseUp(t) : this._mouseStarted ? (this._mouseDrag(t), t.preventDefault()) : (this._mouseDistanceMet(t) && this._mouseDelayMet(t) && (this._mouseStarted = this._mouseStart(this._mouseDownEvent, t) !== !1, this._mouseStarted ? this._mouseDrag(t) : this._mouseUp(t)), !this._mouseStarted)
-    },
-    _mouseUp: function(t) {
-      return e(document).unbind("mousemove." + this.widgetName, this._mouseMoveDelegate).unbind("mouseup." + this.widgetName, this._mouseUpDelegate), this._mouseStarted && (this._mouseStarted = !1, t.target === this._mouseDownEvent.target && e.data(t.target, this.widgetName + ".preventClickEvent", !0), this._mouseStop(t)), !1
-    },
-    _mouseDistanceMet: function(e) {
-      return Math.max(Math.abs(this._mouseDownEvent.pageX - e.pageX), Math.abs(this._mouseDownEvent.pageY - e.pageY)) >= this.options.distance
-    },
-    _mouseDelayMet: function() {
-      return this.mouseDelayMet
-    },
-    _mouseStart: function() {},
-    _mouseDrag: function() {},
-    _mouseStop: function() {},
-    _mouseCapture: function() {
-      return !0
-    }
-  })
-})(jQuery);
-/*! jQuery UI - v1.10.3 - 2013-05-03
- * http://jqueryui.com
- * Copyright 2013 jQuery Foundation and other contributors; Licensed MIT */
-(function(t) {
-  var e = 5;
-  t.widget("ui.slider", t.ui.mouse, {
-    version: "1.10.3",
-    widgetEventPrefix: "slide",
-    options: {
-      animate: !1,
-      distance: 0,
-      max: 100,
-      min: 0,
-      orientation: "horizontal",
-      range: !1,
-      step: 1,
-      value: 0,
-      values: null,
-      change: null,
-      slide: null,
-      start: null,
-      stop: null
-    },
-    _create: function() {
-      this._keySliding = !1, this._mouseSliding = !1, this._animateOff = !0, this._handleIndex = null, this._detectOrientation(), this._mouseInit(), this.element.addClass("ui-slider ui-slider-" + this.orientation + " ui-widget" + " ui-widget-content" + " ui-corner-all"), this._refresh(), this._setOption("disabled", this.options.disabled), this._animateOff = !1
-    },
-    _refresh: function() {
-      this._createRange(), this._createHandles(), this._setupEvents(), this._refreshValue()
-    },
-    _createHandles: function() {
-      var e, i, s = this.options,
-        n = this.element.find(".ui-slider-handle").addClass("ui-state-default ui-corner-all"),
-        a = "<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>",
-        o = [];
-      for (i = s.values && s.values.length || 1, n.length > i && (n.slice(i).remove(), n = n.slice(0, i)), e = n.length; i > e; e++) o.push(a);
-      this.handles = n.add(t(o.join("")).appendTo(this.element)), this.handle = this.handles.eq(0), this.handles.each(function(e) {
-        t(this).data("ui-slider-handle-index", e)
-      })
-    },
-    _createRange: function() {
-      var e = this.options,
-        i = "";
-      e.range ? (e.range === !0 && (e.values ? e.values.length && 2 !== e.values.length ? e.values = [e.values[0], e.values[0]] : t.isArray(e.values) && (e.values = e.values.slice(0)) : e.values = [this._valueMin(), this._valueMin()]), this.range && this.range.length ? this.range.removeClass("ui-slider-range-min ui-slider-range-max").css({
-        left: "",
-        bottom: ""
-      }) : (this.range = t("<div></div>").appendTo(this.element), i = "ui-slider-range ui-widget-header ui-corner-all"), this.range.addClass(i + ("min" === e.range || "max" === e.range ? " ui-slider-range-" + e.range : ""))) : this.range = t([])
-    },
-    _setupEvents: function() {
-      var t = this.handles.add(this.range).filter("a");
-      this._off(t), this._on(t, this._handleEvents), this._hoverable(t), this._focusable(t)
-    },
-    _destroy: function() {
-      this.handles.remove(), this.range.remove(), this.element.removeClass("ui-slider ui-slider-horizontal ui-slider-vertical ui-widget ui-widget-content ui-corner-all"), this._mouseDestroy()
-    },
-    _mouseCapture: function(e) {
-      var i, s, n, a, o, r, h, l, u = this,
-        c = this.options;
-      return c.disabled ? !1 : (this.elementSize = {
-        width: this.element.outerWidth(),
-        height: this.element.outerHeight()
-      }, this.elementOffset = this.element.offset(), i = {
-        x: e.pageX,
-        y: e.pageY
-      }, s = this._normValueFromMouse(i), n = this._valueMax() - this._valueMin() + 1, this.handles.each(function(e) {
-        var i = Math.abs(s - u.values(e));
-        (n > i || n === i && (e === u._lastChangedValue || u.values(e) === c.min)) && (n = i, a = t(this), o = e)
-      }), r = this._start(e, o), r === !1 ? !1 : (this._mouseSliding = !0, this._handleIndex = o, a.addClass("ui-state-active").focus(), h = a.offset(), l = !t(e.target).parents().addBack().is(".ui-slider-handle"), this._clickOffset = l ? {
-        left: 0,
-        top: 0
-      } : {
-        left: e.pageX - h.left - a.width() / 2,
-        top: e.pageY - h.top - a.height() / 2 - (parseInt(a.css("borderTopWidth"), 10) || 0) - (parseInt(a.css("borderBottomWidth"), 10) || 0) + (parseInt(a.css("marginTop"), 10) || 0)
-      }, this.handles.hasClass("ui-state-hover") || this._slide(e, o, s), this._animateOff = !0, !0))
-    },
-    _mouseStart: function() {
-      return !0
-    },
-    _mouseDrag: function(t) {
-      var e = {
-          x: t.pageX,
-          y: t.pageY
-        },
-        i = this._normValueFromMouse(e);
-      return this._slide(t, this._handleIndex, i), !1
-    },
-    _mouseStop: function(t) {
-      return this.handles.removeClass("ui-state-active"), this._mouseSliding = !1, this._stop(t, this._handleIndex), this._change(t, this._handleIndex), this._handleIndex = null, this._clickOffset = null, this._animateOff = !1, !1
-    },
-    _detectOrientation: function() {
-      this.orientation = "vertical" === this.options.orientation ? "vertical" : "horizontal"
-    },
-    _normValueFromMouse: function(t) {
-      var e, i, s, n, a;
-      return "horizontal" === this.orientation ? (e = this.elementSize.width, i = t.x - this.elementOffset.left - (this._clickOffset ? this._clickOffset.left : 0)) : (e = this.elementSize.height, i = t.y - this.elementOffset.top - (this._clickOffset ? this._clickOffset.top : 0)), s = i / e, s > 1 && (s = 1), 0 > s && (s = 0), "vertical" === this.orientation && (s = 1 - s), n = this._valueMax() - this._valueMin(), a = this._valueMin() + s * n, this._trimAlignValue(a)
-    },
-    _start: function(t, e) {
-      var i = {
-        handle: this.handles[e],
-        value: this.value()
-      };
-      return this.options.values && this.options.values.length && (i.value = this.values(e), i.values = this.values()), this._trigger("start", t, i)
-    },
-    _slide: function(t, e, i) {
-      var s, n, a;
-      this.options.values && this.options.values.length ? (s = this.values(e ? 0 : 1), 2 === this.options.values.length && this.options.range === !0 && (0 === e && i > s || 1 === e && s > i) && (i = s), i !== this.values(e) && (n = this.values(), n[e] = i, a = this._trigger("slide", t, {
-        handle: this.handles[e],
-        value: i,
-        values: n
-      }), s = this.values(e ? 0 : 1), a !== !1 && this.values(e, i, !0))) : i !== this.value() && (a = this._trigger("slide", t, {
-        handle: this.handles[e],
-        value: i
-      }), a !== !1 && this.value(i))
-    },
-    _stop: function(t, e) {
-      var i = {
-        handle: this.handles[e],
-        value: this.value()
-      };
-      this.options.values && this.options.values.length && (i.value = this.values(e), i.values = this.values()), this._trigger("stop", t, i)
-    },
-    _change: function(t, e) {
-      if (!this._keySliding && !this._mouseSliding) {
-        var i = {
-          handle: this.handles[e],
-          value: this.value()
-        };
-        this.options.values && this.options.values.length && (i.value = this.values(e), i.values = this.values()), this._lastChangedValue = e, this._trigger("change", t, i)
-      }
-    },
-    value: function(t) {
-      return arguments.length ? (this.options.value = this._trimAlignValue(t), this._refreshValue(), this._change(null, 0), undefined) : this._value()
-    },
-    values: function(e, i) {
-      var s, n, a;
-      if (arguments.length > 1) return this.options.values[e] = this._trimAlignValue(i), this._refreshValue(), this._change(null, e), undefined;
-      if (!arguments.length) return this._values();
-      if (!t.isArray(arguments[0])) return this.options.values && this.options.values.length ? this._values(e) : this.value();
-      for (s = this.options.values, n = arguments[0], a = 0; s.length > a; a += 1) s[a] = this._trimAlignValue(n[a]), this._change(null, a);
-      this._refreshValue()
-    },
-    _setOption: function(e, i) {
-      var s, n = 0;
-      switch ("range" === e && this.options.range === !0 && ("min" === i ? (this.options.value = this._values(0), this.options.values = null) : "max" === i && (this.options.value = this._values(this.options.values.length - 1), this.options.values = null)), t.isArray(this.options.values) && (n = this.options.values.length), t.Widget.prototype._setOption.apply(this, arguments), e) {
-        case "orientation":
-          this._detectOrientation(), this.element.removeClass("ui-slider-horizontal ui-slider-vertical").addClass("ui-slider-" + this.orientation), this._refreshValue();
-          break;
-        case "value":
-          this._animateOff = !0, this._refreshValue(), this._change(null, 0), this._animateOff = !1;
-          break;
-        case "values":
-          for (this._animateOff = !0, this._refreshValue(), s = 0; n > s; s += 1) this._change(null, s);
-          this._animateOff = !1;
-          break;
-        case "min":
-        case "max":
-          this._animateOff = !0, this._refreshValue(), this._animateOff = !1;
-          break;
-        case "range":
-          this._animateOff = !0, this._refresh(), this._animateOff = !1
-      }
-    },
-    _value: function() {
-      var t = this.options.value;
-      return t = this._trimAlignValue(t)
-    },
-    _values: function(t) {
-      var e, i, s;
-      if (arguments.length) return e = this.options.values[t], e = this._trimAlignValue(e);
-      if (this.options.values && this.options.values.length) {
-        for (i = this.options.values.slice(), s = 0; i.length > s; s += 1) i[s] = this._trimAlignValue(i[s]);
-        return i
-      }
-      return []
-    },
-    _trimAlignValue: function(t) {
-      if (this._valueMin() >= t) return this._valueMin();
-      if (t >= this._valueMax()) return this._valueMax();
-      var e = this.options.step > 0 ? this.options.step : 1,
-        i = (t - this._valueMin()) % e,
-        s = t - i;
-      return 2 * Math.abs(i) >= e && (s += i > 0 ? e : -e), parseFloat(s.toFixed(5))
-    },
-    _valueMin: function() {
-      return this.options.min
-    },
-    _valueMax: function() {
-      return this.options.max
-    },
-    _refreshValue: function() {
-      var e, i, s, n, a, o = this.options.range,
-        r = this.options,
-        h = this,
-        l = this._animateOff ? !1 : r.animate,
-        u = {};
-      this.options.values && this.options.values.length ? this.handles.each(function(s) {
-        i = 100 * ((h.values(s) - h._valueMin()) / (h._valueMax() - h._valueMin())), u["horizontal" === h.orientation ? "left" : "bottom"] = i + "%", t(this).stop(1, 1)[l ? "animate" : "css"](u, r.animate), h.options.range === !0 && ("horizontal" === h.orientation ? (0 === s && h.range.stop(1, 1)[l ? "animate" : "css"]({
-          left: i + "%"
-        }, r.animate), 1 === s && h.range[l ? "animate" : "css"]({
-          width: i - e + "%"
-        }, {
-          queue: !1,
-          duration: r.animate
-        })) : (0 === s && h.range.stop(1, 1)[l ? "animate" : "css"]({
-          bottom: i + "%"
-        }, r.animate), 1 === s && h.range[l ? "animate" : "css"]({
-          height: i - e + "%"
-        }, {
-          queue: !1,
-          duration: r.animate
-        }))), e = i
-      }) : (s = this.value(), n = this._valueMin(), a = this._valueMax(), i = a !== n ? 100 * ((s - n) / (a - n)) : 0, u["horizontal" === this.orientation ? "left" : "bottom"] = i + "%", this.handle.stop(1, 1)[l ? "animate" : "css"](u, r.animate), "min" === o && "horizontal" === this.orientation && this.range.stop(1, 1)[l ? "animate" : "css"]({
-        width: i + "%"
-      }, r.animate), "max" === o && "horizontal" === this.orientation && this.range[l ? "animate" : "css"]({
-        width: 100 - i + "%"
-      }, {
-        queue: !1,
-        duration: r.animate
-      }), "min" === o && "vertical" === this.orientation && this.range.stop(1, 1)[l ? "animate" : "css"]({
-        height: i + "%"
-      }, r.animate), "max" === o && "vertical" === this.orientation && this.range[l ? "animate" : "css"]({
-        height: 100 - i + "%"
-      }, {
-        queue: !1,
-        duration: r.animate
-      }))
-    },
-    _handleEvents: {
-      keydown: function(i) {
-        var s, n, a, o, r = t(i.target).data("ui-slider-handle-index");
-        switch (i.keyCode) {
-          case t.ui.keyCode.HOME:
-          case t.ui.keyCode.END:
-          case t.ui.keyCode.PAGE_UP:
-          case t.ui.keyCode.PAGE_DOWN:
-          case t.ui.keyCode.UP:
-          case t.ui.keyCode.RIGHT:
-          case t.ui.keyCode.DOWN:
-          case t.ui.keyCode.LEFT:
-            if (i.preventDefault(), !this._keySliding && (this._keySliding = !0, t(i.target).addClass("ui-state-active"), s = this._start(i, r), s === !1)) return
-        }
-        switch (o = this.options.step, n = a = this.options.values && this.options.values.length ? this.values(r) : this.value(), i.keyCode) {
-          case t.ui.keyCode.HOME:
-            a = this._valueMin();
-            break;
-          case t.ui.keyCode.END:
-            a = this._valueMax();
-            break;
-          case t.ui.keyCode.PAGE_UP:
-            a = this._trimAlignValue(n + (this._valueMax() - this._valueMin()) / e);
-            break;
-          case t.ui.keyCode.PAGE_DOWN:
-            a = this._trimAlignValue(n - (this._valueMax() - this._valueMin()) / e);
-            break;
-          case t.ui.keyCode.UP:
-          case t.ui.keyCode.RIGHT:
-            if (n === this._valueMax()) return;
-            a = this._trimAlignValue(n + o);
-            break;
-          case t.ui.keyCode.DOWN:
-          case t.ui.keyCode.LEFT:
-            if (n === this._valueMin()) return;
-            a = this._trimAlignValue(n - o)
-        }
-        this._slide(i, r, a)
-      },
-      click: function(t) {
-        t.preventDefault()
-      },
-      keyup: function(e) {
-        var i = t(e.target).data("ui-slider-handle-index");
-        this._keySliding && (this._keySliding = !1, this._stop(e, i), this._change(e, i), t(e.target).removeClass("ui-state-active"))
-      }
-    }
-  })
-})(jQuery);;
 $(document).ready(function() {
   $('#newsletter-input').on({
     focus: function() {
@@ -21271,36 +22320,6 @@ $(window).load(function() {
       'display': 'none'
     });
     $('#right_column #smart-blog-custom').css({
-      'display': 'none'
-    });
-  }
-});;
-$(window).load(function() {
-  $('#field_bestsellers').owlCarousel({
-    itemsCustom: [
-      [0, 1],
-      [320, 1],
-      [479, 1],
-      [768, 1],
-      [992, 1],
-      [1200, 1]
-    ],
-    responsiveRefreshRate: 50,
-    slideSpeed: 200,
-    paginationSpeed: 500,
-    rewindSpeed: 600,
-    autoPlay: fieldbestsellers_autoscroll,
-    stopOnHover: fieldbestsellers_pauseonhover,
-    rewindNav: true,
-    pagination: fieldbestsellers_pagination,
-    navigation: fieldbestsellers_navigation,
-    navigationText: ['<div class="carousel-previous disable-select"><span class="icon-chevron-left"></span></div>', '<div class="carousel-next disable-select"><span class="icon-chevron-right"></span></div>']
-  });
-  if ($(window).width() < 768) {
-    $('#left_column #field_bestsellers').css({
-      'display': 'none'
-    });
-    $('#right_column #field_bestsellers').css({
       'display': 'none'
     });
   }
