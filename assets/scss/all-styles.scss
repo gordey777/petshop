@@ -1,5 +1,7 @@
 @charset 'UTF-8';
 
+
+
 /* CATEGFORY */
 .ui-slider {
   position: relative;
@@ -29707,4 +29709,99 @@ fieldset.account_creation {
 
 .media-content-info {
   text-align: center;
+}
+
+#product-tab {
+  .tabs {
+    font: normal 11px Arial, Sans-serif;
+
+    position: relative;
+
+    width: 100%;
+    height: 220px;
+
+    color: #404040;
+    ul,
+    li {
+      margin: 0;
+      padding: 0;
+
+      list-style: none;
+    }
+    input[type='radio']:checked + label {
+      position: relative;
+    }
+    li,
+    input[type='radio'] + label {
+      display: inline-block;
+    }
+    li > div,
+    input[type='radio'] {
+      position: absolute;
+    }
+    li > div,
+    input[type='radio'] + label {
+      border: solid 1px #ccc;
+    }
+    li {
+      vertical-align: top;
+      &:first-child {
+        margin-left: 8px;
+      }
+      > div {
+        top: 33px;
+        bottom: 0;
+        left: 0;
+
+        overflow: auto;
+
+        -webkit-box-sizing: border-box;
+           -moz-box-sizing: border-box;
+                box-sizing: border-box;
+        width: 100%;
+        padding: 8px;
+
+        background: #fff;
+      }
+    }
+    input[type='radio'] {
+      opacity: 0;
+      + label {
+        line-height: 32px;
+
+        margin: 0 2px 0 0;
+        padding: 0 18px;
+
+        cursor: pointer;
+        -webkit-user-select: none;
+           -moz-user-select: none;
+                user-select: none;
+        text-align: center;
+
+        border-radius: 5px 5px 0 0;
+        background: #f1f1f1;
+      }
+      &:checked {
+        + label {
+          z-index: 1;
+
+          cursor: default;
+
+          border-bottom-color: #fff;
+          background: #fff;
+        }
+        &:not(:disabled) ~ div {
+          display: block;
+        }
+      }
+      ~ div {
+        display: none;
+      }
+      &:disabled + label {
+        cursor: no-drop;
+
+        opacity: .5;
+      }
+    }
+  }
 }
